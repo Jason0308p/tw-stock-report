@@ -1,8 +1,6 @@
 title: 台股輿情日報
-description: 自動化台股社群情緒分析報告
-theme: minima
+description: 自動化台股社群情緒分析
 markdown: kramdown
 kramdown:
   input: GFM
-lang: zh-TW
-show_excerpts: false
+plugins: []
