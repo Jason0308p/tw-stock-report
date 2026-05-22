@@ -1,22 +1,12 @@
 ---
 layout: default
 title: 台股輿情日報 — 報告列表
+is_index: true
 ---
 
-# 📊 台股輿情日報
+## 📋 報告列表
 
-> 自動化爬蟲 + Claude AI 每日分析台股社群情緒。
-> 僅供參考，不構成投資建議。
-
-**最新報告：[2026-05-21](reports/2026-05-21)**
-
----
-
-## 報告列表
-
-| 日期 | 連結 |
-|------|------|
-| [2026-05-21](reports/2026-05-21) | [查看完整報告](reports/2026-05-21) |
-
----
-*報告每日自動更新 © 台股輿情系統*
+<ul class="report-list">
+<a class="report-item" href="reports/2026-05-22"><span class="report-item-date">2026-05-22<span class="latest-badge">LATEST</span></span><span class="report-item-label">查看報告 →</span></a>
+<a class="report-item" href="reports/2026-05-21"><span class="report-item-date">2026-05-21</span><span class="report-item-label">查看報告 →</span></a>
+</ul>
