@@ -227,7 +227,7 @@ footer a { color: var(--text3); }
   </a>
   <div class="nav-links">
     <a href="{{ '/' | relative_url }}">報告列表</a>
-    <a href="https://github.com/{{ site.github_username | default: '' }}" target="_blank">GitHub</a>
+    <a href="https://github.com/{{ site.github_username | default: '' }}" target="_blank" rel="noopener noreferrer">GitHub</a>
   </div>
 </nav>
 
@@ -258,6 +258,7 @@ footer a { color: var(--text3); }
 <script>
 // 把 Markdown 轉出來的 emoji 換成有 CSS class 的 span
 document.querySelectorAll('.content').forEach(el => {
+  /*
   el.innerHTML = el.innerHTML
     // 情緒符號
     .replace(/🔴/g, '<span class="bull">▲</span>')
@@ -278,6 +279,7 @@ document.querySelectorAll('.content').forEach(el => {
     .replace(/🚫 封鎖/g, '<span class="badge badge-blocked">✕ 封鎖</span>')
     .replace(/⚠️ 限速/g, '<span class="badge badge-warn">! 限速</span>')
     .replace(/🔐 需Token/g, '<span class="badge badge-lock">🔑 需Token</span>');
+  */
 });
 
 // 把 table 加 wrapper 讓手機可以橫向捲動
