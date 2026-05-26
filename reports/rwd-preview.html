@@ -6,13 +6,13 @@ report_date: 測試版 (2026-05-26)
 
 <style>
 /* ── Brighter theme ── */
-:root{--bg:#0f172a;--surface:#161e2e;--card:#1e293b;--card2:#253347;--border:#334155;--text2:#94a3b8;--text3:#64748b}
-body{background:#0f172a}
+:root{--bg:#1d2b3a;--surface:#22334a;--card:#263649;--card2:#2e4158;--border:#3a526b;--text:#f0f6ff;--text2:#9fb8d0;--text3:#6b8fa8}
+body{background:#1d2b3a !important}
 
 /* ── Tabs ── */
 .rwd-tab-hidden{display:none !important}
-.rwd-tab-nav{display:flex;overflow-x:auto;border-bottom:2px solid var(--border,#334155);
-  margin-bottom:20px;position:sticky;top:0;background:var(--bg,#0f172a);z-index:90;
+.rwd-tab-nav{display:flex;overflow-x:auto;border-bottom:2px solid var(--border,#3a526b);
+  margin-bottom:0;position:sticky;top:0;background:var(--bg,#1d2b3a);z-index:90;
   padding:6px 0 0;-ms-overflow-style:none;scrollbar-width:none}
 .rwd-tab-nav::-webkit-scrollbar{display:none}
 .rwd-tab-btn{flex:0 0 auto;padding:9px 14px;background:none;border:none;
@@ -21,111 +21,88 @@ body{background:#0f172a}
   white-space:nowrap;font-family:inherit;transition:color .15s,border-color .15s}
 .rwd-tab-btn:hover{color:var(--text,#edf2f7)}
 .rwd-tab-btn.active{color:var(--accent,#e63946);border-bottom-color:var(--accent,#e63946);font-weight:700}
-#sec-watchlist{display:none}
-
-/* ── Watchlist ── */
-.sw-wrap{background:var(--card,#1e293b);border:1.5px dashed rgba(245,158,11,.4);
-  border-radius:12px;padding:18px;margin:8px 0 4px}
-.sw-title{font-size:17px;font-weight:700;color:#f59e0b;margin:0 0 4px}
-.sw-sub{font-size:12px;color:var(--text2,#94a3b8);margin:0 0 14px;line-height:1.5}
-.sw-row{display:flex;gap:8px;align-items:flex-start}
+/* ── Watchlist strip (compact, always-visible below tab nav) ── */
+.sw-strip{background:rgba(245,158,11,.07);border:1px solid rgba(245,158,11,.22);
+  border-radius:0 0 8px 8px;padding:8px 14px 8px;margin-bottom:16px}
+.sw-strip-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.sw-strip-lbl{font-size:13px;font-weight:700;color:#f59e0b;white-space:nowrap;flex:0 0 auto}
+.sw-strip-tags{display:flex;flex-wrap:wrap;gap:5px;flex:1;min-width:0}
+.sw-strip-open{padding:3px 11px;background:transparent;border:1px solid rgba(245,158,11,.4);
+  border-radius:6px;font-size:12px;font-weight:600;color:#f59e0b;cursor:pointer;
+  font-family:inherit;white-space:nowrap;flex:0 0 auto;transition:background .15s}
+.sw-strip-open:hover{background:rgba(245,158,11,.12)}
+.sw-expand{display:none;padding-top:10px;border-top:1px solid rgba(245,158,11,.15);margin-top:8px}
+.sw-expand-row{display:flex;gap:8px;align-items:flex-start}
 .sw-ac-wrap{position:relative;flex:1}
-.sw-inp{width:100%;padding:8px 12px;background:rgba(255,255,255,.06);
-  border:1px solid var(--border,#334155);border-radius:6px;color:#fff;
+.sw-inp{width:100%;padding:8px 12px;background:rgba(255,255,255,.07);
+  border:1px solid var(--border,#3a526b);border-radius:6px;color:#fff;
   font-size:14px;outline:none;font-family:inherit}
 .sw-inp:focus{border-color:#f59e0b}
 .sw-drop{position:absolute;top:calc(100% + 3px);left:0;right:0;
-  background:#1e293b;border:1px solid #334155;border-radius:8px;
+  background:#263649;border:1px solid #3a526b;border-radius:8px;
   max-height:220px;overflow-y:auto;z-index:200;
-  box-shadow:0 8px 24px rgba(0,0,0,.5);display:none}
+  box-shadow:0 8px 24px rgba(0,0,0,.55);display:none}
 .sw-opt{padding:8px 12px;cursor:pointer;font-size:13px;color:#e2e8f0;
   display:flex;gap:8px;align-items:center}
 .sw-opt:hover,.sw-opt-hi{background:rgba(245,158,11,.12)}
 .sw-opt-code{font-weight:700;color:#f59e0b;min-width:44px;
   font-size:12px;font-family:"JetBrains Mono",monospace}
-.sw-opt-name{color:#cbd5e1}
+.sw-opt-name{color:#c0d4e8}
 .sw-add{padding:8px 16px;background:#f59e0b;color:#000;border:none;
   border-radius:6px;font-size:13px;font-weight:700;cursor:pointer;
   font-family:inherit;white-space:nowrap}
 .sw-add:hover{background:#fbbf24}
-.sw-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;min-height:22px}
-.sw-tag{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;
-  background:rgba(230,57,70,.12);border:1px solid rgba(230,57,70,.28);
-  border-radius:20px;font-size:12px;color:#fff}
-.sw-tag button{background:none;border:none;color:#aaa;cursor:pointer;padding:0;
-  font-size:13px;line-height:1}
+.sw-tags{display:flex;flex-wrap:wrap;gap:5px}
+.sw-tag{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;
+  background:rgba(230,57,70,.14);border:1px solid rgba(230,57,70,.3);
+  border-radius:20px;font-size:12px;color:#f0f6ff}
+.sw-tag button{background:none;border:none;color:#9fb8d0;cursor:pointer;padding:0;
+  font-size:12px;line-height:1}
 .sw-tag button:hover{color:#e63946}
-.sw-err{font-size:12px;color:#f87171;margin-top:5px;min-height:16px}
-.sw-hint{font-size:11px;color:var(--text3,#64748b);margin-top:6px}
+.sw-err{font-size:12px;color:#f87171;margin-top:5px;min-height:14px}
+.sw-hint{font-size:11px;color:var(--text3,#6b8fa8);margin-top:5px}
 
 /* ── Footer ── */
-.rwd-footer{margin-top:48px;padding-top:24px;border-top:1px solid var(--border,#334155)}
-.rwd-risk-bar{font-size:11.5px;color:var(--text3,#64748b);background:rgba(248,113,113,.06);
-  border:1px solid rgba(248,113,113,.16);border-radius:6px;padding:8px 12px;
-  margin-bottom:20px;line-height:1.5}
+.rwd-footer{margin-top:48px;padding-top:24px;border-top:1px solid var(--border,#3a526b)}
 .rwd-like-row{display:flex;align-items:center;gap:10px;margin-bottom:20px}
-#rwd-like-btn{padding:7px 18px;background:rgba(230,57,70,.08);
-  border:1.5px solid rgba(230,57,70,.28);border-radius:50px;
-  color:var(--text2,#94a3b8);font-size:13px;font-weight:600;cursor:pointer;
+#rwd-like-btn{padding:7px 18px;background:rgba(230,57,70,.1);
+  border:1.5px solid rgba(230,57,70,.32);border-radius:50px;
+  color:var(--text2,#9fb8d0);font-size:13px;font-weight:600;cursor:pointer;
   font-family:inherit;transition:all .15s}
-#rwd-like-btn:hover{background:rgba(230,57,70,.16);color:#fff}
-#rwd-like-btn.liked{background:rgba(230,57,70,.2);border-color:#e63946;color:#e63946}
-.rwd-like-note{font-size:11px;color:var(--text3,#64748b)}
-.rwd-cmt-hdr{font-size:14px;font-weight:700;color:var(--text,#edf2f7);margin:0 0 10px}
-.rwd-giscus-note{font-size:11px;color:var(--text3,#64748b);margin-top:6px}
+#rwd-like-btn:hover{background:rgba(230,57,70,.2);color:#fff}
+#rwd-like-btn.liked{background:rgba(230,57,70,.22);border-color:#e63946;color:#e63946}
+.rwd-like-note{font-size:11px;color:var(--text3,#6b8fa8)}
+.rwd-cmt-hdr{font-size:14px;font-weight:700;color:var(--text,#f0f6ff);margin:0 0 10px}
+.rwd-giscus-note{font-size:11px;color:var(--text3,#6b8fa8);margin-top:6px}
 .rwd-footer-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;
-  padding:18px 0;border-top:1px solid rgba(51,65,85,.5);
-  border-bottom:1px solid rgba(51,65,85,.5);margin:20px 0 12px}
+  padding:18px 0;border-top:1px solid rgba(58,82,107,.7);
+  border-bottom:1px solid rgba(58,82,107,.7);margin:24px 0 12px}
 @media(max-width:480px){.rwd-footer-grid{grid-template-columns:1fr 1fr}}
-.rwd-fc-t{font-size:10.5px;font-weight:700;color:var(--text3,#64748b);
+.rwd-fc-t{font-size:10.5px;font-weight:700;color:var(--text3,#6b8fa8);
   text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px}
-.rwd-fc a,.rwd-fc span{display:block;font-size:12px;color:var(--text2,#94a3b8);
+.rwd-fc a,.rwd-fc span{display:block;font-size:12px;color:var(--text2,#9fb8d0);
   text-decoration:none;line-height:1.9}
-.rwd-fc a:hover{color:#fff}
+.rwd-fc a:hover{color:#f0f6ff}
 .rwd-themes-sm{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
-.rwd-theme-sm{padding:2px 8px;background:rgba(99,102,241,.1);
-  border:1px solid rgba(99,102,241,.25);border-radius:12px;
-  font-size:11px;color:#a5b4fc;cursor:pointer;user-select:none}
-.rwd-theme-sm:hover{background:rgba(99,102,241,.22)}
+.rwd-theme-sm{padding:2px 8px;background:rgba(99,102,241,.12);
+  border:1px solid rgba(99,102,241,.28);border-radius:12px;
+  font-size:11px;color:#a5b4fc;user-select:none}
+.rwd-risk-bar{font-size:11.5px;color:var(--text3,#6b8fa8);background:rgba(248,113,113,.07);
+  border:1px solid rgba(248,113,113,.18);border-radius:6px;padding:8px 12px;
+  margin-top:20px;line-height:1.5}
 .rwd-footer-bar{display:flex;align-items:center;justify-content:space-between;
-  padding:8px 0;font-size:11px;color:var(--text3,#64748b)}
-.rwd-footer-bar a{color:var(--text3,#64748b);text-decoration:none}
-.rwd-footer-bar a:hover{color:var(--text2,#94a3b8)}
+  padding:8px 0 2px;font-size:11px;color:var(--text3,#6b8fa8)}
+.rwd-footer-bar a{color:var(--text3,#6b8fa8);text-decoration:none}
+.rwd-footer-bar a:hover{color:var(--text2,#9fb8d0)}
 </style>
 
 <script>
 document.addEventListener('DOMContentLoaded', function(){
 
 /* ============================================================
-   1. TABS — inject watchlist section, build from h2[id^="sec-"]
+   1. TABS — build from h2[id^="sec-"], then inject watchlist strip
    ============================================================ */
 (function(){
-  // Inject ⭐ watchlist section before first sec-* h2
-  var firstH2 = document.querySelector('h2[id^="sec-"]');
-  if (firstH2) {
-    var tmp = document.createElement('div');
-    tmp.innerHTML = [
-      '<h2 id="sec-watchlist" style="display:none"></h2>',
-      '<div class="sw-wrap">',
-      '  <div class="sw-title">⭐ 自選追蹤清單</div>',
-      '  <p class="sw-sub">搜尋台股代號或名稱，加入個人追蹤清單（僅儲存於本裝置，不傳送伺服器）</p>',
-      '  <div class="sw-row">',
-      '    <div class="sw-ac-wrap">',
-      '      <input id="sw-inp" class="sw-inp" type="text"',
-      '             placeholder="搜尋: 2330 / 台積電 / 0050 ..." autocomplete="off">',
-      '      <div id="sw-drop" class="sw-drop"></div>',
-      '    </div>',
-      '    <button class="sw-add" id="sw-btn">新增</button>',
-      '  </div>',
-      '  <div class="sw-err" id="sw-err"></div>',
-      '  <div class="sw-tags" id="sw-tags"></div>',
-      '  <div class="sw-hint">🔒 資料僅存於本機，最多 20 支。後端同步功能開發中。</div>',
-      '</div>',
-    ].join('');
-    var parent = firstH2.parentNode;
-    while (tmp.firstChild) { parent.insertBefore(tmp.firstChild, firstH2); }
-  }
-
   var hdrs = Array.from(document.querySelectorAll('h2[id^="sec-"]'));
   if (hdrs.length < 2) return;
 
@@ -150,9 +127,9 @@ document.addEventListener('DOMContentLoaded', function(){
   nav.className = 'rwd-tab-nav';
 
   var LABELS = {
-    'sec-watchlist':'⭐ 追蹤','sec-groups':'族群','sec-trending':'攀升',
-    'sec-news':'新聞','sec-alerts':'警示','sec-buzz':'熱議',
-    'sec-overview':'個股','sec-detail':'詳情','sec-margin':'融資','sec-volume':'成交'
+    'sec-groups':'族群','sec-trending':'攀升','sec-news':'新聞',
+    'sec-alerts':'警示','sec-buzz':'熱議','sec-overview':'個股',
+    'sec-detail':'詳情','sec-margin':'融資','sec-volume':'成交'
   };
 
   hdrs.forEach(function(h2, i) {
@@ -166,8 +143,10 @@ document.addEventListener('DOMContentLoaded', function(){
       showTab(i);
       nav.querySelectorAll('.rwd-tab-btn').forEach(function(b){ b.classList.remove('active'); });
       btn.classList.add('active');
-      // Scroll to tab nav (not page top) so content is visible below sticky nav
-      nav.scrollIntoView({behavior: 'smooth', block: 'start'});
+      // Scroll to test banner's document-level Y (reliable on sticky nav)
+      var anchor = document.getElementById('rwd-test-banner') || nav;
+      var targetY = anchor.getBoundingClientRect().top + window.pageYOffset;
+      window.scrollTo({top: targetY, behavior: 'smooth'});
       if (typeof gtag === 'function') gtag('event', 'tab_switch', {tab_name: label});
     });
     nav.appendChild(btn);
@@ -199,13 +178,38 @@ document.addEventListener('DOMContentLoaded', function(){
     hdrs[0].parentNode.insertBefore(nav, hdrs[0]);
   }
 
+  // Inject compact watchlist strip AFTER the nav (always visible, not inside tabs)
+  var strip = document.createElement('div');
+  strip.className = 'sw-strip';
+  strip.id = 'sw-strip';
+  strip.innerHTML = [
+    '<div class="sw-strip-row">',
+    '  <span class="sw-strip-lbl">⭐ 追蹤清單</span>',
+    '  <div class="sw-tags" id="sw-tags"></div>',
+    '  <button class="sw-strip-open" id="sw-strip-open">＋ 新增</button>',
+    '</div>',
+    '<div class="sw-expand" id="sw-expand">',
+    '  <div class="sw-expand-row">',
+    '    <div class="sw-ac-wrap">',
+    '      <input id="sw-inp" class="sw-inp" type="text"',
+    '             placeholder="2330 / 台積電 / 0050 ..." autocomplete="off">',
+    '      <div id="sw-drop" class="sw-drop"></div>',
+    '    </div>',
+    '    <button class="sw-add" id="sw-btn">新增</button>',
+    '  </div>',
+    '  <div class="sw-err" id="sw-err"></div>',
+    '  <div class="sw-hint">🔒 僅存於本機瀏覽器，最多 20 支</div>',
+    '</div>',
+  ].join('');
+  nav.parentNode.insertBefore(strip, nav.nextSibling);
+
   window._rwdShowTab = showTab;
   window._rwdHdrs = hdrs;
   window._rwdNav = nav;
 })();
 
 /* ============================================================
-   2. WATCHLIST — custom autocomplete + localStorage
+   2. WATCHLIST — compact strip toggle + autocomplete
    ============================================================ */
 (function(){
   var stocks = (typeof window.STOCK_LIST !== 'undefined') ? window.STOCK_LIST : [];
@@ -226,7 +230,7 @@ document.addEventListener('DOMContentLoaded', function(){
     if (!el) return;
     var list = load();
     if (!list.length) {
-      el.innerHTML = '<span style="font-size:12px;color:#4b5563">尚無追蹤標的</span>';
+      el.innerHTML = '<span style="font-size:11px;color:#6b8fa8">尚無標的</span>';
       return;
     }
     el.innerHTML = list.map(function(s) {
@@ -248,8 +252,7 @@ document.addEventListener('DOMContentLoaded', function(){
     return stocks.filter(function(s) {
       var c = s.code.toLowerCase();
       var n = s.short_name.toLowerCase().replace(/\s+/g, '');
-      return c.indexOf(kw) === 0 || n.indexOf(kw) !== -1 ||
-             (c + n).indexOf(kw) !== -1;
+      return c.indexOf(kw) === 0 || n.indexOf(kw) !== -1 || (c + n).indexOf(kw) !== -1;
     }).slice(0, 8);
   }
 
@@ -257,8 +260,8 @@ document.addEventListener('DOMContentLoaded', function(){
     var drop = document.getElementById('sw-drop');
     if (!drop) return;
     if (!matches.length) { drop.style.display = 'none'; return; }
-    drop.innerHTML = matches.map(function(s, i) {
-      return '<div class="sw-opt" data-idx="' + i + '" data-code="' + esc(s.code) + '">' +
+    drop.innerHTML = matches.map(function(s) {
+      return '<div class="sw-opt" data-code="' + esc(s.code) + '">' +
              '<span class="sw-opt-code">' + esc(s.code) + '</span>' +
              '<span class="sw-opt-name">' + esc(s.short_name) + '</span></div>';
     }).join('');
@@ -297,40 +300,52 @@ document.addEventListener('DOMContentLoaded', function(){
                s.short_name.toLowerCase().replace(/\s+/g, '') === key ||
                (s.code + s.short_name).toLowerCase().replace(/\s+/g, '') === key;
       });
-      if (!match) {
-        if (errEl) errEl.textContent = '找不到此股票，請從下拉清單中選擇';
-        return;
-      }
+      if (!match) { if (errEl) errEl.textContent = '找不到此股票，請從下拉清單中選擇'; return; }
     }
     var list = load();
     if (list.find(function(s) { return s.code === match.code; })) {
-      if (errEl) errEl.textContent = '已在追蹤清單';
-      selected = null; return;
+      if (errEl) errEl.textContent = '已在追蹤清單'; selected = null; return;
     }
     if (list.length >= 20) {
-      if (errEl) errEl.textContent = '最多追蹤 20 支';
-      selected = null; return;
+      if (errEl) errEl.textContent = '最多追蹤 20 支'; selected = null; return;
     }
     list.push({code: match.code, name: match.short_name});
     save(list); renderTags();
     var inp2 = document.getElementById('sw-inp');
     if (inp2) inp2.value = '';
+    // Collapse strip after adding
+    var strip = document.getElementById('sw-strip');
+    if (strip) strip.classList.remove('open');
+    var expand = document.getElementById('sw-expand');
+    if (expand) expand.style.display = 'none';
+    var openBtn = document.getElementById('sw-strip-open');
+    if (openBtn) openBtn.textContent = '＋ 新增';
     selected = null;
     if (typeof gtag === 'function') gtag('event', 'watchlist_add', {stock_code: match.code});
   }
 
   setTimeout(function() {
-    var inp  = document.getElementById('sw-inp');
-    var btn  = document.getElementById('sw-btn');
-    var drop = document.getElementById('sw-drop');
-    if (!inp) return;
+    var openBtn = document.getElementById('sw-strip-open');
+    var expand  = document.getElementById('sw-expand');
+    var inp     = document.getElementById('sw-inp');
+    var btn     = document.getElementById('sw-btn');
+    var drop    = document.getElementById('sw-drop');
+    if (!openBtn || !expand) return;
     renderTags();
 
+    // Toggle expand
+    openBtn.addEventListener('click', function() {
+      var open = expand.style.display !== 'block';
+      expand.style.display = open ? 'block' : 'none';
+      openBtn.textContent = open ? '✕ 收起' : '＋ 新增';
+      if (open && inp) { setTimeout(function(){ inp.focus(); }, 50); }
+    });
+
+    if (!inp) return;
     inp.addEventListener('input', function() {
       selected = null;
       renderDrop(filterStocks(inp.value.trim()));
     });
-
     inp.addEventListener('keydown', function(e) {
       var opts = drop ? drop.querySelectorAll('.sw-opt') : [];
       if (e.key === 'ArrowDown') {
@@ -348,11 +363,9 @@ document.addEventListener('DOMContentLoaded', function(){
         if (drop) drop.style.display = 'none';
       }
     });
-
     inp.addEventListener('blur', function() {
       setTimeout(function() { if (drop) drop.style.display = 'none'; }, 150);
     });
-
     if (btn) btn.addEventListener('click', doAdd);
   }, 80);
 
@@ -366,16 +379,12 @@ document.addEventListener('DOMContentLoaded', function(){
 })();
 
 /* ============================================================
-   3. FOOTER — slim professional layout
+   3. FOOTER — like → comments → info grid → risk → bar
    ============================================================ */
 (function(){
   var footer = document.createElement('div');
   footer.className = 'rwd-footer';
   footer.innerHTML = [
-    '<div class="rwd-risk-bar">',
-    '  ⚠️ 本站所有分析結果僅供個人研究參考，<strong>不構成任何投資建議或買賣推薦</strong>。股市投資具有風險，請審慎評估自身風險承受能力並自負損益。',
-    '</div>',
-
     '<div class="rwd-like-row">',
     '  <button id="rwd-like-btn">👍 &nbsp;<span id="rwd-like-c">0</span>&nbsp; 人覺得有幫助</button>',
     '  <span class="rwd-like-note">你的支持是持續更新的動力</span>',
@@ -395,12 +404,12 @@ document.addEventListener('DOMContentLoaded', function(){
     '  <div class="rwd-fc">',
     '    <div class="rwd-fc-t">主題</div>',
     '    <div class="rwd-themes-sm">',
-    '      <span class="rwd-theme-sm" onclick="rwdTheme(&apos;AI&apos;)">AI</span>',
-    '      <span class="rwd-theme-sm" onclick="rwdTheme(&apos;半導體&apos;)">半導體</span>',
-    '      <span class="rwd-theme-sm" onclick="rwdTheme(&apos;ETF&apos;)">ETF</span>',
-    '      <span class="rwd-theme-sm" onclick="rwdTheme(&apos;金融&apos;)">金融</span>',
-    '      <span class="rwd-theme-sm" onclick="rwdTheme(&apos;電動車&apos;)">電動車</span>',
-    '      <span class="rwd-theme-sm" onclick="rwdTheme(&apos;記憶體&apos;)">記憶體</span>',
+    '      <span class="rwd-theme-sm">AI</span>',
+    '      <span class="rwd-theme-sm">半導體</span>',
+    '      <span class="rwd-theme-sm">ETF</span>',
+    '      <span class="rwd-theme-sm">金融</span>',
+    '      <span class="rwd-theme-sm">電動車</span>',
+    '      <span class="rwd-theme-sm">記憶體</span>',
     '    </div>',
     '  </div>',
     '  <div class="rwd-fc">',
@@ -408,6 +417,10 @@ document.addEventListener('DOMContentLoaded', function(){
     '    <a href="mailto:jason0308p@gmail.com">Email</a>',
     '    <a href="https://github.com/Jason0308p/tw-stock-report" target="_blank" rel="noopener">GitHub</a>',
     '  </div>',
+    '</div>',
+
+    '<div class="rwd-risk-bar">',
+    '  ⚠️ 本站所有分析結果僅供個人研究參考，<strong>不構成任何投資建議或買賣推薦</strong>。股市投資具有風險，請審慎評估自身風險承受能力並自負損益。',
     '</div>',
 
     '<div class="rwd-footer-bar">',
@@ -467,24 +480,6 @@ document.addEventListener('DOMContentLoaded', function(){
       updateLike();
     });
   }
-
-  // Theme jump → go to 個股速覽 tab
-  window.rwdTheme = function(theme) {
-    if (window._rwdHdrs && window._rwdNav) {
-      var idx = -1;
-      window._rwdHdrs.forEach(function(h, i) {
-        if (h.id === 'sec-overview') idx = i;
-      });
-      if (idx >= 0) {
-        window._rwdShowTab(idx);
-        window._rwdNav.querySelectorAll('.rwd-tab-btn').forEach(function(b, i){
-          b.classList.toggle('active', i === idx);
-        });
-        window._rwdNav.scrollIntoView({behavior: 'smooth', block: 'start'});
-      }
-    }
-    if (typeof gtag === 'function') gtag('event', 'theme_click', {theme_name: theme});
-  };
 })();
 
 /* ============================================================
@@ -1292,4 +1287,4 @@ document.addEventListener('DOMContentLoaded', function(){
 <tr><td style="font-size:12px">2317</td><td style="font-size:12px">鴻海</td><td style="font-size:12px">122990174</td><td style="font-size:12px">107476</td><td style="font-size:12px">261.00</td><td><b style="color:#ef4444">11.00</b></td><td><b style="color:#ef4444">+4.40%</b></td></tr>
 </tbody></table>
 <script>document.querySelectorAll("a[href^='#stock-']").forEach(a=>{a.addEventListener("click",()=>{const el=document.getElementById(a.getAttribute("href").slice(1));if(el){let p=el.parentElement;while(p){if(p.tagName==="DETAILS")p.open=true;p=p.parentElement;}}});});</script>
-<script>window.SOURCE_DATA={"generated_at": "2026-05-26 07:24 UTC", "total_posts": 1242, "total_sources": 42, "categories": [{"label": "台股財經 RSS", "sources": [{"name": "經濟日報", "lang": "中文", "posts": 0, "last_fetch": ""}, {"name": "自由財經", "lang": "中文", "posts": 0, "last_fetch": ""}, {"name": "科技新報", "lang": "中文", "posts": 9, "last_fetch": "2026-05-26T02:01:58.422872+00:00"}, {"name": "財訊", "lang": "中文", "posts": 1, "last_fetch": "2026-05-21T08:38:00.228120+00:00"}, {"name": "股感知識庫", "lang": "中文", "posts": 16, "last_fetch": "2026-05-25T09:47:43.325386+00:00"}, {"name": "Yahoo奇摩股市", "lang": "中文", "posts": 18, "last_fetch": "2026-05-26T02:01:58.541170+00:00"}, {"name": "Yahoo奇摩新聞", "lang": "中文", "posts": 22, "last_fetch": "2026-05-26T02:01:58.474594+00:00"}, {"name": "中央社財經", "lang": "中文", "posts": 0, "last_fetch": ""}, {"name": "新頭殼財經", "lang": "中文", "posts": 12, "last_fetch": "2026-05-26T02:01:58.579409+00:00"}, {"name": "證交所新聞", "lang": "中文", "posts": 1, "last_fetch": "2026-05-26T02:01:58.586666+00:00"}]}, {"label": "國際財經 RSS", "sources": [{"name": "Reuters Business", "lang": "EN→中", "posts": 0, "last_fetch": ""}, {"name": "CNBC Markets", "lang": "EN→中", "posts": 0, "last_fetch": ""}, {"name": "NHK World Business", "lang": "EN→中", "posts": 0, "last_fetch": ""}, {"name": "NHK World Economy", "lang": "EN→中", "posts": 0, "last_fetch": ""}, {"name": "Yahoo Finance", "lang": "EN→中", "posts": 0, "last_fetch": ""}, {"name": "AP Business", "lang": "EN→中", "posts": 0, "last_fetch": ""}, {"name": "WSJ Markets", "lang": "EN→中", "posts": 0, "last_fetch": ""}, {"name": "Bloomberg Markets", "lang": "EN→中", "posts": 0, "last_fetch": ""}, {"name": "Business Times ASEAN", "lang": "EN→中", "posts": 0, "last_fetch": ""}, {"name": "Business Times Economy", "lang": "EN→中", "posts": 0, "last_fetch": ""}, {"name": "Nikkei Asia", "lang": "EN→中", "posts": 0, "last_fetch": ""}, {"name": "Financial Times", "lang": "EN→中", "posts": 0, "last_fetch": ""}]}, {"label": "部落格 RSS", "sources": [{"name": "Medium 台股", "lang": "中文", "posts": 0, "last_fetch": ""}, {"name": "Medium 投資", "lang": "中文", "posts": 0, "last_fetch": ""}]}, {"label": "YouTube 頻道", "sources": [{"name": "財經M平方", "lang": "中文", "posts": 0, "last_fetch": ""}, {"name": "股癌", "lang": "中文", "posts": 0, "last_fetch": ""}, {"name": "今周刊", "lang": "中文", "posts": 0, "last_fetch": ""}, {"name": "MoneyDJ", "lang": "中文", "posts": 0, "last_fetch": ""}, {"name": "財經皓角", "lang": "中文", "posts": 1, "last_fetch": "2026-05-21T08:38:00.395792+00:00"}, {"name": "娜娜說美股", "lang": "中文", "posts": 0, "last_fetch": ""}, {"name": "通勤族飆股報告書", "lang": "中文", "posts": 6, "last_fetch": "2026-05-25T07:32:55.160775+00:00"}, {"name": "鉅亨網", "lang": "中文", "posts": 0, "last_fetch": ""}]}, {"label": "社群論壇", "sources": [{"name": "PTT", "lang": "中文", "posts": 268, "last_fetch": "2026-05-26T02:01:57.515385+00:00"}, {"name": "Dcard", "lang": "中文", "posts": 0, "last_fetch": ""}, {"name": "Mobile01", "lang": "中文", "posts": 0, "last_fetch": ""}, {"name": "Anue鉅亨", "lang": "中文", "posts": 48, "last_fetch": "2026-05-26T02:01:58.367391+00:00"}, {"name": "Medium", "lang": "中文", "posts": 3, "last_fetch": "2026-05-21T06:52:34.098140+00:00"}, {"name": "Google News", "lang": "中文", "posts": 811, "last_fetch": "2026-05-26T02:01:58.299351+00:00"}, {"name": "Reddit", "lang": "EN", "posts": 0, "last_fetch": ""}, {"name": "CMoney", "lang": "中文", "posts": 26, "last_fetch": "2026-05-26T02:01:58.598031+00:00"}, {"name": "CMoney社群", "lang": "中文", "posts": 0, "last_fetch": ""}, {"name": "股感知識庫", "lang": "中文", "posts": 0, "last_fetch": ""}]}]};</script>
+<script>window.SOURCE_DATA={"generated_at": "2026-05-26 07:37 UTC", "total_posts": 1242, "total_sources": 42, "categories": [{"label": "台股財經 RSS", "sources": [{"name": "經濟日報", "lang": "中文", "posts": 0, "last_fetch": ""}, {"name": "自由財經", "lang": "中文", "posts": 0, "last_fetch": ""}, {"name": "科技新報", "lang": "中文", "posts": 9, "last_fetch": "2026-05-26T02:01:58.422872+00:00"}, {"name": "財訊", "lang": "中文", "posts": 1, "last_fetch": "2026-05-21T08:38:00.228120+00:00"}, {"name": "股感知識庫", "lang": "中文", "posts": 16, "last_fetch": "2026-05-25T09:47:43.325386+00:00"}, {"name": "Yahoo奇摩股市", "lang": "中文", "posts": 18, "last_fetch": "2026-05-26T02:01:58.541170+00:00"}, {"name": "Yahoo奇摩新聞", "lang": "中文", "posts": 22, "last_fetch": "2026-05-26T02:01:58.474594+00:00"}, {"name": "中央社財經", "lang": "中文", "posts": 0, "last_fetch": ""}, {"name": "新頭殼財經", "lang": "中文", "posts": 12, "last_fetch": "2026-05-26T02:01:58.579409+00:00"}, {"name": "證交所新聞", "lang": "中文", "posts": 1, "last_fetch": "2026-05-26T02:01:58.586666+00:00"}]}, {"label": "國際財經 RSS", "sources": [{"name": "Reuters Business", "lang": "EN→中", "posts": 0, "last_fetch": ""}, {"name": "CNBC Markets", "lang": "EN→中", "posts": 0, "last_fetch": ""}, {"name": "NHK World Business", "lang": "EN→中", "posts": 0, "last_fetch": ""}, {"name": "NHK World Economy", "lang": "EN→中", "posts": 0, "last_fetch": ""}, {"name": "Yahoo Finance", "lang": "EN→中", "posts": 0, "last_fetch": ""}, {"name": "AP Business", "lang": "EN→中", "posts": 0, "last_fetch": ""}, {"name": "WSJ Markets", "lang": "EN→中", "posts": 0, "last_fetch": ""}, {"name": "Bloomberg Markets", "lang": "EN→中", "posts": 0, "last_fetch": ""}, {"name": "Business Times ASEAN", "lang": "EN→中", "posts": 0, "last_fetch": ""}, {"name": "Business Times Economy", "lang": "EN→中", "posts": 0, "last_fetch": ""}, {"name": "Nikkei Asia", "lang": "EN→中", "posts": 0, "last_fetch": ""}, {"name": "Financial Times", "lang": "EN→中", "posts": 0, "last_fetch": ""}]}, {"label": "部落格 RSS", "sources": [{"name": "Medium 台股", "lang": "中文", "posts": 0, "last_fetch": ""}, {"name": "Medium 投資", "lang": "中文", "posts": 0, "last_fetch": ""}]}, {"label": "YouTube 頻道", "sources": [{"name": "財經M平方", "lang": "中文", "posts": 0, "last_fetch": ""}, {"name": "股癌", "lang": "中文", "posts": 0, "last_fetch": ""}, {"name": "今周刊", "lang": "中文", "posts": 0, "last_fetch": ""}, {"name": "MoneyDJ", "lang": "中文", "posts": 0, "last_fetch": ""}, {"name": "財經皓角", "lang": "中文", "posts": 1, "last_fetch": "2026-05-21T08:38:00.395792+00:00"}, {"name": "娜娜說美股", "lang": "中文", "posts": 0, "last_fetch": ""}, {"name": "通勤族飆股報告書", "lang": "中文", "posts": 6, "last_fetch": "2026-05-25T07:32:55.160775+00:00"}, {"name": "鉅亨網", "lang": "中文", "posts": 0, "last_fetch": ""}]}, {"label": "社群論壇", "sources": [{"name": "PTT", "lang": "中文", "posts": 268, "last_fetch": "2026-05-26T02:01:57.515385+00:00"}, {"name": "Dcard", "lang": "中文", "posts": 0, "last_fetch": ""}, {"name": "Mobile01", "lang": "中文", "posts": 0, "last_fetch": ""}, {"name": "Anue鉅亨", "lang": "中文", "posts": 48, "last_fetch": "2026-05-26T02:01:58.367391+00:00"}, {"name": "Medium", "lang": "中文", "posts": 3, "last_fetch": "2026-05-21T06:52:34.098140+00:00"}, {"name": "Google News", "lang": "中文", "posts": 811, "last_fetch": "2026-05-26T02:01:58.299351+00:00"}, {"name": "Reddit", "lang": "EN", "posts": 0, "last_fetch": ""}, {"name": "CMoney", "lang": "中文", "posts": 26, "last_fetch": "2026-05-26T02:01:58.598031+00:00"}, {"name": "CMoney社群", "lang": "中文", "posts": 0, "last_fetch": ""}, {"name": "股感知識庫", "lang": "中文", "posts": 0, "last_fetch": ""}]}]};</script>
