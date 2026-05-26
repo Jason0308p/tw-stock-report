@@ -49,12 +49,14 @@ nav {
   display: flex; align-items: center; gap: 8px;
 }
 .nav-brand span { color: var(--accent); }
+.nav-right { display: flex; align-items: center; gap: 4px; }
 .nav-links { display: flex; gap: 4px; }
 .nav-links a {
   color: var(--text2); text-decoration: none; font-size: 13px;
   padding: 5px 12px; border-radius: 6px; transition: all .15s;
 }
 .nav-links a:hover { background: var(--card); color: var(--text); }
+@media (max-width: 640px) { .nav-links { display: none; } }
 
 /* ── PAGE HEADER ── */
 .page-hero {
@@ -216,7 +218,6 @@ footer a { color: var(--text3); }
   .container { padding: 20px 16px 48px; }
   .content table { font-size: 12px; }
   .content th, .content td { padding: 7px 10px; }
-  .nav-links { display: none; }
 }
 
 /* ── SOURCE PANEL ── */
@@ -273,14 +274,25 @@ footer a { color: var(--text3); }
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
     台股輿情<span>分析</span>
   </a>
-  <div class="nav-links">
-    <a href="{{ '/' | relative_url }}">報告列表</a>
-    <a href="https://github.com/{{ site.github_username | default: '' }}" target="_blank" rel="noopener noreferrer">GitHub</a>
+  <div class="nav-right">
+    <div class="nav-links">
+      <a href="{{ '/' | relative_url }}">報告列表</a>
+      <a href="https://github.com/{{ site.github_username | default: '' }}" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </div>
+    <a href="{{ '/reports/rwd-preview.html' | relative_url }}"
+       style="display:inline-flex;align-items:center;gap:5px;padding:5px 11px;
+              border-radius:6px;background:rgba(96,165,250,.12);border:1px solid rgba(96,165,250,.3);
+              color:#60a5fa;font-size:13px;font-weight:600;text-decoration:none;transition:all .15s"
+       onmouseover="this.style.background='rgba(96,165,250,.22)'"
+       onmouseout="this.style.background='rgba(96,165,250,.12)'">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18"/></svg>
+      手機版
+    </a>
+    <button id="src-toggle-btn" aria-label="資料來源">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v6c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/><path d="M3 11v6c0 1.66 4.03 3 9 3s9-1.34 9-3v-6"/></svg>
+      來源
+    </button>
   </div>
-  <button id="src-toggle-btn" aria-label="資料來源">
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v6c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/><path d="M3 11v6c0 1.66 4.03 3 9 3s9-1.34 9-3v-6"/></svg>
-    來源
-  </button>
 </nav>
 
 <div id="src-panel">
