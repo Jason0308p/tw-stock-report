@@ -4,68 +4,374 @@ title: 台股輿情日報｜測試版
 report_date: 測試版 (2026-05-26)
 ---
 
+<style>
+/* ── Tabs ── */
+.rwd-tab-nav{display:flex;overflow-x:auto;border-bottom:2px solid var(--border,#2a3d57);
+  margin-bottom:20px;position:sticky;top:0;background:var(--bg,#090f1c);z-index:90;
+  padding:6px 0 0;-ms-overflow-style:none;scrollbar-width:none}
+.rwd-tab-nav::-webkit-scrollbar{display:none}
+.rwd-tab-btn{flex:0 0 auto;padding:9px 14px;background:none;border:none;
+  border-bottom:2.5px solid transparent;margin-bottom:-2px;
+  color:var(--text2,#a0aec0);cursor:pointer;font-size:13px;font-weight:500;
+  white-space:nowrap;font-family:inherit;transition:color .15s,border-color .15s}
+.rwd-tab-btn:hover{color:var(--text,#edf2f7)}
+.rwd-tab-btn.active{color:var(--accent,#e63946);border-bottom-color:var(--accent,#e63946);font-weight:700}
+
+/* ── Search / Watchlist ── */
+.sw-wrap{background:var(--card,#182338);border:1.5px dashed rgba(245,158,11,.45);
+  border-radius:12px;padding:16px;margin:0 0 22px}
+.sw-badge{display:inline-block;padding:2px 8px;background:rgba(245,158,11,.15);
+  color:#f59e0b;border-radius:4px;font-size:11px;font-weight:700;margin-bottom:10px}
+.sw-wrap h3{font-size:14px;font-weight:700;color:#fff;margin:0 0 5px}
+.sw-wrap p{font-size:12px;color:var(--text2,#a0aec0);margin:0 0 10px;line-height:1.5}
+.sw-row{display:flex;gap:8px}
+.sw-row input{flex:1;padding:8px 12px;background:rgba(255,255,255,.07);
+  border:1px solid var(--border,#2a3d57);border-radius:6px;color:#fff;
+  font-size:14px;outline:none;font-family:inherit}
+.sw-row input:focus{border-color:#f59e0b}
+.sw-add{padding:8px 16px;background:#f59e0b;color:#000;border:none;
+  border-radius:6px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit}
+.sw-add:hover{background:#fbbf24}
+.sw-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;min-height:22px}
+.sw-tag{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;
+  background:rgba(230,57,70,.15);border:1px solid rgba(230,57,70,.3);
+  border-radius:20px;font-size:12px;color:#fff}
+.sw-tag button{background:none;border:none;color:#aaa;cursor:pointer;
+  padding:0;font-size:13px;line-height:1}
+.sw-tag button:hover{color:#e63946}
+.sw-err{font-size:12px;color:#f87171;margin-top:5px;min-height:16px}
+.sw-note{font-size:11px;color:#4b5563;margin-top:6px}
+
+/* ── Footer ── */
+.rwd-footer{margin-top:48px;border-top:1px solid var(--border,#2a3d57);padding-top:24px}
+.rwd-risk{background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.25);
+  border-radius:8px;padding:14px 16px;margin-bottom:22px}
+.rwd-risk h4{font-size:13px;font-weight:700;color:#f87171;margin:0 0 6px}
+.rwd-risk p{font-size:12px;color:#d1d5db;line-height:1.6;margin:0}
+.rwd-fgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:22px}
+@media(max-width:480px){.rwd-fgrid{grid-template-columns:1fr}}
+.rwd-fcol{background:var(--card,#182338);border:1px solid var(--border,#2a3d57);
+  border-radius:10px;padding:14px}
+.rwd-fcol h4{font-size:12px;font-weight:700;color:var(--accent,#e63946);
+  margin:0 0 7px;text-transform:uppercase;letter-spacing:.5px}
+.rwd-fcol p,.rwd-fcol a{font-size:12px;color:#d1d5db;line-height:1.6;margin:0}
+.rwd-fcol a{color:#60a5fa;text-decoration:none}
+.rwd-fcol a:hover{text-decoration:underline}
+.rwd-fcol-full{grid-column:1/-1}
+.rwd-themes{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.rwd-theme{padding:4px 12px;background:rgba(99,102,241,.15);
+  border:1px solid rgba(99,102,241,.3);border-radius:20px;
+  font-size:12px;color:#a5b4fc;cursor:pointer;user-select:none}
+.rwd-theme:hover{background:rgba(99,102,241,.28)}
+.rwd-like-wrap{text-align:center;margin:22px 0}
+#rwd-like-btn{padding:11px 26px;background:rgba(230,57,70,.1);
+  border:1.5px solid rgba(230,57,70,.35);border-radius:50px;
+  color:#fff;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;
+  transition:all .15s}
+#rwd-like-btn:hover{background:rgba(230,57,70,.2);border-color:#e63946}
+#rwd-like-btn.liked{background:rgba(230,57,70,.22);border-color:#e63946;color:#e63946}
+.rwd-comments h3{font-size:15px;font-weight:700;color:#fff;margin:0 0 12px}
+.rwd-utterances-note{font-size:11px;color:#4b5563;margin-top:8px}
+.rwd-copy{text-align:center;font-size:11px;color:#374151;margin-top:20px;padding-bottom:20px}
+</style>
+
 <script>
-/* ── GA4 Custom Events (test version) ── */
 document.addEventListener('DOMContentLoaded', function(){
-  if (typeof gtag !== 'function') return;
 
-  /* 1. 快速導覽區塊按鈕 */
-  document.querySelectorAll('a[href^="#sec-"]').forEach(function(a){
-    a.addEventListener('click', function(){
-      gtag('event','section_click',{section_name: a.textContent.trim()});
-    });
-  });
+/* ============================================================
+   1. TABS  — build from h2[id^="sec-"]
+   ============================================================ */
+(function(){
+  var hdrs = Array.from(document.querySelectorAll('h2[id^="sec-"]'));
+  if (hdrs.length < 2) return;
 
-  /* 2. 個股索引跳轉 */
-  document.querySelectorAll('a[href^="#stock-"]').forEach(function(a){
-    a.addEventListener('click', function(){
-      gtag('event','stock_jump',{stock_name: a.textContent.trim(), stock_href: a.getAttribute('href')});
-    });
-  });
+  function getNodes(h2, nextH2) {
+    var arr = [h2];
+    var el = h2.nextSibling;
+    while (el && el !== nextH2) { arr.push(el); el = el.nextSibling; }
+    return arr;
+  }
 
-  /* 3. 個股速覽族群展開 */
-  document.querySelectorAll('details').forEach(function(d){
-    d.addEventListener('toggle', function(){
-      if(d.open){
-        var s = d.querySelector('summary');
-        gtag('event','group_expand',{group_name: s ? s.textContent.trim().slice(0,20) : 'unknown'});
-      }
-    });
-  });
-
-  /* 4. 新聞連結點擊 */
-  document.querySelectorAll('.content a[href^="http"]').forEach(function(a){
-    a.addEventListener('click', function(){
-      gtag('event','news_link_click',{
-        link_url:   a.href,
-        link_title: a.textContent.trim().slice(0,60)
-      });
-    });
-  });
-
-  /* 5. 資料來源按鈕 */
-  var srcBtn = document.getElementById('src-toggle-btn');
-  if(srcBtn){
-    srcBtn.addEventListener('click', function(){
-      gtag('event','source_panel_open');
+  function showTab(idx) {
+    hdrs.forEach(function(h2, i) {
+      var nodes = getNodes(h2, hdrs[i + 1] || null);
+      var vis = (i === idx);
+      nodes.forEach(function(n){ if (n.nodeType === 1) n.style.display = vis ? '' : 'none'; });
     });
   }
 
-  /* 6. 捲動深度 50% / 90% */
-  var scrollFired = {50: false, 90: false};
-  window.addEventListener('scroll', function(){
-    var pct = Math.round((window.scrollY + window.innerHeight) / document.body.scrollHeight * 100);
-    [50, 90].forEach(function(mark){
-      if(!scrollFired[mark] && pct >= mark){
-        scrollFired[mark] = true;
-        gtag('event','scroll_depth',{depth_percent: mark});
+  var nav = document.createElement('div');
+  nav.className = 'rwd-tab-nav';
+
+  hdrs.forEach(function(h2, i) {
+    var raw = (h2.childNodes[0] && h2.childNodes[0].textContent || h2.textContent).trim();
+    var label = raw.replace(/[(（].*$/, '').trim().slice(0, 7);
+    var btn = document.createElement('button');
+    btn.className = 'rwd-tab-btn' + (i === 0 ? ' active' : '');
+    btn.textContent = label;
+    btn.addEventListener('click', function() {
+      showTab(i);
+      nav.querySelectorAll('.rwd-tab-btn').forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      window.scrollTo({top: 0, behavior: 'smooth'});
+      if (typeof gtag === 'function') gtag('event', 'tab_switch', {tab_name: label});
+    });
+    nav.appendChild(btn);
+  });
+
+  showTab(0);
+  hdrs[0].parentNode.insertBefore(nav, hdrs[0]);
+  window._rwdShowTab = showTab;
+  window._rwdHdrs = hdrs;
+  window._rwdNav = nav;
+})();
+
+/* ============================================================
+   2. SEARCH / WATCHLIST
+   ============================================================ */
+(function(){
+  var stocks = (typeof window.STOCK_LIST !== 'undefined') ? window.STOCK_LIST : [];
+  var LS_KEY = 'twstock_wl_v1';
+
+  function load() { try { return JSON.parse(localStorage.getItem(LS_KEY) || '[]'); } catch(e) { return []; } }
+  function save(list) { localStorage.setItem(LS_KEY, JSON.stringify(list)); }
+
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function(c) {
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+
+  var dlOpts = stocks.map(function(s){ return '<option value="' + esc(s.code) + ' ' + esc(s.short_name) + '">'; }).join('');
+
+  var wrap = document.createElement('div');
+  wrap.innerHTML = [
+    '<div class="sw-wrap">',
+    '  <div class="sw-badge">★ 功能需求 — 自選追蹤清單（開發中）</div>',
+    '  <h3>新增追蹤標的</h3>',
+    '  <p>從下拉清單搜尋台股代號或名稱，加入個人追蹤清單（儲存於本裝置，不傳送至伺服器）</p>',
+    '  <div class="sw-row">',
+    '    <input id="sw-inp" type="text" placeholder="搜尋: 2330 台積電 / 聯發科 / 0050 ..." list="sw-dl" autocomplete="off">',
+    '    <datalist id="sw-dl">' + dlOpts + '</datalist>',
+    '    <button class="sw-add" id="sw-btn">新增</button>',
+    '  </div>',
+    '  <div class="sw-err" id="sw-err"></div>',
+    '  <div class="sw-tags" id="sw-tags"></div>',
+    '  <div class="sw-note">🔒 資料僅在本機瀏覽器儲存，最多 20 支。後端寫入功能開發中。</div>',
+    '</div>',
+  ].join('');
+
+  var firstH2 = document.querySelector('h2[id^="sec-"]');
+  if (firstH2) firstH2.parentNode.insertBefore(wrap.firstChild, firstH2);
+
+  function renderTags() {
+    var el = document.getElementById('sw-tags');
+    if (!el) return;
+    var list = load();
+    if (!list.length) { el.innerHTML = '<span style="font-size:12px;color:#4b5563">尚無追蹤標的</span>'; return; }
+    el.innerHTML = list.map(function(s) {
+      return '<span class="sw-tag">' + esc(s.code) + ' ' + esc(s.name) +
+             '<button onclick="rwdDel('' + esc(s.code) + '')" title="移除">×</button></span>';
+    }).join('');
+  }
+
+  window.rwdDel = function(code) {
+    save(load().filter(function(s){ return s.code !== code; }));
+    renderTags();
+  };
+
+  function doAdd() {
+    var raw = (document.getElementById('sw-inp').value || '').trim();
+    var errEl = document.getElementById('sw-err');
+    errEl.textContent = '';
+    if (!raw) return;
+    if (!/^[一-龥a-zA-Z0-9\s]+$/.test(raw)) {
+      errEl.textContent = '僅允許輸入中文、英文及數字'; return;
+    }
+    if (raw.length > 20) { errEl.textContent = '輸入過長'; return; }
+    var key = raw.toLowerCase().replace(/\s+/g, '');
+    var match = stocks.find(function(s) {
+      return s.code.toLowerCase() === key ||
+             s.short_name.toLowerCase().replace(/\s+/g,'') === key ||
+             (s.code + s.short_name).toLowerCase().replace(/\s+/g,'') === key;
+    });
+    if (!match) { errEl.textContent = '找不到此股票，請從下拉清單中選擇'; return; }
+    var list = load();
+    if (list.find(function(s){ return s.code === match.code; })) { errEl.textContent = '已在追蹤清單'; return; }
+    if (list.length >= 20) { errEl.textContent = '最多追蹤 20 支'; return; }
+    list.push({code: match.code, name: match.short_name});
+    save(list);
+    renderTags();
+    document.getElementById('sw-inp').value = '';
+    if (typeof gtag === 'function') gtag('event', 'watchlist_add', {stock_code: match.code});
+  }
+
+  setTimeout(function() {
+    var btn = document.getElementById('sw-btn');
+    var inp = document.getElementById('sw-inp');
+    if (btn) btn.addEventListener('click', doAdd);
+    if (inp) inp.addEventListener('keydown', function(e){ if (e.key === 'Enter') doAdd(); });
+    renderTags();
+  }, 80);
+})();
+
+/* ============================================================
+   3. FOOTER
+   ============================================================ */
+(function(){
+  var footer = document.createElement('div');
+  footer.className = 'rwd-footer';
+  footer.innerHTML = [
+    '<div class="rwd-risk">',
+    '  <h4>⚠️ 投資風險提示</h4>',
+    '  <p>本網站所有資料、分析結果及觀點，均屬個人研究整理，僅供資訊參考用途，<strong>不構成任何投資建議或買賣推薦</strong>。',
+    '  股市投資具有風險，過去績效不代表未來表現。投資人應審慎評估自身風險承受能力，並自負投資損益之責任。',
+    '  本站對任何投資損失概不負責。</p>',
+    '</div>',
+
+    '<div class="rwd-fgrid">',
+
+    '  <div class="rwd-fcol">',
+    '    <h4>👤 分析師介紹</h4>',
+    '    <p><strong>Analyst：Jimmy229 / Jason0308p</strong><br>',
+    '    台灣股市個人研究員，專注半導體、AI 供應鏈、總經研究。<br>',
+    '    運用 Claude AI + 多平台輿情蒐集，每日產出量化情緒分析報告。</p>',
+    '  </div>',
+
+    '  <div class="rwd-fcol">',
+    '    <h4>✉️ 合作與聯絡</h4>',
+    '    <p>問題回報、資料授權、商業合作洽談：<br>',
+    '    <a href="mailto:jason0308p@gmail.com">jason0308p@gmail.com</a><br><br>',
+    '    GitHub Source：<a href="https://github.com/Jason0308p/tw-stock-report" target="_blank" rel="noopener">tw-stock-report</a></p>',
+    '  </div>',
+
+    '  <div class="rwd-fcol rwd-fcol-full">',
+    '    <h4>🏷️ 投資主題分類</h4>',
+    '    <p style="margin-bottom:8px">點擊主題快速跳轉至個股速覽：</p>',
+    '    <div class="rwd-themes">',
+    '      <span class="rwd-theme" onclick="rwdTheme('AI')">🤖 AI</span>',
+    '      <span class="rwd-theme" onclick="rwdTheme('半導體')">⚡ 半導體</span>',
+    '      <span class="rwd-theme" onclick="rwdTheme('能源')">🔋 能源</span>',
+    '      <span class="rwd-theme" onclick="rwdTheme('ETF')">📊 ETF</span>',
+    '      <span class="rwd-theme" onclick="rwdTheme('總經')">🌐 總經</span>',
+    '      <span class="rwd-theme" onclick="rwdTheme('電動車')">🚗 電動車</span>',
+    '      <span class="rwd-theme" onclick="rwdTheme('金融')">🏦 金融</span>',
+    '      <span class="rwd-theme" onclick="rwdTheme('記憶體')">💾 記憶體</span>',
+    '    </div>',
+    '  </div>',
+
+    '</div>',
+
+    '<div class="rwd-like-wrap">',
+    '  <button id="rwd-like-btn">👍 &nbsp;<span id="rwd-like-c">0</span>&nbsp; 人覺得有幫助</button>',
+    '</div>',
+
+    '<div class="rwd-comments">',
+    '  <h3>💬 留言 / 討論</h3>',
+    '  <div id="rwd-utterances"></div>',
+    '  <p class="rwd-utterances-note">留言功能由 <a href="https://utteranc.es" target="_blank" rel="noopener" style="color:#60a5fa">utterances</a> 提供，需登入 GitHub 帳號。</p>',
+    '</div>',
+
+    '<div class="rwd-copy">',
+    '  © 2026 Jimmy229 / Jason0308p &nbsp;·&nbsp; 僅供個人學習研究用途 &nbsp;·&nbsp; 非投資建議',
+    '</div>',
+  ].join('');
+
+  var content = document.querySelector('.content') || document.body;
+  content.appendChild(footer);
+
+  /* utterances comments */
+  var utt = document.createElement('script');
+  utt.src = 'https://utteranc.es/client.js';
+  utt.setAttribute('repo', 'Jason0308p/tw-stock-report');
+  utt.setAttribute('issue-term', 'pathname');
+  utt.setAttribute('label', 'comments');
+  utt.setAttribute('theme', 'github-dark');
+  utt.setAttribute('crossorigin', 'anonymous');
+  utt.async = true;
+  var uttEl = document.getElementById('rwd-utterances');
+  if (uttEl) uttEl.appendChild(utt);
+
+  /* like button (localStorage) */
+  var LK = 'twstock_liked_v1', LC = 'twstock_lc_v1';
+  function updateLike() {
+    var liked = localStorage.getItem(LK) === '1';
+    var cnt = parseInt(localStorage.getItem(LC) || '0', 10);
+    var btn = document.getElementById('rwd-like-btn');
+    var cEl = document.getElementById('rwd-like-c');
+    if (btn) btn.classList.toggle('liked', liked);
+    if (cEl) cEl.textContent = cnt;
+  }
+  updateLike();
+  var likeBtn = document.getElementById('rwd-like-btn');
+  if (likeBtn) {
+    likeBtn.addEventListener('click', function() {
+      var liked = localStorage.getItem(LK) === '1';
+      var cnt = parseInt(localStorage.getItem(LC) || '0', 10);
+      if (liked) {
+        localStorage.setItem(LK, '0');
+        localStorage.setItem(LC, Math.max(0, cnt - 1));
+      } else {
+        localStorage.setItem(LK, '1');
+        localStorage.setItem(LC, cnt + 1);
+        if (typeof gtag === 'function') gtag('event', 'page_like');
+      }
+      updateLike();
+    });
+  }
+
+  /* theme jump */
+  window.rwdTheme = function(theme) {
+    if (window._rwdHdrs && window._rwdNav) {
+      var idx = -1;
+      window._rwdHdrs.forEach(function(h, i) {
+        if (h.id === 'sec-overview') idx = i;
+      });
+      if (idx >= 0) {
+        window._rwdShowTab(idx);
+        window._rwdNav.querySelectorAll('.rwd-tab-btn').forEach(function(b, i){
+          b.classList.toggle('active', i === idx);
+        });
+        window.scrollTo({top: 0, behavior: 'smooth'});
+      }
+    }
+    if (typeof gtag === 'function') gtag('event', 'theme_click', {theme_name: theme});
+  };
+})();
+
+/* ============================================================
+   4. GA4 CUSTOM EVENTS
+   ============================================================ */
+(function(){
+  if (typeof gtag !== 'function') return;
+  document.querySelectorAll('details').forEach(function(d){
+    d.addEventListener('toggle', function(){
+      if (d.open) {
+        var s = d.querySelector('summary');
+        gtag('event', 'group_expand', {group_name: s ? s.textContent.trim().slice(0,20) : 'unknown'});
       }
     });
+  });
+  document.querySelectorAll('.content a[href^="http"]').forEach(function(a){
+    a.addEventListener('click', function(){
+      gtag('event', 'news_link_click', {link_url: a.href, link_title: a.textContent.trim().slice(0,60)});
+    });
+  });
+  var srcBtn = document.getElementById('src-toggle-btn');
+  if (srcBtn) srcBtn.addEventListener('click', function(){ gtag('event', 'source_panel_open'); });
+  var fired = {50: false, 90: false};
+  window.addEventListener('scroll', function(){
+    var pct = Math.round((window.scrollY + window.innerHeight) / document.body.scrollHeight * 100);
+    [50, 90].forEach(function(m){
+      if (!fired[m] && pct >= m) { fired[m] = true; gtag('event', 'scroll_depth', {depth_percent: m}); }
+    });
   }, {passive: true});
+})();
 
-});
+}); // DOMContentLoaded
 </script>
 
+<script>window.STOCK_LIST = [{"code": "0050", "short_name": "0050"}, {"code": "00631L", "short_name": "0050正2"}, {"code": "2330", "short_name": "台積電"}, {"code": "2317", "short_name": "鴻海"}, {"code": "2308", "short_name": "台達電"}, {"code": "2383", "short_name": "台光電"}, {"code": "2454", "short_name": "聯發科"}, {"code": "2303", "short_name": "聯電"}, {"code": "6488", "short_name": "環球晶"}, {"code": "3711", "short_name": "日月光"}, {"code": "2408", "short_name": "南亞科"}, {"code": "3006", "short_name": "晶豪科"}, {"code": "2344", "short_name": "華邦電"}, {"code": "8299", "short_name": "群聯"}, {"code": "2327", "short_name": "國巨"}, {"code": "2492", "short_name": "華新科"}, {"code": "2456", "short_name": "奇力新"}, {"code": "3026", "short_name": "禾伸堂"}, {"code": "2368", "short_name": "金像電"}, {"code": "3037", "short_name": "欣興"}, {"code": "8046", "short_name": "南電"}, {"code": "3189", "short_name": "景碩"}, {"code": "3017", "short_name": "奇鋐"}, {"code": "3324", "short_name": "雙鴻"}, {"code": "3481", "short_name": "群創"}, {"code": "2382", "short_name": "廣達"}, {"code": "3231", "short_name": "緯創"}, {"code": "2356", "short_name": "英業達"}, {"code": "6669", "short_name": "緯穎"}, {"code": "8210", "short_name": "勤誠"}, {"code": "2376", "short_name": "技嘉"}, {"code": "2357", "short_name": "華碩"}, {"code": "3008", "short_name": "大立光"}, {"code": "3034", "short_name": "聯詠"}, {"code": "2379", "short_name": "瑞昱"}, {"code": "6770", "short_name": "立積"}, {"code": "8069", "short_name": "元太"}, {"code": "1802", "short_name": "台玻"}, {"code": "3035", "short_name": "智原"}, {"code": "2301", "short_name": "光寶"}, {"code": "2474", "short_name": "可成"}, {"code": "4863", "short_name": "凌華"}, {"code": "2409", "short_name": "友達"}, {"code": "3081", "short_name": "聯亞"}, {"code": "3169", "short_name": "亞信"}, {"code": "3434", "short_name": "光聖"}, {"code": "3573", "short_name": "前鼎"}, {"code": "2326", "short_name": "台揚"}, {"code": "3491", "short_name": "昇達"}, {"code": "3596", "short_name": "智易"}, {"code": "3566", "short_name": "世振"}, {"code": "8021", "short_name": "尖點"}, {"code": "3013", "short_name": "晟銘電"}, {"code": "8096", "short_name": "擎亞"}, {"code": "2367", "short_name": "燿華"}];</script>
 <div style="margin:0 0 18px;padding:10px 16px;background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.35);border-radius:8px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px"><span style="font-size:13px;font-weight:700;color:#f59e0b">🧪 測試版 — 此頁面供開發測試用</span><a href="https://Jason0308p.github.io/tw-stock-report/reports/latest.html" style="display:inline-flex;align-items:center;gap:5px;padding:5px 14px;border-radius:6px;background:#e63946;border:none;color:#fff;font-size:13px;font-weight:600;text-decoration:none">← 回正式版</a></div>
 <div id="page-top" style="margin:0 0 20px;padding:14px 16px;background:var(--card);border:1px solid var(--border);border-radius:10px"><div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;padding-left:10px;border-left:3px solid #e63946"><span style="font-size:22px;font-weight:900;color:#ffffff;letter-spacing:0.5px;text-shadow:0 1px 6px rgba(230,57,70,0.3)">快速導覽</span><span style="font-size:13px;color:var(--text2);font-weight:500">點擊跳轉區塊或個股</span></div><div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px"><a href="#sec-groups" style="display:inline-block;padding:5px 14px;border-radius:20px;background:#1e3a5f;border:1px solid #3b6ea5;color:#e2e8f0;font-size:14px;font-weight:500;text-decoration:none;white-space:nowrap">族群燈號</a><a href="#sec-trending" style="display:inline-block;padding:5px 14px;border-radius:20px;background:#1e3a5f;border:1px solid #3b6ea5;color:#e2e8f0;font-size:14px;font-weight:500;text-decoration:none;white-space:nowrap">討論攀升</a><a href="#sec-news" style="display:inline-block;padding:5px 14px;border-radius:20px;background:#1e3a5f;border:1px solid #3b6ea5;color:#e2e8f0;font-size:14px;font-weight:500;text-decoration:none;white-space:nowrap">重點新聞</a><a href="#sec-alerts" style="display:inline-block;padding:5px 14px;border-radius:20px;background:#1e3a5f;border:1px solid #3b6ea5;color:#e2e8f0;font-size:14px;font-weight:500;text-decoration:none;white-space:nowrap">近期警示</a><a href="#sec-buzz" style="display:inline-block;padding:5px 14px;border-radius:20px;background:#1e3a5f;border:1px solid #3b6ea5;color:#e2e8f0;font-size:14px;font-weight:500;text-decoration:none;white-space:nowrap">熱議排行</a><a href="#sec-overview" style="display:inline-block;padding:5px 14px;border-radius:20px;background:#1e3a5f;border:1px solid #3b6ea5;color:#e2e8f0;font-size:14px;font-weight:500;text-decoration:none;white-space:nowrap">個股速覽</a><a href="#sec-detail" style="display:inline-block;padding:5px 14px;border-radius:20px;background:#1e3a5f;border:1px solid #3b6ea5;color:#e2e8f0;font-size:14px;font-weight:500;text-decoration:none;white-space:nowrap">個股詳情</a><a href="#sec-margin" style="display:inline-block;padding:5px 14px;border-radius:20px;background:#1e3a5f;border:1px solid #3b6ea5;color:#e2e8f0;font-size:14px;font-weight:500;text-decoration:none;white-space:nowrap">融資融券</a><a href="#sec-volume" style="display:inline-block;padding:5px 14px;border-radius:20px;background:#1e3a5f;border:1px solid #3b6ea5;color:#e2e8f0;font-size:14px;font-weight:500;text-decoration:none;white-space:nowrap">成交量排行</a></div><details><summary style="font-size:18px;color:#ffffff;cursor:pointer;font-weight:800;user-select:none;list-style:none;display:flex;align-items:center;gap:8px;padding:8px 10px;border-top:1px solid var(--border);margin-top:4px;border-radius:6px;letter-spacing:0.3px" onmouseover="this.style.background='rgba(230,57,70,0.08)'" onmouseout="this.style.background='transparent'"><span style="font-size:14px;color:#e63946;font-weight:900">▶</span> 個股索引（依族群）</summary><div style="margin-top:10px"><div style="margin-bottom:6px"><span style="font-size:13px;color:var(--text2);margin-right:6px;font-weight:500">大盤ETF</span><span style="display:inline-flex;flex-wrap:wrap;gap:4px"><a href="#stock-0050" style="display:inline-block;padding:3px 8px;border-radius:12px;background:var(--card2);border:1px solid var(--border);color:var(--blue);font-size:13px;text-decoration:none;white-space:nowrap">0050</a><a href="#stock-00631L" style="display:inline-block;padding:3px 8px;border-radius:12px;background:var(--card2);border:1px solid var(--border);color:var(--blue);font-size:13px;text-decoration:none;white-space:nowrap">0050正2</a></span></div><div style="margin-bottom:6px"><span style="font-size:13px;color:var(--text2);margin-right:6px;font-weight:500">權值股</span><span style="display:inline-flex;flex-wrap:wrap;gap:4px"><a href="#stock-2330" style="display:inline-block;padding:3px 8px;border-radius:12px;background:var(--card2);border:1px solid var(--border);color:var(--blue);font-size:13px;text-decoration:none;white-space:nowrap">台積電</a><a href="#stock-2317" style="display:inline-block;padding:3px 8px;border-radius:12px;background:var(--card2);border:1px solid var(--border);color:var(--blue);font-size:13px;text-decoration:none;white-space:nowrap">鴻海</a><a href="#stock-2308" style="display:inline-block;padding:3px 8px;border-radius:12px;background:var(--card2);border:1px solid var(--border);color:var(--blue);font-size:13px;text-decoration:none;white-space:nowrap">台達電</a><a href="#stock-2383" style="display:inline-block;padding:3px 8px;border-radius:12px;background:var(--card2);border:1px solid var(--border);color:var(--blue);font-size:13px;text-decoration:none;white-space:nowrap">台光電</a><a href="#stock-2454" style="display:inline-block;padding:3px 8px;border-radius:12px;background:var(--card2);border:1px solid var(--border);color:var(--blue);font-size:13px;text-decoration:none;white-space:nowrap">聯發科</a></span></div><div style="margin-bottom:6px"><span style="font-size:13px;color:var(--text2);margin-right:6px;font-weight:500">晶圓代工</span><span style="display:inline-flex;flex-wrap:wrap;gap:4px"><a href="#stock-2303" style="display:inline-block;padding:3px 8px;border-radius:12px;background:var(--card2);border:1px solid var(--border);color:var(--blue);font-size:13px;text-decoration:none;white-space:nowrap">聯電</a></span></div><div style="margin-bottom:6px"><span style="font-size:13px;color:var(--text2);margin-right:6px;font-weight:500">半導體材料</span><span style="display:inline-flex;flex-wrap:wrap;gap:4px"><a href="#stock-6488" style="display:inline-block;padding:3px 8px;border-radius:12px;background:var(--card2);border:1px solid var(--border);color:var(--blue);font-size:13px;text-decoration:none;white-space:nowrap">環球晶</a></span></div><div style="margin-bottom:6px"><span style="font-size:13px;color:var(--text2);margin-right:6px;font-weight:500">ABF載板</span><span style="display:inline-flex;flex-wrap:wrap;gap:4px"><a href="#stock-3037" style="display:inline-block;padding:3px 8px;border-radius:12px;background:var(--card2);border:1px solid var(--border);color:var(--blue);font-size:13px;text-decoration:none;white-space:nowrap">欣興</a><a href="#stock-8046" style="display:inline-block;padding:3px 8px;border-radius:12px;background:var(--card2);border:1px solid var(--border);color:var(--blue);font-size:13px;text-decoration:none;white-space:nowrap">南電</a><a href="#stock-3189" style="display:inline-block;padding:3px 8px;border-radius:12px;background:var(--card2);border:1px solid var(--border);color:var(--blue);font-size:13px;text-decoration:none;white-space:nowrap">景碩</a></span></div><div style="margin-bottom:6px"><span style="font-size:13px;color:var(--text2);margin-right:6px;font-weight:500">封裝測試</span><span style="display:inline-flex;flex-wrap:wrap;gap:4px"><a href="#stock-3711" style="display:inline-block;padding:3px 8px;border-radius:12px;background:var(--card2);border:1px solid var(--border);color:var(--blue);font-size:13px;text-decoration:none;white-space:nowrap">日月光</a></span></div><div style="margin-bottom:6px"><span style="font-size:13px;color:var(--text2);margin-right:6px;font-weight:500">IC設計</span><span style="display:inline-flex;flex-wrap:wrap;gap:4px"><a href="#stock-3034" style="display:inline-block;padding:3px 8px;border-radius:12px;background:var(--card2);border:1px solid var(--border);color:var(--blue);font-size:13px;text-decoration:none;white-space:nowrap">聯詠</a><a href="#stock-2379" style="display:inline-block;padding:3px 8px;border-radius:12px;background:var(--card2);border:1px solid var(--border);color:var(--blue);font-size:13px;text-decoration:none;white-space:nowrap">瑞昱</a><a href="#stock-6770" style="display:inline-block;padding:3px 8px;border-radius:12px;background:var(--card2);border:1px solid var(--border);color:var(--blue);font-size:13px;text-decoration:none;white-space:nowrap">立積</a><a href="#stock-3035" style="display:inline-block;padding:3px 8px;border-radius:12px;background:var(--card2);border:1px solid var(--border);color:var(--blue);font-size:13px;text-decoration:none;white-space:nowrap">智原</a></span></div><div style="margin-bottom:6px"><span style="font-size:13px;color:var(--text2);margin-right:6px;font-weight:500">記憶體</span><span style="display:inline-flex;flex-wrap:wrap;gap:4px"><a href="#stock-2408" style="display:inline-block;padding:3px 8px;border-radius:12px;background:var(--card2);border:1px solid var(--border);color:var(--blue);font-size:13px;text-decoration:none;white-space:nowrap">南亞科</a><a href="#stock-3006" style="display:inline-block;padding:3px 8px;border-radius:12px;background:var(--card2);border:1px solid var(--border);color:var(--blue);font-size:13px;text-decoration:none;white-space:nowrap">晶豪科</a><a href="#stock-2344" style="display:inline-block;padding:3px 8px;border-radius:12px;background:var(--card2);border:1px solid var(--border);color:var(--blue);font-size:13px;text-decoration:none;white-space:nowrap">華邦電</a><a href="#stock-8299" style="display:inline-block;padding:3px 8px;border-radius:12px;background:var(--card2);border:1px solid var(--border);color:var(--blue);font-size:13px;text-decoration:none;white-space:nowrap">群聯</a></span></div><div style="margin-bottom:6px"><span style="font-size:13px;color:var(--text2);margin-right:6px;font-weight:500">伺服器</span><span style="display:inline-flex;flex-wrap:wrap;gap:4px"><a href="#stock-2382" style="display:inline-block;padding:3px 8px;border-radius:12px;background:var(--card2);border:1px solid var(--border);color:var(--blue);font-size:13px;text-decoration:none;white-space:nowrap">廣達</a><a href="#stock-3231" style="display:inline-block;padding:3px 8px;border-radius:12px;background:var(--card2);border:1px solid var(--border);color:var(--blue);font-size:13px;text-decoration:none;white-space:nowrap">緯創</a><a href="#stock-2356" style="display:inline-block;padding:3px 8px;border-radius:12px;background:var(--card2);border:1px solid var(--border);color:var(--blue);font-size:13px;text-decoration:none;white-space:nowrap">英業達</a><a href="#stock-6669" style="display:inline-block;padding:3px 8px;border-radius:12px;background:var(--card2);border:1px solid var(--border);color:var(--blue);font-size:13px;text-decoration:none;white-space:nowrap">緯穎</a><a href="#stock-8096" style="display:inline-block;padding:3px 8px;border-radius:12px;background:var(--card2);border:1px solid var(--border);color:var(--blue);font-size:13px;text-decoration:none;white-space:nowrap">擎亞</a></span></div><div style="margin-bottom:6px"><span style="font-size:13px;color:var(--text2);margin-right:6px;font-weight:500">伺服器PCB</span><span style="display:inline-flex;flex-wrap:wrap;gap:4px"><a href="#stock-2368" style="display:inline-block;padding:3px 8px;border-radius:12px;background:var(--card2);border:1px solid var(--border);color:var(--blue);font-size:13px;text-decoration:none;white-space:nowrap">金像電</a><a href="#stock-2367" style="display:inline-block;padding:3px 8px;border-radius:12px;background:var(--card2);border:1px solid var(--border);color:var(--blue);font-size:13px;text-decoration:none;white-space:nowrap">燿華</a></span></div><div style="margin-bottom:6px"><span style="font-size:13px;color:var(--text2);margin-right:6px;font-weight:500">低軌衛星</span><span style="display:inline-flex;flex-wrap:wrap;gap:4px"><a href="#stock-2326" style="display:inline-block;padding:3px 8px;border-radius:12px;background:var(--card2);border:1px solid var(--border);color:var(--blue);font-size:13px;text-decoration:none;white-space:nowrap">台揚</a><a href="#stock-3491" style="display:inline-block;padding:3px 8px;border-radius:12px;background:var(--card2);border:1px solid var(--border);color:var(--blue);font-size:13px;text-decoration:none;white-space:nowrap">昇達</a><a href="#stock-3596" style="display:inline-block;padding:3px 8px;border-radius:12px;background:var(--card2);border:1px solid var(--border);color:var(--blue);font-size:13px;text-decoration:none;white-space:nowrap">智易</a></span></div><div style="margin-bottom:6px"><span style="font-size:13px;color:var(--text2);margin-right:6px;font-weight:500">光學</span><span style="display:inline-flex;flex-wrap:wrap;gap:4px"><a href="#stock-3008" style="display:inline-block;padding:3px 8px;border-radius:12px;background:var(--card2);border:1px solid var(--border);color:var(--blue);font-size:13px;text-decoration:none;white-space:nowrap">大立光</a></span></div><div style="margin-bottom:6px"><span style="font-size:13px;color:var(--text2);margin-right:6px;font-weight:500">光通訊</span><span style="display:inline-flex;flex-wrap:wrap;gap:4px"><a href="#stock-3081" style="display:inline-block;padding:3px 8px;border-radius:12px;background:var(--card2);border:1px solid var(--border);color:var(--blue);font-size:13px;text-decoration:none;white-space:nowrap">聯亞</a><a href="#stock-3169" style="display:inline-block;padding:3px 8px;border-radius:12px;background:var(--card2);border:1px solid var(--border);color:var(--blue);font-size:13px;text-decoration:none;white-space:nowrap">亞信</a><a href="#stock-3434" style="display:inline-block;padding:3px 8px;border-radius:12px;background:var(--card2);border:1px solid var(--border);color:var(--blue);font-size:13px;text-decoration:none;white-space:nowrap">光聖</a><a href="#stock-3573" style="display:inline-block;padding:3px 8px;border-radius:12px;background:var(--card2);border:1px solid var(--border);color:var(--blue);font-size:13px;text-decoration:none;white-space:nowrap">前鼎</a></span></div><div style="margin-bottom:6px"><span style="font-size:13px;color:var(--text2);margin-right:6px;font-weight:500">光電</span><span style="display:inline-flex;flex-wrap:wrap;gap:4px"><a href="#stock-2301" style="display:inline-block;padding:3px 8px;border-radius:12px;background:var(--card2);border:1px solid var(--border);color:var(--blue);font-size:13px;text-decoration:none;white-space:nowrap">光寶</a></span></div><div style="margin-bottom:6px"><span style="font-size:13px;color:var(--text2);margin-right:6px;font-weight:500">工業電腦</span><span style="display:inline-flex;flex-wrap:wrap;gap:4px"><a href="#stock-4863" style="display:inline-block;padding:3px 8px;border-radius:12px;background:var(--card2);border:1px solid var(--border);color:var(--blue);font-size:13px;text-decoration:none;white-space:nowrap">凌華</a></span></div><div style="margin-bottom:6px"><span style="font-size:13px;color:var(--text2);margin-right:6px;font-weight:500">散熱</span><span style="display:inline-flex;flex-wrap:wrap;gap:4px"><a href="#stock-3017" style="display:inline-block;padding:3px 8px;border-radius:12px;background:var(--card2);border:1px solid var(--border);color:var(--blue);font-size:13px;text-decoration:none;white-space:nowrap">奇鋐</a><a href="#stock-3324" style="display:inline-block;padding:3px 8px;border-radius:12px;background:var(--card2);border:1px solid var(--border);color:var(--blue);font-size:13px;text-decoration:none;white-space:nowrap">雙鴻</a></span></div><div style="margin-bottom:6px"><span style="font-size:13px;color:var(--text2);margin-right:6px;font-weight:500">玻璃</span><span style="display:inline-flex;flex-wrap:wrap;gap:4px"><a href="#stock-1802" style="display:inline-block;padding:3px 8px;border-radius:12px;background:var(--card2);border:1px solid var(--border);color:var(--blue);font-size:13px;text-decoration:none;white-space:nowrap">台玻</a></span></div><div style="margin-bottom:6px"><span style="font-size:13px;color:var(--text2);margin-right:6px;font-weight:500">玻璃面板</span><span style="display:inline-flex;flex-wrap:wrap;gap:4px"><a href="#stock-3481" style="display:inline-block;padding:3px 8px;border-radius:12px;background:var(--card2);border:1px solid var(--border);color:var(--blue);font-size:13px;text-decoration:none;white-space:nowrap">群創</a><a href="#stock-2409" style="display:inline-block;padding:3px 8px;border-radius:12px;background:var(--card2);border:1px solid var(--border);color:var(--blue);font-size:13px;text-decoration:none;white-space:nowrap">友達</a></span></div><div style="margin-bottom:6px"><span style="font-size:13px;color:var(--text2);margin-right:6px;font-weight:500">精密機殼</span><span style="display:inline-flex;flex-wrap:wrap;gap:4px"><a href="#stock-2474" style="display:inline-block;padding:3px 8px;border-radius:12px;background:var(--card2);border:1px solid var(--border);color:var(--blue);font-size:13px;text-decoration:none;white-space:nowrap">可成</a></span></div><div style="margin-bottom:6px"><span style="font-size:13px;color:var(--text2);margin-right:6px;font-weight:500">被動元件</span><span style="display:inline-flex;flex-wrap:wrap;gap:4px"><a href="#stock-2327" style="display:inline-block;padding:3px 8px;border-radius:12px;background:var(--card2);border:1px solid var(--border);color:var(--blue);font-size:13px;text-decoration:none;white-space:nowrap">國巨</a><a href="#stock-2492" style="display:inline-block;padding:3px 8px;border-radius:12px;background:var(--card2);border:1px solid var(--border);color:var(--blue);font-size:13px;text-decoration:none;white-space:nowrap">華新科</a><a href="#stock-2456" style="display:inline-block;padding:3px 8px;border-radius:12px;background:var(--card2);border:1px solid var(--border);color:var(--blue);font-size:13px;text-decoration:none;white-space:nowrap">奇力新</a><a href="#stock-3026" style="display:inline-block;padding:3px 8px;border-radius:12px;background:var(--card2);border:1px solid var(--border);color:var(--blue);font-size:13px;text-decoration:none;white-space:nowrap">禾伸堂</a></span></div><div style="margin-bottom:6px"><span style="font-size:13px;color:var(--text2);margin-right:6px;font-weight:500">鑽針</span><span style="display:inline-flex;flex-wrap:wrap;gap:4px"><a href="#stock-3566" style="display:inline-block;padding:3px 8px;border-radius:12px;background:var(--card2);border:1px solid var(--border);color:var(--blue);font-size:13px;text-decoration:none;white-space:nowrap">世振</a></span></div><div style="margin-bottom:6px"><span style="font-size:13px;color:var(--text2);margin-right:6px;font-weight:500">電子紙</span><span style="display:inline-flex;flex-wrap:wrap;gap:4px"><a href="#stock-8069" style="display:inline-block;padding:3px 8px;border-radius:12px;background:var(--card2);border:1px solid var(--border);color:var(--blue);font-size:13px;text-decoration:none;white-space:nowrap">元太</a></span></div><div style="margin-bottom:6px"><span style="font-size:13px;color:var(--text2);margin-right:6px;font-weight:500">電腦硬體</span><span style="display:inline-flex;flex-wrap:wrap;gap:4px"><a href="#stock-8210" style="display:inline-block;padding:3px 8px;border-radius:12px;background:var(--card2);border:1px solid var(--border);color:var(--blue);font-size:13px;text-decoration:none;white-space:nowrap">勤誠</a><a href="#stock-2376" style="display:inline-block;padding:3px 8px;border-radius:12px;background:var(--card2);border:1px solid var(--border);color:var(--blue);font-size:13px;text-decoration:none;white-space:nowrap">技嘉</a><a href="#stock-2357" style="display:inline-block;padding:3px 8px;border-radius:12px;background:var(--card2);border:1px solid var(--border);color:var(--blue);font-size:13px;text-decoration:none;white-space:nowrap">華碩</a><a href="#stock-3013" style="display:inline-block;padding:3px 8px;border-radius:12px;background:var(--card2);border:1px solid var(--border);color:var(--blue);font-size:13px;text-decoration:none;white-space:nowrap">晟銘電</a></span></div></div></details></div>
 <a href="#page-top" style="position:fixed;bottom:28px;right:22px;z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;width:48px;height:48px;border-radius:12px;background:#e63946;border:none;text-decoration:none;box-shadow:0 4px 16px rgba(230,57,70,0.45);transition:opacity 0.2s"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg><span style="font-size:9px;font-weight:700;color:#fff;letter-spacing:0.5px;line-height:1">TOP</span></a>
@@ -838,4 +1144,4 @@ document.addEventListener('DOMContentLoaded', function(){
 <tr><td style="font-size:12px">2317</td><td style="font-size:12px">鴻海</td><td style="font-size:12px">122990174</td><td style="font-size:12px">107476</td><td style="font-size:12px">261.00</td><td><b style="color:#ef4444">11.00</b></td></tr>
 </tbody></table>
 <script>document.querySelectorAll("a[href^='#stock-']").forEach(a=>{a.addEventListener("click",()=>{const el=document.getElementById(a.getAttribute("href").slice(1));if(el){let p=el.parentElement;while(p){if(p.tagName==="DETAILS")p.open=true;p=p.parentElement;}}});});</script>
-<script>window.SOURCE_DATA={"generated_at": "2026-05-26 05:53 UTC", "total_posts": 1242, "total_sources": 42, "categories": [{"label": "台股財經 RSS", "sources": [{"name": "經濟日報", "lang": "中文", "posts": 0, "last_fetch": ""}, {"name": "自由財經", "lang": "中文", "posts": 0, "last_fetch": ""}, {"name": "科技新報", "lang": "中文", "posts": 9, "last_fetch": "2026-05-26T02:01:58.422872+00:00"}, {"name": "財訊", "lang": "中文", "posts": 1, "last_fetch": "2026-05-21T08:38:00.228120+00:00"}, {"name": "股感知識庫", "lang": "中文", "posts": 16, "last_fetch": "2026-05-25T09:47:43.325386+00:00"}, {"name": "Yahoo奇摩股市", "lang": "中文", "posts": 18, "last_fetch": "2026-05-26T02:01:58.541170+00:00"}, {"name": "Yahoo奇摩新聞", "lang": "中文", "posts": 22, "last_fetch": "2026-05-26T02:01:58.474594+00:00"}, {"name": "中央社財經", "lang": "中文", "posts": 0, "last_fetch": ""}, {"name": "新頭殼財經", "lang": "中文", "posts": 12, "last_fetch": "2026-05-26T02:01:58.579409+00:00"}, {"name": "證交所新聞", "lang": "中文", "posts": 1, "last_fetch": "2026-05-26T02:01:58.586666+00:00"}]}, {"label": "國際財經 RSS", "sources": [{"name": "Reuters Business", "lang": "EN→中", "posts": 0, "last_fetch": ""}, {"name": "CNBC Markets", "lang": "EN→中", "posts": 0, "last_fetch": ""}, {"name": "NHK World Business", "lang": "EN→中", "posts": 0, "last_fetch": ""}, {"name": "NHK World Economy", "lang": "EN→中", "posts": 0, "last_fetch": ""}, {"name": "Yahoo Finance", "lang": "EN→中", "posts": 0, "last_fetch": ""}, {"name": "AP Business", "lang": "EN→中", "posts": 0, "last_fetch": ""}, {"name": "WSJ Markets", "lang": "EN→中", "posts": 0, "last_fetch": ""}, {"name": "Bloomberg Markets", "lang": "EN→中", "posts": 0, "last_fetch": ""}, {"name": "Business Times ASEAN", "lang": "EN→中", "posts": 0, "last_fetch": ""}, {"name": "Business Times Economy", "lang": "EN→中", "posts": 0, "last_fetch": ""}, {"name": "Nikkei Asia", "lang": "EN→中", "posts": 0, "last_fetch": ""}, {"name": "Financial Times", "lang": "EN→中", "posts": 0, "last_fetch": ""}]}, {"label": "部落格 RSS", "sources": [{"name": "Medium 台股", "lang": "中文", "posts": 0, "last_fetch": ""}, {"name": "Medium 投資", "lang": "中文", "posts": 0, "last_fetch": ""}]}, {"label": "YouTube 頻道", "sources": [{"name": "財經M平方", "lang": "中文", "posts": 0, "last_fetch": ""}, {"name": "股癌", "lang": "中文", "posts": 0, "last_fetch": ""}, {"name": "今周刊", "lang": "中文", "posts": 0, "last_fetch": ""}, {"name": "MoneyDJ", "lang": "中文", "posts": 0, "last_fetch": ""}, {"name": "財經皓角", "lang": "中文", "posts": 1, "last_fetch": "2026-05-21T08:38:00.395792+00:00"}, {"name": "娜娜說美股", "lang": "中文", "posts": 0, "last_fetch": ""}, {"name": "通勤族飆股報告書", "lang": "中文", "posts": 6, "last_fetch": "2026-05-25T07:32:55.160775+00:00"}, {"name": "鉅亨網", "lang": "中文", "posts": 0, "last_fetch": ""}]}, {"label": "社群論壇", "sources": [{"name": "PTT", "lang": "中文", "posts": 268, "last_fetch": "2026-05-26T02:01:57.515385+00:00"}, {"name": "Dcard", "lang": "中文", "posts": 0, "last_fetch": ""}, {"name": "Mobile01", "lang": "中文", "posts": 0, "last_fetch": ""}, {"name": "Anue鉅亨", "lang": "中文", "posts": 48, "last_fetch": "2026-05-26T02:01:58.367391+00:00"}, {"name": "Medium", "lang": "中文", "posts": 3, "last_fetch": "2026-05-21T06:52:34.098140+00:00"}, {"name": "Google News", "lang": "中文", "posts": 811, "last_fetch": "2026-05-26T02:01:58.299351+00:00"}, {"name": "Reddit", "lang": "EN", "posts": 0, "last_fetch": ""}, {"name": "CMoney", "lang": "中文", "posts": 26, "last_fetch": "2026-05-26T02:01:58.598031+00:00"}, {"name": "CMoney社群", "lang": "中文", "posts": 0, "last_fetch": ""}, {"name": "股感知識庫", "lang": "中文", "posts": 0, "last_fetch": ""}]}]};</script>
+<script>window.SOURCE_DATA={"generated_at": "2026-05-26 06:22 UTC", "total_posts": 1242, "total_sources": 42, "categories": [{"label": "台股財經 RSS", "sources": [{"name": "經濟日報", "lang": "中文", "posts": 0, "last_fetch": ""}, {"name": "自由財經", "lang": "中文", "posts": 0, "last_fetch": ""}, {"name": "科技新報", "lang": "中文", "posts": 9, "last_fetch": "2026-05-26T02:01:58.422872+00:00"}, {"name": "財訊", "lang": "中文", "posts": 1, "last_fetch": "2026-05-21T08:38:00.228120+00:00"}, {"name": "股感知識庫", "lang": "中文", "posts": 16, "last_fetch": "2026-05-25T09:47:43.325386+00:00"}, {"name": "Yahoo奇摩股市", "lang": "中文", "posts": 18, "last_fetch": "2026-05-26T02:01:58.541170+00:00"}, {"name": "Yahoo奇摩新聞", "lang": "中文", "posts": 22, "last_fetch": "2026-05-26T02:01:58.474594+00:00"}, {"name": "中央社財經", "lang": "中文", "posts": 0, "last_fetch": ""}, {"name": "新頭殼財經", "lang": "中文", "posts": 12, "last_fetch": "2026-05-26T02:01:58.579409+00:00"}, {"name": "證交所新聞", "lang": "中文", "posts": 1, "last_fetch": "2026-05-26T02:01:58.586666+00:00"}]}, {"label": "國際財經 RSS", "sources": [{"name": "Reuters Business", "lang": "EN→中", "posts": 0, "last_fetch": ""}, {"name": "CNBC Markets", "lang": "EN→中", "posts": 0, "last_fetch": ""}, {"name": "NHK World Business", "lang": "EN→中", "posts": 0, "last_fetch": ""}, {"name": "NHK World Economy", "lang": "EN→中", "posts": 0, "last_fetch": ""}, {"name": "Yahoo Finance", "lang": "EN→中", "posts": 0, "last_fetch": ""}, {"name": "AP Business", "lang": "EN→中", "posts": 0, "last_fetch": ""}, {"name": "WSJ Markets", "lang": "EN→中", "posts": 0, "last_fetch": ""}, {"name": "Bloomberg Markets", "lang": "EN→中", "posts": 0, "last_fetch": ""}, {"name": "Business Times ASEAN", "lang": "EN→中", "posts": 0, "last_fetch": ""}, {"name": "Business Times Economy", "lang": "EN→中", "posts": 0, "last_fetch": ""}, {"name": "Nikkei Asia", "lang": "EN→中", "posts": 0, "last_fetch": ""}, {"name": "Financial Times", "lang": "EN→中", "posts": 0, "last_fetch": ""}]}, {"label": "部落格 RSS", "sources": [{"name": "Medium 台股", "lang": "中文", "posts": 0, "last_fetch": ""}, {"name": "Medium 投資", "lang": "中文", "posts": 0, "last_fetch": ""}]}, {"label": "YouTube 頻道", "sources": [{"name": "財經M平方", "lang": "中文", "posts": 0, "last_fetch": ""}, {"name": "股癌", "lang": "中文", "posts": 0, "last_fetch": ""}, {"name": "今周刊", "lang": "中文", "posts": 0, "last_fetch": ""}, {"name": "MoneyDJ", "lang": "中文", "posts": 0, "last_fetch": ""}, {"name": "財經皓角", "lang": "中文", "posts": 1, "last_fetch": "2026-05-21T08:38:00.395792+00:00"}, {"name": "娜娜說美股", "lang": "中文", "posts": 0, "last_fetch": ""}, {"name": "通勤族飆股報告書", "lang": "中文", "posts": 6, "last_fetch": "2026-05-25T07:32:55.160775+00:00"}, {"name": "鉅亨網", "lang": "中文", "posts": 0, "last_fetch": ""}]}, {"label": "社群論壇", "sources": [{"name": "PTT", "lang": "中文", "posts": 268, "last_fetch": "2026-05-26T02:01:57.515385+00:00"}, {"name": "Dcard", "lang": "中文", "posts": 0, "last_fetch": ""}, {"name": "Mobile01", "lang": "中文", "posts": 0, "last_fetch": ""}, {"name": "Anue鉅亨", "lang": "中文", "posts": 48, "last_fetch": "2026-05-26T02:01:58.367391+00:00"}, {"name": "Medium", "lang": "中文", "posts": 3, "last_fetch": "2026-05-21T06:52:34.098140+00:00"}, {"name": "Google News", "lang": "中文", "posts": 811, "last_fetch": "2026-05-26T02:01:58.299351+00:00"}, {"name": "Reddit", "lang": "EN", "posts": 0, "last_fetch": ""}, {"name": "CMoney", "lang": "中文", "posts": 26, "last_fetch": "2026-05-26T02:01:58.598031+00:00"}, {"name": "CMoney社群", "lang": "中文", "posts": 0, "last_fetch": ""}, {"name": "股感知識庫", "lang": "中文", "posts": 0, "last_fetch": ""}]}]};</script>
