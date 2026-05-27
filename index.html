@@ -1,25 +1,223 @@
-<!DOCTYPE html>
-<html lang="zh-TW">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>台股輿情日報</title>
-<meta http-equiv="refresh" content="0; url=reports/latest.html">
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-PQ3YVYZERR"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-PQ3YVYZERR');</script>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:#131c2e;color:#edf2f7;font-family:'Noto Sans TC',sans-serif;
-  display:flex;align-items:center;justify-content:center;min-height:100vh;flex-direction:column;gap:16px}
-a{color:#60a5fa;font-size:16px;font-weight:600;text-decoration:none;
-  padding:12px 28px;border:1px solid #31435e;border-radius:8px;
-  background:#1f2d48;transition:background .15s}
-a:hover{background:#263652}
-p{color:#7a8ea8;font-size:13px}
-</style>
-</head>
-<body>
-<p>正在跳轉至最新報告…</p>
-<a href="reports/latest.html">→ 台股輿情日報（最新）</a>
-</body>
-</html>
+---
+layout: default
+title: 台股輿情情報站
+is_index: true
+---
+
+
+<section id="wireframe-copy" style="margin-bottom:22px;padding:18px 20px;background:linear-gradient(135deg,rgba(96,165,250,.09),rgba(230,57,70,.10));border:1px solid rgba(96,165,250,.18);border-radius:16px">
+  <div style="font-size:12px;letter-spacing:.08em;color:var(--blue);text-transform:uppercase;margin-bottom:8px">Homepage Wireframe Copy</div>
+  <h2 style="margin:0 0 10px;padding:0;background:none;border:0;font-size:28px;color:#fff">每天整理市場情緒與投資線索，幫你更快看懂台股正在發生什麼</h2>
+  <p style="margin:0 0 14px;color:var(--text2)">整合新聞、論壇、社群與產業訊號，輸出可讀的每日情報摘要，先看重點，再決定要不要深入研究。</p>
+  <div style="display:flex;flex-wrap:wrap;gap:10px">
+    <a href="reports/latest.html" style="display:inline-flex;padding:10px 16px;border-radius:999px;background:#e63946;color:#fff;text-decoration:none;font-weight:700">查看今日情報</a>
+    <a href="#methodology" style="display:inline-flex;padding:10px 16px;border-radius:999px;border:1px solid var(--border);color:#fff;text-decoration:none;font-weight:600">了解研究方法</a>
+  </div>
+</section>
+<section id="snapshot" style="margin-bottom:26px"><h2>首頁 Wireframe 區塊 01｜市場快照</h2><p>這一區負責讓投資者在 5 秒內知道今天要不要繼續看，內容以關鍵數字、更新頻率與風險量感為主。</p><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-top:16px"><div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px"><div style="font-size:12px;color:var(--text3)">近 3 日有效訊號</div><div style="margin-top:8px;font-size:24px;font-weight:700;color:#fff">617</div><div style="margin-top:8px;font-size:12px;color:var(--text2)">最近三天被納入分析的貼文與新聞訊號量</div></div><div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px"><div style="font-size:12px;color:var(--text3)">情緒轉弱個股</div><div style="margin-top:8px;font-size:24px;font-weight:700;color:#fff">0</div><div style="margin-top:8px;font-size:12px;color:var(--text2)">近 3 日平均分數低於 42 的個股數量</div></div><div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px"><div style="font-size:12px;color:var(--text3)">追蹤資料來源</div><div style="margin-top:8px;font-size:24px;font-weight:700;color:#fff">42</div><div style="margin-top:8px;font-size:12px;color:var(--text2)">整合新聞、論壇、社群與整理型來源</div></div><div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px"><div style="font-size:12px;color:var(--text3)">最後更新</div><div style="margin-top:8px;font-size:24px;font-weight:700;color:#fff">2026-05-26 14:56</div><div style="margin-top:8px;font-size:12px;color:var(--text2)">首頁快照最後一次聚合更新時間</div></div></div></section>
+<section id="highlights" style="margin-bottom:26px"><h2>首頁 Wireframe 區塊 02｜今日重點情報</h2><p>這一區是首頁的主內容，挑出 3 個最值得先看的標的或事件，文案重點是「為什麼值得看」，不是只列數字。</p><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:16px">
+            <article style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:10px">
+              <div style="display:flex;justify-content:space-between;gap:12px;align-items:flex-start">
+                <div>
+                  <div style="font-size:12px;color:var(--text3)">重點標的</div>
+                  <h3 style="font-size:20px;line-height:1.25;color:#fff">台積電 <span style="font-size:12px;color:var(--text3)">(2330)</span></h3>
+                </div>
+                <div style="font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;color:#fff">56.8</div>
+              </div>
+              <p style="margin:0;color:var(--text2)">AMD百億投台，19檔半導體漲停</p>
+              <div style="display:flex;flex-wrap:wrap;gap:8px;color:var(--text3);font-size:12px">
+                <span>近 3 日 155 則訊號</span>
+                <span>30 日差值 +0.3</span>
+              </div>
+              <a href="reports/latest.html#stock-2330" style="display:inline-flex;width:max-content;padding:9px 14px;border-radius:999px;background:rgba(230,57,70,.14);border:1px solid rgba(230,57,70,.35);color:#fff;text-decoration:none;font-size:13px;font-weight:600">閱讀完整分析</a>
+            </article>
+            
+            <article style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:10px">
+              <div style="display:flex;justify-content:space-between;gap:12px;align-items:flex-start">
+                <div>
+                  <div style="font-size:12px;color:var(--text3)">重點標的</div>
+                  <h3 style="font-size:20px;line-height:1.25;color:#fff">聯發科 <span style="font-size:12px;color:var(--text3)">(2454)</span></h3>
+                </div>
+                <div style="font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;color:#fff">65.1</div>
+              </div>
+              <p style="margin:0;color:var(--text2)">AMD百億投台，19檔半導體漲停</p>
+              <div style="display:flex;flex-wrap:wrap;gap:8px;color:var(--text3);font-size:12px">
+                <span>近 3 日 96 則訊號</span>
+                <span>30 日差值 +1.9</span>
+              </div>
+              <a href="reports/latest.html#stock-2454" style="display:inline-flex;width:max-content;padding:9px 14px;border-radius:999px;background:rgba(230,57,70,.14);border:1px solid rgba(230,57,70,.35);color:#fff;text-decoration:none;font-size:13px;font-weight:600">閱讀完整分析</a>
+            </article>
+            
+            <article style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:10px">
+              <div style="display:flex;justify-content:space-between;gap:12px;align-items:flex-start">
+                <div>
+                  <div style="font-size:12px;color:var(--text3)">重點標的</div>
+                  <h3 style="font-size:20px;line-height:1.25;color:#fff">0050 <span style="font-size:12px;color:var(--text3)">(0050)</span></h3>
+                </div>
+                <div style="font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;color:#fff">61.2</div>
+              </div>
+              <p style="margin:0;color:var(--text2)">台股暴漲創新高，外資連三買逾千億</p>
+              <div style="display:flex;flex-wrap:wrap;gap:8px;color:var(--text3);font-size:12px">
+                <span>近 3 日 74 則訊號</span>
+                <span>30 日差值 +5.3</span>
+              </div>
+              <a href="reports/latest.html#stock-0050" style="display:inline-flex;width:max-content;padding:9px 14px;border-radius:999px;background:rgba(230,57,70,.14);border:1px solid rgba(230,57,70,.35);color:#fff;text-decoration:none;font-size:13px;font-weight:600">閱讀完整分析</a>
+            </article>
+            </div></section>
+<section id="watchlist" style="margin-bottom:26px"><h2>首頁 Wireframe 區塊 03｜熱門觀察名單</h2><p>這一區對應高頻投資者的掃描需求，適合放熱度升溫、情緒轉弱、短期分歧明顯的個股。</p><div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:0 18px">
+            <div style="display:grid;grid-template-columns:96px 1fr 92px;gap:14px;align-items:center;padding:14px 0;border-top:1px solid var(--border)">
+              <div>
+                <div style="font-size:12px;color:var(--text3)">2330</div>
+                <div style="font-weight:700;color:#fff">台積電</div>
+              </div>
+              <div>
+                <div style="font-size:12px;color:var(--text3);margin-bottom:4px">觀察理由</div>
+                <div style="color:var(--text2)">AMD百億投台，19檔半導體漲停</div>
+              </div>
+              <div style="text-align:right">
+                <div style="font-family:'JetBrains Mono',monospace;font-size:20px;color:#fff">56.8</div>
+                <div style="font-size:12px;color:var(--text3)">近 3 日 155 則</div>
+              </div>
+            </div>
+            
+            <div style="display:grid;grid-template-columns:96px 1fr 92px;gap:14px;align-items:center;padding:14px 0;border-top:1px solid var(--border)">
+              <div>
+                <div style="font-size:12px;color:var(--text3)">2454</div>
+                <div style="font-weight:700;color:#fff">聯發科</div>
+              </div>
+              <div>
+                <div style="font-size:12px;color:var(--text3);margin-bottom:4px">觀察理由</div>
+                <div style="color:var(--text2)">AMD百億投台，19檔半導體漲停</div>
+              </div>
+              <div style="text-align:right">
+                <div style="font-family:'JetBrains Mono',monospace;font-size:20px;color:#fff">65.1</div>
+                <div style="font-size:12px;color:var(--text3)">近 3 日 96 則</div>
+              </div>
+            </div>
+            
+            <div style="display:grid;grid-template-columns:96px 1fr 92px;gap:14px;align-items:center;padding:14px 0;border-top:1px solid var(--border)">
+              <div>
+                <div style="font-size:12px;color:var(--text3)">0050</div>
+                <div style="font-weight:700;color:#fff">0050</div>
+              </div>
+              <div>
+                <div style="font-size:12px;color:var(--text3);margin-bottom:4px">觀察理由</div>
+                <div style="color:var(--text2)">台股暴漲創新高，外資連三買逾千億</div>
+              </div>
+              <div style="text-align:right">
+                <div style="font-family:'JetBrains Mono',monospace;font-size:20px;color:#fff">61.2</div>
+                <div style="font-size:12px;color:var(--text3)">近 3 日 74 則</div>
+              </div>
+            </div>
+            
+            <div style="display:grid;grid-template-columns:96px 1fr 92px;gap:14px;align-items:center;padding:14px 0;border-top:1px solid var(--border)">
+              <div>
+                <div style="font-size:12px;color:var(--text3)">2303</div>
+                <div style="font-weight:700;color:#fff">聯電</div>
+              </div>
+              <div>
+                <div style="font-size:12px;color:var(--text3);margin-bottom:4px">觀察理由</div>
+                <div style="color:var(--text2)">AMD百億投台，19檔半導體漲停</div>
+              </div>
+              <div style="text-align:right">
+                <div style="font-family:'JetBrains Mono',monospace;font-size:20px;color:#fff">65.8</div>
+                <div style="font-size:12px;color:var(--text3)">近 3 日 37 則</div>
+              </div>
+            </div>
+            
+            <div style="display:grid;grid-template-columns:96px 1fr 92px;gap:14px;align-items:center;padding:14px 0;border-top:1px solid var(--border)">
+              <div>
+                <div style="font-size:12px;color:var(--text3)">2317</div>
+                <div style="font-weight:700;color:#fff">鴻海</div>
+              </div>
+              <div>
+                <div style="font-size:12px;color:var(--text3);margin-bottom:4px">觀察理由</div>
+                <div style="color:var(--text2)">史上第五大漲點1376，三天狂漲3623點創新高</div>
+              </div>
+              <div style="text-align:right">
+                <div style="font-family:'JetBrains Mono',monospace;font-size:20px;color:#fff">62.0</div>
+                <div style="font-size:12px;color:var(--text3)">近 3 日 29 則</div>
+              </div>
+            </div>
+            
+            <div style="display:grid;grid-template-columns:96px 1fr 92px;gap:14px;align-items:center;padding:14px 0;border-top:1px solid var(--border)">
+              <div>
+                <div style="font-size:12px;color:var(--text3)">2308</div>
+                <div style="font-weight:700;color:#fff">台達電</div>
+              </div>
+              <div>
+                <div style="font-size:12px;color:var(--text3);margin-bottom:4px">觀察理由</div>
+                <div style="color:var(--text2)">史上第五大漲點1376，三天狂漲3623點創新高</div>
+              </div>
+              <div style="text-align:right">
+                <div style="font-family:'JetBrains Mono',monospace;font-size:20px;color:#fff">68.3</div>
+                <div style="font-size:12px;color:var(--text3)">近 3 日 28 則</div>
+              </div>
+            </div>
+            </div></section>
+<section id="themes" style="margin-bottom:26px"><h2>首頁 Wireframe 區塊 04｜產業主題雷達</h2><p>這一區不是用來列股票，而是用來幫使用者先從產業角度進站，適合 AI、半導體、ETF、航運這類主題入口。</p><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:16px">
+            <a href="reports/latest.html#sec-groups" style="display:block;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;text-decoration:none">
+              <div style="font-size:12px;color:var(--text3)">產業主題</div>
+              <div style="margin-top:4px;font-size:18px;font-weight:700;color:#fff">權值股</div>
+              <div style="margin-top:10px;display:flex;justify-content:space-between;gap:8px;font-size:12px;color:var(--text2)">
+                <span>5 檔個股</span>
+                <span>329 則訊號</span>
+              </div>
+              <div style="margin-top:8px;font-family:'JetBrains Mono',monospace;color:#fff">平均分數 65.0</div>
+            </a>
+            
+            <a href="reports/latest.html#sec-groups" style="display:block;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;text-decoration:none">
+              <div style="font-size:12px;color:var(--text3)">產業主題</div>
+              <div style="margin-top:4px;font-size:18px;font-weight:700;color:#fff">大盤ETF</div>
+              <div style="margin-top:10px;display:flex;justify-content:space-between;gap:8px;font-size:12px;color:var(--text2)">
+                <span>2 檔個股</span>
+                <span>94 則訊號</span>
+              </div>
+              <div style="margin-top:8px;font-family:'JetBrains Mono',monospace;color:#fff">平均分數 58.9</div>
+            </a>
+            
+            <a href="reports/latest.html#sec-groups" style="display:block;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;text-decoration:none">
+              <div style="font-size:12px;color:var(--text3)">產業主題</div>
+              <div style="margin-top:4px;font-size:18px;font-weight:700;color:#fff">晶圓代工</div>
+              <div style="margin-top:10px;display:flex;justify-content:space-between;gap:8px;font-size:12px;color:var(--text2)">
+                <span>1 檔個股</span>
+                <span>37 則訊號</span>
+              </div>
+              <div style="margin-top:8px;font-family:'JetBrains Mono',monospace;color:#fff">平均分數 65.8</div>
+            </a>
+            
+            <a href="reports/latest.html#sec-groups" style="display:block;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;text-decoration:none">
+              <div style="font-size:12px;color:var(--text3)">產業主題</div>
+              <div style="margin-top:4px;font-size:18px;font-weight:700;color:#fff">玻璃面板</div>
+              <div style="margin-top:10px;display:flex;justify-content:space-between;gap:8px;font-size:12px;color:var(--text2)">
+                <span>2 檔個股</span>
+                <span>24 則訊號</span>
+              </div>
+              <div style="margin-top:8px;font-family:'JetBrains Mono',monospace;color:#fff">平均分數 66.6</div>
+            </a>
+            
+            <a href="reports/latest.html#sec-groups" style="display:block;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;text-decoration:none">
+              <div style="font-size:12px;color:var(--text3)">產業主題</div>
+              <div style="margin-top:4px;font-size:18px;font-weight:700;color:#fff">ABF載板</div>
+              <div style="margin-top:10px;display:flex;justify-content:space-between;gap:8px;font-size:12px;color:var(--text2)">
+                <span>3 檔個股</span>
+                <span>17 則訊號</span>
+              </div>
+              <div style="margin-top:8px;font-family:'JetBrains Mono',monospace;color:#fff">平均分數 73.4</div>
+            </a>
+            
+            <a href="reports/latest.html#sec-groups" style="display:block;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;text-decoration:none">
+              <div style="font-size:12px;color:var(--text3)">產業主題</div>
+              <div style="margin-top:4px;font-size:18px;font-weight:700;color:#fff">封裝測試</div>
+              <div style="margin-top:10px;display:flex;justify-content:space-between;gap:8px;font-size:12px;color:var(--text2)">
+                <span>1 檔個股</span>
+                <span>16 則訊號</span>
+              </div>
+              <div style="margin-top:8px;font-family:'JetBrains Mono',monospace;color:#fff">平均分數 70.1</div>
+            </a>
+            </div></section>
+<section id="alerts" style="margin-bottom:26px"><h2>首頁 Wireframe 區塊 05｜風險提醒</h2><p>這一區負責讓使用者快速看到近期偏弱的觀察標的，CTA 應該偏向「查看原因」而不是情緒化喊單。</p><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:16px"><p style="color:var(--text2)">目前沒有明顯的情緒轉弱標的。</p></div></section>
+<section id="methodology" style="margin-bottom:26px"><h2>首頁 Wireframe 區塊 06｜研究方法與可信度</h2><p>這一區要回答兩個問題：你從哪裡來？你怎麼整理？首頁的目的不是解釋技術細節，而是建立可信度。</p><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:16px"><div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px"><div style="font-size:12px;color:var(--text3)">資料來源</div><div style="margin-top:6px;font-size:18px;font-weight:700;color:#fff">新聞、論壇、社群、整理型 RSS</div><p style="margin-top:10px;color:var(--text2)">以多來源交叉整理當日訊號，避免單一平台的偏差過度放大。</p></div><div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px"><div style="font-size:12px;color:var(--text3)">分析方法</div><div style="margin-top:6px;font-size:18px;font-weight:700;color:#fff">情緒分數 + 主題標籤 + 近 3 日變化</div><p style="margin-top:10px;color:var(--text2)">先用規則過濾，再用 LLM 生成摘要、分數與標籤，最後輸出成每日可讀報告。</p></div><div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px"><div style="font-size:12px;color:var(--text3)">首頁 CTA 建議</div><div style="margin-top:6px;font-size:18px;font-weight:700;color:#fff">查看今日情報 / 閱讀完整分析 / 訂閱每週摘要</div><p style="margin-top:10px;color:var(--text2)">首頁按鈕要偏資訊價值，不要像電商下單按鈕，才能維持專業定位。</p></div></div></section>
+<section id="report-archive" style="margin-bottom:20px"><h2>首頁 Wireframe 區塊 07｜歷史報告入口</h2><p>讓使用者知道這不是一次性的頁面，而是持續更新的情報站。</p><div class="report-list"><p style="color:var(--text2)">目前尚無歷史報告可顯示。</p></div></section>
+<section id="disclaimer" style="padding:18px 20px;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.18);border-radius:16px"><h2 style="margin:0 0 10px;padding:0;background:none;border:0;font-size:20px;color:#fff">風險揭露文案</h2><p style="margin:0;color:var(--text2)">本站提供的是資料整理與研究觀點，不構成任何投資建議。情緒訊號與市場討論度僅作為輔助判讀，仍需搭配財務、產業與風險控管自行判斷。</p></section>
+
