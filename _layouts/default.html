@@ -401,8 +401,9 @@ document.querySelectorAll('.content table').forEach(t => {
 
   function fmt(s) {
     if (!s) return '—';
-    // "2026-05-25T10:24:12.xxx+00:00" → "05-25 10:24"
-    return s.replace('T', ' ').substring(5, 16);
+    // 只有 ISO 時間戳才截成「MM-DD HH:MM」；非 ISO（如「每日 17:30 更新」）原樣顯示
+    if (/^\d{4}-\d{2}-\d{2}T/.test(s)) return s.replace('T', ' ').substring(5, 16);
+    return s;
   }
 
   function stars(n) {
