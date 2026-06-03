@@ -541,6 +541,17 @@ body{background:var(--bg,#1d2b3a) !important}
 .rwd-theme-name{font-size:12px;font-weight:700;color:var(--text,#f0f6ff);line-height:1.2}
 .rwd-theme-hex{font-size:11px;color:var(--text3,#6b8fa8);font-family:'JetBrains Mono',monospace}
 @media(max-width:720px){.rwd-theme-lab-grid{grid-template-columns:1fr}.rwd-theme-lab-current{text-align:left;white-space:normal}}
+/* ── Theme bar（精簡單排配色切換，正式版+測試版共用）── */
+.rwd-theme-bar{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;
+  margin:10px 0 14px;padding:7px 12px;border-radius:10px;
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12)}
+.rwd-tb-lbl{font-size:12px;font-weight:800;color:var(--text,#f0f6ff);white-space:nowrap}
+.rwd-tb-grp{display:inline-flex;align-items:center;gap:4px}
+.rwd-tb-t{font-size:11px;color:var(--text3,#6b8fa8);margin-right:2px;white-space:nowrap}
+.rwd-sw{width:18px;height:18px;border-radius:50%;cursor:pointer;padding:0;
+  border:1px solid rgba(255,255,255,.28);transition:transform .12s,box-shadow .12s}
+.rwd-sw:hover{transform:scale(1.18)}
+.rwd-sw.active{box-shadow:0 0 0 2px var(--bg,#1d2b3a),0 0 0 4px var(--text,#fff)}
 </style>
 
 <script>
@@ -559,8 +570,20 @@ document.addEventListener('DOMContentLoaded', function(){
   }
   if (panes.length < 2) return;
 
+  // 區塊標題（#sec-*）陣列，供 tab/搜尋跳轉定位用；未宣告會讓整段 JS 在正式版報「hdrs is not defined」而中斷
+  var hdrs = Array.from(document.querySelectorAll('h2[id^="sec-"]'));
+
   function showTab(idx) {
     panes.forEach(function(p, i){ p.style.display = (i === idx) ? '' : 'none'; });
+  }
+
+  // 捲動到指定元素、停在 sticky 導覽列正下方（供 tab/搜尋跳轉共用；未宣告會在 1187 行報錯）
+  function scrollWithOffset(el) {
+    if (!el) return;
+    var chips = document.getElementById('page-top');
+    var off = 44 + (chips ? chips.offsetHeight : 46) + 8;
+    var y = window.scrollY + el.getBoundingClientRect().top - off;
+    window.scrollTo({top: Math.max(0, y), behavior: 'smooth'});
   }
 
   // 點 tab 後把該分頁內容捲到 sticky 導覽列正下方（而非捲到最頂、看到 banner/配色盤）
@@ -685,12 +708,17 @@ document.addEventListener('DOMContentLoaded', function(){
   window.addEventListener('resize', _updateArrows);
   setTimeout(_updateArrows, 200);
 
-  // Insert wrap after test banner
+  // Insert wrap（隱藏的 tab 容器）— 正式版沒有 banner，需可靠 fallback，否則後面的配色盤/搜尋條不會渲染
   var banner = document.getElementById('rwd-test-banner');
   if (banner) {
     banner.parentNode.insertBefore(wrap, banner.nextSibling);
-  } else {
+  } else if (hdrs && hdrs[0] && hdrs[0].parentNode) {
     hdrs[0].parentNode.insertBefore(wrap, hdrs[0]);
+  } else if (pageTop && pageTop.parentNode) {
+    pageTop.parentNode.insertBefore(wrap, pageTop.nextSibling);
+  } else {
+    var _c = document.querySelector('.content') || document.body;
+    _c.insertBefore(wrap, _c.firstChild);
   }
 
   // Theme lab for test version
@@ -781,39 +809,18 @@ document.addEventListener('DOMContentLoaded', function(){
     function swatchHTML(theme, type) {
       var attr = type === 'theme' ? 'data-theme-id' : (type === 'text' ? 'data-text-id' : 'data-bg-id');
       var color = type === 'theme' ? theme.accent : (type === 'text' ? theme.text : theme.bg);
-      var hex = type === 'theme' ? theme.accent : (type === 'text' ? theme.text : theme.bg);
-      return '<button class="rwd-theme-swatch" ' + attr + '="' + theme.id + '" type="button">' +
-             '<span class="rwd-theme-chip" style="background:' + color + '"></span>' +
-             '<span class="rwd-theme-name">' + theme.name + '</span>' +
-             '<span class="rwd-theme-hex">' + hex + '</span>' +
-             '</button>';
+      return '<button class="rwd-sw" ' + attr + '="' + theme.id + '" type="button" ' +
+             'title="' + theme.name + ' ' + color + '" style="background:' + color + '"></button>';
     }
 
     var panel = document.createElement('section');
-    panel.className = 'rwd-theme-lab';
+    panel.className = 'rwd-theme-bar';
     panel.id = 'rwd-theme-lab';
     panel.innerHTML = [
-      '<div class="rwd-theme-lab-head">',
-      '  <div>',
-      '    <div class="rwd-theme-lab-title">測試版配色切換</div>',
-      '    <div class="rwd-theme-lab-sub">點擊下方色票即可立即切換整站背景色、主題色與文字色。每個色票下方都有 hex 色號，選到的色票會高亮。</div>',
-      '  </div>',
-      '  <div class="rwd-theme-lab-current" id="rwd-theme-current"></div>',
-      '</div>',
-      '<div class="rwd-theme-lab-grid">',
-      '  <div class="rwd-theme-lab-sec">',
-      '    <h3>背景色</h3>',
-      '    <div class="rwd-theme-swatches">' + backgroundThemes.map(function(t){ return swatchHTML(t, "bg"); }).join('') + '</div>',
-      '  </div>',
-      '  <div class="rwd-theme-lab-sec">',
-      '    <h3>主題色</h3>',
-      '    <div class="rwd-theme-swatches">' + themes.map(function(t){ return swatchHTML(t, "theme"); }).join('') + '</div>',
-      '  </div>',
-      '  <div class="rwd-theme-lab-sec">',
-      '    <h3>文字色</h3>',
-      '    <div class="rwd-theme-swatches">' + textThemes.map(function(t){ return swatchHTML(t, "text"); }).join('') + '</div>',
-      '  </div>',
-      '</div>'
+      '<span class="rwd-tb-lbl">🎨 配色</span>',
+      '<span class="rwd-tb-grp"><span class="rwd-tb-t">背景</span>' + backgroundThemes.map(function(t){ return swatchHTML(t, "bg"); }).join('') + '</span>',
+      '<span class="rwd-tb-grp"><span class="rwd-tb-t">主題</span>' + themes.map(function(t){ return swatchHTML(t, "theme"); }).join('') + '</span>',
+      '<span class="rwd-tb-grp"><span class="rwd-tb-t">文字</span>' + textThemes.map(function(t){ return swatchHTML(t, "text"); }).join('') + '</span>'
     ].join('');
 
     if (banner) {
@@ -2193,7 +2200,7 @@ document.addEventListener('DOMContentLoaded', function(){
 <tr><td style="font-size:12px">1303</td><td style="font-size:12px">南亞</td><td style="font-size:12px">151715085</td><td style="font-size:12px">65824</td><td style="font-size:12px">112.50</td><td><b style="color:#ef4444">5.00</b></td><td><b style="color:#ef4444">+4.65%</b></td></tr>
 </tbody></table>
 <script>document.querySelectorAll("a[href^='#stock-']").forEach(a=>{a.addEventListener("click",()=>{const el=document.getElementById(a.getAttribute("href").slice(1));if(el){let p=el.parentElement;while(p){if(p.tagName==="DETAILS")p.open=true;p=p.parentElement;}}});});</script>
-<script>window.SOURCE_DATA={"generated_at": "2026-06-03 05:02 UTC", "total_posts": 4961, "total_sources": 49, "success_sources": 38, "failed_sources": 11, "categories": [{"label": "台股財經 RSS", "sources": [{"name": "經濟日報", "lang": "中文", "posts": 125, "last_fetch": "2026-06-03T04:37:42.445902+00:00", "rating": {"stars": 5, "note": "台股專業媒體"}}, {"name": "自由財經", "lang": "中文", "posts": 217, "last_fetch": "2026-06-03T04:37:42.550094+00:00", "rating": {"stars": 5, "note": "台股官方/法人媒體"}}, {"name": "科技新報", "lang": "中文", "posts": 179, "last_fetch": "2026-06-03T04:37:42.559100+00:00", "rating": {"stars": 5, "note": "台股官方/法人媒體"}}, {"name": "財訊", "lang": "中文", "posts": 30, "last_fetch": "2026-06-01T05:02:28.455888+00:00", "rating": {"stars": 5, "note": "台股官方/法人媒體"}}, {"name": "股感知識庫", "lang": "中文", "posts": 115, "last_fetch": "2026-06-03T04:37:40.462929+00:00", "rating": {"stars": 5, "note": "台股官方/法人媒體"}}, {"name": "Yahoo奇摩股市", "lang": "中文", "posts": 293, "last_fetch": "2026-06-03T04:37:42.574102+00:00", "rating": {"stars": 5, "note": "台股官方/法人媒體"}}, {"name": "Yahoo台股動態", "lang": "中文", "posts": 178, "last_fetch": "2026-06-03T04:37:42.583090+00:00", "rating": {"stars": 5, "note": "台股官方/法人媒體"}}, {"name": "Yahoo研究報導", "lang": "中文", "posts": 23, "last_fetch": "2026-06-03T04:37:40.959742+00:00", "rating": {"stars": 5, "note": "台股官方/法人媒體"}}, {"name": "Yahoo奇摩新聞", "lang": "中文", "posts": 81, "last_fetch": "2026-06-03T04:37:42.219763+00:00", "rating": {"stars": 5, "note": "台股官方/法人媒體"}}, {"name": "中央社財經", "lang": "中文", "posts": 64, "last_fetch": "2026-06-03T04:37:42.520098+00:00", "rating": {"stars": 5, "note": "台股官方/法人媒體"}}, {"name": "新頭殼財經", "lang": "中文", "posts": 71, "last_fetch": "2026-06-03T04:37:41.911305+00:00", "rating": {"stars": 5, "note": "台股官方/法人媒體"}}, {"name": "證交所新聞", "lang": "中文", "posts": 24, "last_fetch": "2026-06-02T09:30:30.784014+00:00", "rating": {"stars": 5, "note": "台股官方/法人媒體"}}, {"name": "MoneyDJ 新聞", "lang": "中文", "posts": 60, "last_fetch": "2026-06-03T04:37:42.535090+00:00", "rating": {"stars": 5, "note": "台股官方/法人媒體"}}, {"name": "鉅亨網新聞", "lang": "中文", "posts": 58, "last_fetch": "2026-06-03T04:37:42.434881+00:00", "rating": {"stars": 5, "note": "台股官方/法人媒體"}}]}, {"label": "國際財經 RSS", "sources": [{"name": "Bloomberg Markets", "lang": "EN→中", "posts": 105, "last_fetch": "2026-06-03T04:37:44.717687+00:00", "rating": {"stars": 4, "note": "國際財經/EN翻中"}}, {"name": "Bloomberg Technology", "lang": "EN→中", "posts": 90, "last_fetch": "2026-06-03T04:37:44.768916+00:00", "rating": {"stars": 4, "note": "國際財經/EN翻中"}}, {"name": "CNBC Markets", "lang": "EN→中", "posts": 77, "last_fetch": "2026-06-03T04:37:44.781358+00:00", "rating": {"stars": 4, "note": "國際財經/EN翻中"}}, {"name": "CNBC Technology", "lang": "EN→中", "posts": 39, "last_fetch": "2026-06-03T04:37:43.913939+00:00", "rating": {"stars": 4, "note": "國際財經/EN翻中"}}, {"name": "CNBC World", "lang": "EN→中", "posts": 16, "last_fetch": "2026-06-03T04:37:43.711463+00:00", "rating": {"stars": 4, "note": "國際財經/EN翻中"}}, {"name": "WSJ Markets", "lang": "EN→中", "posts": 20, "last_fetch": "2026-06-01T08:27:22.976074+00:00", "rating": {"stars": 4, "note": "國際財經/EN翻中"}}, {"name": "WSJ Technology", "lang": "EN→中", "posts": 15, "last_fetch": "2026-06-01T08:27:23.151545+00:00", "rating": {"stars": 4, "note": "國際財經/EN翻中"}}, {"name": "Financial Times", "lang": "EN→中", "posts": 41, "last_fetch": "2026-06-03T04:37:44.367951+00:00", "rating": {"stars": 4, "note": "國際財經/EN翻中"}}, {"name": "FT Markets", "lang": "EN→中", "posts": 48, "last_fetch": "2026-06-03T04:37:44.813725+00:00", "rating": {"stars": 4, "note": "國際財經/EN翻中"}}, {"name": "Yahoo Finance", "lang": "EN→中", "posts": 167, "last_fetch": "2026-06-03T04:37:44.821718+00:00", "rating": {"stars": 4, "note": "國際財經/EN翻中"}}, {"name": "SeekingAlpha市場", "lang": "EN→中", "posts": 38, "last_fetch": "2026-06-03T04:37:43.954755+00:00", "rating": {"stars": 4, "note": "國際財經/EN翻中"}}, {"name": "SeekingAlpha早報", "lang": "EN→中", "posts": 24, "last_fetch": "2026-06-03T04:37:43.154838+00:00", "rating": {"stars": 4, "note": "國際財經/EN翻中"}}, {"name": "Investing.com", "lang": "EN→中", "posts": 59, "last_fetch": "2026-06-03T04:37:44.397811+00:00", "rating": {"stars": 4, "note": "國際財經/EN翻中"}}, {"name": "SCMP商業財經", "lang": "EN→中", "posts": 70, "last_fetch": "2026-06-03T04:37:44.272397+00:00", "rating": {"stars": 4, "note": "國際財經/EN翻中"}}, {"name": "SCMP中國經濟", "lang": "EN→中", "posts": 55, "last_fetch": "2026-06-03T04:37:43.783176+00:00", "rating": {"stars": 4, "note": "國際財經/EN翻中"}}, {"name": "SCMP東亞", "lang": "EN→中", "posts": 41, "last_fetch": "2026-06-03T04:37:42.748124+00:00", "rating": {"stars": 4, "note": "國際財經/EN翻中"}}, {"name": "Business Times ASEAN", "lang": "EN→中", "posts": 19, "last_fetch": "2026-06-03T04:37:43.407658+00:00", "rating": {"stars": 4, "note": "國際財經/EN翻中"}}, {"name": "Business Times Economy", "lang": "EN→中", "posts": 3, "last_fetch": "2026-06-03T04:37:42.767799+00:00", "rating": {"stars": 4, "note": "國際財經/EN翻中"}}, {"name": "MarketWatch 頭條", "lang": "EN→中", "posts": 20, "last_fetch": "2026-06-03T04:37:44.416320+00:00", "rating": {"stars": 4, "note": "國際財經/EN翻中"}}, {"name": "MarketWatch 即時", "lang": "EN→中", "posts": 10, "last_fetch": "2026-06-02T09:30:35.056693+00:00", "rating": {"stars": 4, "note": "國際財經/EN翻中"}}, {"name": "The Economist 財經", "lang": "EN→中", "posts": 15, "last_fetch": "2026-06-03T04:37:42.790999+00:00", "rating": {"stars": 4, "note": "國際財經/EN翻中"}}, {"name": "The Economist 商業", "lang": "EN→中", "posts": 16, "last_fetch": "2026-06-03T04:37:42.798561+00:00", "rating": {"stars": 4, "note": "國際財經/EN翻中"}}, {"name": "ET Markets 印度", "lang": "EN→中", "posts": 36, "last_fetch": "2026-06-03T04:37:44.670557+00:00", "rating": {"stars": 4, "note": "國際財經/EN翻中"}}, {"name": "ET Tech 印度", "lang": "EN→中", "posts": 34, "last_fetch": "2026-06-03T04:37:44.678551+00:00", "rating": {"stars": 4, "note": "國際財經/EN翻中"}}, {"name": "Google新聞-A股", "lang": "中文", "posts": 24, "last_fetch": "2026-06-03T04:37:44.698475+00:00", "rating": {"stars": 4, "note": "國際財經/EN翻中"}}, {"name": "Google新聞-中國經濟", "lang": "中文", "posts": 22, "last_fetch": "2026-06-03T04:37:44.706461+00:00", "rating": {"stars": 4, "note": "國際財經/EN翻中"}}]}, {"label": "部落格 RSS", "sources": [{"name": "Medium 台股", "lang": "中文", "posts": 5, "last_fetch": "2026-06-02T05:14:45.119491+00:00", "rating": {"stars": 3, "note": "部落客/品質不均"}}, {"name": "Medium 投資", "lang": "中文", "posts": 8, "last_fetch": "2026-06-02T05:14:45.614551+00:00", "rating": {"stars": 3, "note": "部落客/品質不均"}}]}, {"label": "YouTube 頻道", "sources": [{"name": "財經皓角", "lang": "中文", "posts": 1, "last_fetch": "2026-05-21T08:38:00.395792+00:00", "rating": {"stars": 3, "note": "財經頻道/標題為主"}}, {"name": "通勤族飆股報告書", "lang": "中文", "posts": 8, "last_fetch": "2026-06-01T02:28:58.989116+00:00", "rating": {"stars": 3, "note": "財經頻道/標題為主"}}]}, {"label": "社群論壇", "sources": [{"name": "PTT", "lang": "中文", "posts": 299, "last_fetch": "2026-06-03T04:20:51.279195+00:00", "rating": {"stars": 4, "note": "活躍討論/有雜訊"}}, {"name": "Anue鉅亨", "lang": "中文", "posts": 145, "last_fetch": "2026-06-03T04:20:50.143050+00:00", "rating": {"stars": 5, "note": "台股專業媒體"}}, {"name": "Medium", "lang": "中文", "posts": 3, "last_fetch": "2026-05-29T09:06:54.281942+00:00", "rating": {"stars": 3, "note": "部落客品質不均"}}, {"name": "Google News", "lang": "中文", "posts": 1812, "last_fetch": "2026-06-03T04:20:50.007458+00:00", "rating": {"stars": 4, "note": "覆蓋廣/重複高"}}, {"name": "CMoney", "lang": "中文", "posts": 58, "last_fetch": "2026-06-02T09:11:16.615696+00:00", "rating": {"stars": 5, "note": "台股社群+法人"}}]}, {"label": "TWSE 官方數據", "sources": [{"name": "三大法人買賣超", "lang": "官方", "posts": 0, "last_fetch": "每日 17:30 更新", "rating": {"stars": 5, "note": "TWSE OpenAPI 官方數據"}}, {"name": "融資融券餘額", "lang": "官方", "posts": 0, "last_fetch": "每日 17:30 更新", "rating": {"stars": 5, "note": "TWSE OpenAPI 官方數據"}}, {"name": "成交量排行", "lang": "官方", "posts": 0, "last_fetch": "每日 15:30 更新", "rating": {"stars": 5, "note": "TWSE OpenAPI 官方數據"}}, {"name": "借券餘額 SBL", "lang": "官方", "posts": 0, "last_fetch": "每日盤後更新", "rating": {"stars": 4, "note": "TWSE OpenAPI / 偶爾空回傳"}}, {"name": "公司基本資料", "lang": "官方", "posts": 0, "last_fetch": "季更新", "rating": {"stars": 5, "note": "TWSE OpenAPI 官方數據"}}, {"name": "股票估值", "lang": "官方", "posts": 0, "last_fetch": "每日更新", "rating": {"stars": 5, "note": "TWSE OpenAPI 官方數據"}}]}]};</script>
+<script>window.SOURCE_DATA={"generated_at": "2026-06-03 05:23 UTC", "total_posts": 4961, "total_sources": 49, "success_sources": 38, "failed_sources": 11, "categories": [{"label": "台股財經 RSS", "sources": [{"name": "經濟日報", "lang": "中文", "posts": 125, "last_fetch": "2026-06-03T04:37:42.445902+00:00", "rating": {"stars": 5, "note": "台股專業媒體"}}, {"name": "自由財經", "lang": "中文", "posts": 217, "last_fetch": "2026-06-03T04:37:42.550094+00:00", "rating": {"stars": 5, "note": "台股官方/法人媒體"}}, {"name": "科技新報", "lang": "中文", "posts": 179, "last_fetch": "2026-06-03T04:37:42.559100+00:00", "rating": {"stars": 5, "note": "台股官方/法人媒體"}}, {"name": "財訊", "lang": "中文", "posts": 30, "last_fetch": "2026-06-01T05:02:28.455888+00:00", "rating": {"stars": 5, "note": "台股官方/法人媒體"}}, {"name": "股感知識庫", "lang": "中文", "posts": 115, "last_fetch": "2026-06-03T04:37:40.462929+00:00", "rating": {"stars": 5, "note": "台股官方/法人媒體"}}, {"name": "Yahoo奇摩股市", "lang": "中文", "posts": 293, "last_fetch": "2026-06-03T04:37:42.574102+00:00", "rating": {"stars": 5, "note": "台股官方/法人媒體"}}, {"name": "Yahoo台股動態", "lang": "中文", "posts": 178, "last_fetch": "2026-06-03T04:37:42.583090+00:00", "rating": {"stars": 5, "note": "台股官方/法人媒體"}}, {"name": "Yahoo研究報導", "lang": "中文", "posts": 23, "last_fetch": "2026-06-03T04:37:40.959742+00:00", "rating": {"stars": 5, "note": "台股官方/法人媒體"}}, {"name": "Yahoo奇摩新聞", "lang": "中文", "posts": 81, "last_fetch": "2026-06-03T04:37:42.219763+00:00", "rating": {"stars": 5, "note": "台股官方/法人媒體"}}, {"name": "中央社財經", "lang": "中文", "posts": 64, "last_fetch": "2026-06-03T04:37:42.520098+00:00", "rating": {"stars": 5, "note": "台股官方/法人媒體"}}, {"name": "新頭殼財經", "lang": "中文", "posts": 71, "last_fetch": "2026-06-03T04:37:41.911305+00:00", "rating": {"stars": 5, "note": "台股官方/法人媒體"}}, {"name": "證交所新聞", "lang": "中文", "posts": 24, "last_fetch": "2026-06-02T09:30:30.784014+00:00", "rating": {"stars": 5, "note": "台股官方/法人媒體"}}, {"name": "MoneyDJ 新聞", "lang": "中文", "posts": 60, "last_fetch": "2026-06-03T04:37:42.535090+00:00", "rating": {"stars": 5, "note": "台股官方/法人媒體"}}, {"name": "鉅亨網新聞", "lang": "中文", "posts": 58, "last_fetch": "2026-06-03T04:37:42.434881+00:00", "rating": {"stars": 5, "note": "台股官方/法人媒體"}}]}, {"label": "國際財經 RSS", "sources": [{"name": "Bloomberg Markets", "lang": "EN→中", "posts": 105, "last_fetch": "2026-06-03T04:37:44.717687+00:00", "rating": {"stars": 4, "note": "國際財經/EN翻中"}}, {"name": "Bloomberg Technology", "lang": "EN→中", "posts": 90, "last_fetch": "2026-06-03T04:37:44.768916+00:00", "rating": {"stars": 4, "note": "國際財經/EN翻中"}}, {"name": "CNBC Markets", "lang": "EN→中", "posts": 77, "last_fetch": "2026-06-03T04:37:44.781358+00:00", "rating": {"stars": 4, "note": "國際財經/EN翻中"}}, {"name": "CNBC Technology", "lang": "EN→中", "posts": 39, "last_fetch": "2026-06-03T04:37:43.913939+00:00", "rating": {"stars": 4, "note": "國際財經/EN翻中"}}, {"name": "CNBC World", "lang": "EN→中", "posts": 16, "last_fetch": "2026-06-03T04:37:43.711463+00:00", "rating": {"stars": 4, "note": "國際財經/EN翻中"}}, {"name": "WSJ Markets", "lang": "EN→中", "posts": 20, "last_fetch": "2026-06-01T08:27:22.976074+00:00", "rating": {"stars": 4, "note": "國際財經/EN翻中"}}, {"name": "WSJ Technology", "lang": "EN→中", "posts": 15, "last_fetch": "2026-06-01T08:27:23.151545+00:00", "rating": {"stars": 4, "note": "國際財經/EN翻中"}}, {"name": "Financial Times", "lang": "EN→中", "posts": 41, "last_fetch": "2026-06-03T04:37:44.367951+00:00", "rating": {"stars": 4, "note": "國際財經/EN翻中"}}, {"name": "FT Markets", "lang": "EN→中", "posts": 48, "last_fetch": "2026-06-03T04:37:44.813725+00:00", "rating": {"stars": 4, "note": "國際財經/EN翻中"}}, {"name": "Yahoo Finance", "lang": "EN→中", "posts": 167, "last_fetch": "2026-06-03T04:37:44.821718+00:00", "rating": {"stars": 4, "note": "國際財經/EN翻中"}}, {"name": "SeekingAlpha市場", "lang": "EN→中", "posts": 38, "last_fetch": "2026-06-03T04:37:43.954755+00:00", "rating": {"stars": 4, "note": "國際財經/EN翻中"}}, {"name": "SeekingAlpha早報", "lang": "EN→中", "posts": 24, "last_fetch": "2026-06-03T04:37:43.154838+00:00", "rating": {"stars": 4, "note": "國際財經/EN翻中"}}, {"name": "Investing.com", "lang": "EN→中", "posts": 59, "last_fetch": "2026-06-03T04:37:44.397811+00:00", "rating": {"stars": 4, "note": "國際財經/EN翻中"}}, {"name": "SCMP商業財經", "lang": "EN→中", "posts": 70, "last_fetch": "2026-06-03T04:37:44.272397+00:00", "rating": {"stars": 4, "note": "國際財經/EN翻中"}}, {"name": "SCMP中國經濟", "lang": "EN→中", "posts": 55, "last_fetch": "2026-06-03T04:37:43.783176+00:00", "rating": {"stars": 4, "note": "國際財經/EN翻中"}}, {"name": "SCMP東亞", "lang": "EN→中", "posts": 41, "last_fetch": "2026-06-03T04:37:42.748124+00:00", "rating": {"stars": 4, "note": "國際財經/EN翻中"}}, {"name": "Business Times ASEAN", "lang": "EN→中", "posts": 19, "last_fetch": "2026-06-03T04:37:43.407658+00:00", "rating": {"stars": 4, "note": "國際財經/EN翻中"}}, {"name": "Business Times Economy", "lang": "EN→中", "posts": 3, "last_fetch": "2026-06-03T04:37:42.767799+00:00", "rating": {"stars": 4, "note": "國際財經/EN翻中"}}, {"name": "MarketWatch 頭條", "lang": "EN→中", "posts": 20, "last_fetch": "2026-06-03T04:37:44.416320+00:00", "rating": {"stars": 4, "note": "國際財經/EN翻中"}}, {"name": "MarketWatch 即時", "lang": "EN→中", "posts": 10, "last_fetch": "2026-06-02T09:30:35.056693+00:00", "rating": {"stars": 4, "note": "國際財經/EN翻中"}}, {"name": "The Economist 財經", "lang": "EN→中", "posts": 15, "last_fetch": "2026-06-03T04:37:42.790999+00:00", "rating": {"stars": 4, "note": "國際財經/EN翻中"}}, {"name": "The Economist 商業", "lang": "EN→中", "posts": 16, "last_fetch": "2026-06-03T04:37:42.798561+00:00", "rating": {"stars": 4, "note": "國際財經/EN翻中"}}, {"name": "ET Markets 印度", "lang": "EN→中", "posts": 36, "last_fetch": "2026-06-03T04:37:44.670557+00:00", "rating": {"stars": 4, "note": "國際財經/EN翻中"}}, {"name": "ET Tech 印度", "lang": "EN→中", "posts": 34, "last_fetch": "2026-06-03T04:37:44.678551+00:00", "rating": {"stars": 4, "note": "國際財經/EN翻中"}}, {"name": "Google新聞-A股", "lang": "中文", "posts": 24, "last_fetch": "2026-06-03T04:37:44.698475+00:00", "rating": {"stars": 4, "note": "國際財經/EN翻中"}}, {"name": "Google新聞-中國經濟", "lang": "中文", "posts": 22, "last_fetch": "2026-06-03T04:37:44.706461+00:00", "rating": {"stars": 4, "note": "國際財經/EN翻中"}}]}, {"label": "部落格 RSS", "sources": [{"name": "Medium 台股", "lang": "中文", "posts": 5, "last_fetch": "2026-06-02T05:14:45.119491+00:00", "rating": {"stars": 3, "note": "部落客/品質不均"}}, {"name": "Medium 投資", "lang": "中文", "posts": 8, "last_fetch": "2026-06-02T05:14:45.614551+00:00", "rating": {"stars": 3, "note": "部落客/品質不均"}}]}, {"label": "YouTube 頻道", "sources": [{"name": "財經皓角", "lang": "中文", "posts": 1, "last_fetch": "2026-05-21T08:38:00.395792+00:00", "rating": {"stars": 3, "note": "財經頻道/標題為主"}}, {"name": "通勤族飆股報告書", "lang": "中文", "posts": 8, "last_fetch": "2026-06-01T02:28:58.989116+00:00", "rating": {"stars": 3, "note": "財經頻道/標題為主"}}]}, {"label": "社群論壇", "sources": [{"name": "PTT", "lang": "中文", "posts": 299, "last_fetch": "2026-06-03T04:20:51.279195+00:00", "rating": {"stars": 4, "note": "活躍討論/有雜訊"}}, {"name": "Anue鉅亨", "lang": "中文", "posts": 145, "last_fetch": "2026-06-03T04:20:50.143050+00:00", "rating": {"stars": 5, "note": "台股專業媒體"}}, {"name": "Medium", "lang": "中文", "posts": 3, "last_fetch": "2026-05-29T09:06:54.281942+00:00", "rating": {"stars": 3, "note": "部落客品質不均"}}, {"name": "Google News", "lang": "中文", "posts": 1812, "last_fetch": "2026-06-03T04:20:50.007458+00:00", "rating": {"stars": 4, "note": "覆蓋廣/重複高"}}, {"name": "CMoney", "lang": "中文", "posts": 58, "last_fetch": "2026-06-02T09:11:16.615696+00:00", "rating": {"stars": 5, "note": "台股社群+法人"}}]}, {"label": "TWSE 官方數據", "sources": [{"name": "三大法人買賣超", "lang": "官方", "posts": 0, "last_fetch": "每日 17:00 後更新", "rating": {"stars": 5, "note": "TWSE OpenAPI 官方數據"}}, {"name": "融資融券餘額", "lang": "官方", "posts": 0, "last_fetch": "每日 17:30 更新", "rating": {"stars": 5, "note": "TWSE OpenAPI 官方數據"}}, {"name": "成交量排行", "lang": "官方", "posts": 0, "last_fetch": "每日 15:30 更新", "rating": {"stars": 5, "note": "TWSE OpenAPI 官方數據"}}, {"name": "借券餘額 SBL", "lang": "官方", "posts": 0, "last_fetch": "每日盤後更新", "rating": {"stars": 4, "note": "TWSE OpenAPI / 偶爾空回傳"}}, {"name": "公司基本資料", "lang": "官方", "posts": 0, "last_fetch": "季更新", "rating": {"stars": 5, "note": "TWSE OpenAPI 官方數據"}}, {"name": "股票估值", "lang": "官方", "posts": 0, "last_fetch": "每日更新", "rating": {"stars": 5, "note": "TWSE OpenAPI 官方數據"}}]}]};</script>
 </div>
   </div>
 </div>
@@ -2247,8 +2254,9 @@ document.querySelectorAll('.content table').forEach(t => {
 
   function fmt(s) {
     if (!s) return '—';
-    // "2026-05-25T10:24:12.xxx+00:00" → "05-25 10:24"
-    return s.replace('T', ' ').substring(5, 16);
+    // 只有 ISO 時間戳才截成「MM-DD HH:MM」；非 ISO（如「每日 17:30 更新」）原樣顯示
+    if (/^\d{4}-\d{2}-\d{2}T/.test(s)) return s.replace('T', ' ').substring(5, 16);
+    return s;
   }
 
   function stars(n) {
