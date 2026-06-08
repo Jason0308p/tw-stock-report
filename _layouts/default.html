@@ -323,7 +323,6 @@ footer a { color: var(--text3); }
   <table class="sp-tbl">
     <thead><tr>
       <th>類別</th><th>來源</th>
-      <th>評分</th>
       <th style="text-align:right">近30天</th><th>最後更新</th>
     </tr></thead>
     <tbody id="sp-body"></tbody>
@@ -429,12 +428,10 @@ document.querySelectorAll('.content table').forEach(t => {
           : '';
         const cnt = (src.posts || 0) > 0 ? (src.posts).toLocaleString() : '—';
         const r = src.rating || {};
-        const starHtml = stars(r.stars != null ? r.stars : 3);
         const noteTitle = r.note ? ` title="${r.note}"` : '';
         rows.push(
           `<tr>${catTd}` +
-          `<td>${src.name}</td>` +
-          `<td class="sp-rate"${noteTitle}>${starHtml}</td>` +
+          `<td${noteTitle}>${src.name}</td>` +
           `<td class="sp-cnt">${cnt}</td>` +
           `<td class="sp-date">${fmt(src.last_fetch)}</td>` +
           `</tr>`
