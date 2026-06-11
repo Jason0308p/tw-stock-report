@@ -3,14 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>股市英文・專業文章＆專訪｜Professional Market English</title>
+<title>真實英文財經報導選輯｜Real Market English</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#090f1c; --surface:#0f1828; --card:#162134; --card2:#1c2940; --border:#273750;
-  --accent:#e63946; --gold:#f59e0b; --blue:#60a5fa; --text:#e8eef6; --text2:#a3b4c9; --text3:#74879f;
+  --accent:#e63946; --up:#ff7676; --dn:#46d98a; --neu:#60a5fa; --gold:#f59e0b;
+  --text:#e8eef6; --text2:#a3b4c9; --text3:#74879f;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -22,472 +23,240 @@ nav{position:sticky;top:0;z-index:100;background:rgba(11,15,25,.94);backdrop-fil
 .nav-links a{color:var(--text2);text-decoration:none;font-size:12.5px;padding:4px 10px;border-radius:6px}
 .nav-links a:hover{background:var(--card);color:var(--text)}
 
-.hero{padding:16px 18px;border-bottom:1px solid var(--border);background:linear-gradient(135deg,#0f172a,#1a1638)}
+.hero{padding:15px 18px;border-bottom:1px solid var(--border);background:linear-gradient(135deg,#0f172a,#1a1638)}
 .hero h1{font-size:18px;font-weight:700;color:#fff;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
 .hero h1 .en{font-size:11px;font-weight:500;color:var(--accent);letter-spacing:1px;text-transform:uppercase}
-.hero p{color:var(--text2);font-size:12px;margin-top:4px}
+.hero p{color:var(--text2);font-size:12px;margin-top:5px}
 
-.wrap{max-width:1140px;margin:0 auto;padding:14px 18px 70px}
+.wrap{max-width:1120px;margin:0 auto;padding:14px 18px 70px}
 
-.jump{position:sticky;top:46px;z-index:90;display:flex;flex-wrap:wrap;gap:5px;padding:9px 0;background:var(--bg);border-bottom:1px solid var(--border);margin-bottom:16px}
-.jump a{padding:4px 10px;border-radius:14px;background:var(--card);border:1px solid var(--border);color:var(--text2);font-size:12px;font-weight:600;text-decoration:none;white-space:nowrap}
+.jump{position:sticky;top:46px;z-index:90;display:flex;flex-wrap:wrap;gap:5px;padding:9px 0;background:var(--bg);border-bottom:1px solid var(--border);margin-bottom:14px}
+.jump a{padding:4px 11px;border-radius:14px;background:var(--card);border:1px solid var(--border);color:var(--text2);font-size:12px;font-weight:600;text-decoration:none;white-space:nowrap}
 .jump a:hover{background:rgba(230,57,70,.16);border-color:rgba(230,57,70,.55);color:#ff8a92}
 
-.legend{font-size:12px;color:var(--text2);background:var(--card);border:1px solid var(--border);border-radius:8px;padding:9px 12px;margin-bottom:20px}
-.legend b{color:var(--gold)}
-mark{background:none;font-weight:600;padding:0;color:#ffd27a}
-mark.up{color:#ff7676}mark.dn{color:#46d98a}
+.note{font-size:12px;color:var(--text2);background:var(--card);border:1px solid var(--border);border-radius:8px;padding:9px 13px;margin-bottom:18px}
+.note b{color:var(--gold)}
+mark{background:none;font-weight:700;padding:0}
+mark.u{color:var(--up)}mark.d{color:var(--dn)}mark.n{color:#ffd27a}
 
-.scene{margin-bottom:40px;scroll-margin-top:96px}
-.scene-h{display:flex;align-items:center;gap:8px;margin-bottom:13px;border-left:3px solid var(--accent);padding-left:9px}
-.scene-h .num{font-size:11px;font-weight:800;color:#fff;background:var(--accent);min-width:20px;height:20px;border-radius:5px;display:flex;align-items:center;justify-content:center;padding:0 4px}
-.scene-h h2{font-size:16px;font-weight:700;color:#fff}
-.scene-h .ctx{font-size:11.5px;color:var(--text3);font-weight:400}
+.sec-h{display:flex;align-items:baseline;gap:9px;margin:24px 0 11px;border-left:3px solid var(--accent);padding-left:9px}
+.sec-h h2{font-size:16px;font-weight:700;color:#fff}
+.sec-h .ctx{font-size:11.5px;color:var(--text3)}
 
-.tag{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:700;letter-spacing:.4px;padding:3px 9px;border-radius:5px;margin-bottom:9px}
-.tag.art{background:rgba(96,165,250,.14);border:1px solid rgba(96,165,250,.4);color:#9cc6fb}
-.tag.talk{background:rgba(245,158,11,.13);border:1px solid rgba(245,158,11,.4);color:#fbc176}
+.feed{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+@media(max-width:760px){.feed{grid-template-columns:1fr}}
 
-/* ARTICLE */
-.article{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:15px 18px;margin-bottom:16px}
-.article .dl{font-size:10.5px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--gold)}
-.article .tt{font-family:'Source Serif 4',Georgia,serif;font-size:19px;font-weight:600;color:#fff;line-height:1.3;margin:3px 0 4px}
-.article .byl{font-size:11px;color:var(--text3);margin-bottom:10px;font-style:italic}
-.article p.en{font-family:'Source Serif 4',Georgia,serif;font-size:15px;color:#e7eef7;margin-top:11px;line-height:1.72}
-.article p.zh{font-size:12px;color:var(--text3);margin-top:4px;line-height:1.6;padding-left:11px;border-left:2px solid var(--border)}
+.card{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--neu);border-radius:9px;padding:11px 14px;display:flex;flex-direction:column;transition:border-color .15s}
+.card.up{border-left-color:var(--up)}
+.card.dn{border-left-color:var(--dn)}
+.card:hover{border-top-color:#3b5378;border-right-color:#3b5378;border-bottom-color:#3b5378}
+.card .meta{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px}
+.src{display:inline-flex;align-items:center;gap:6px;font-size:10.5px;color:var(--text3);font-weight:600}
+.src .out{color:#fff;background:var(--card2);border:1px solid var(--border);border-radius:4px;padding:1px 7px;letter-spacing:.3px}
+.golink{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;color:#0b1018;background:var(--gold);border-radius:6px;padding:3px 10px;text-decoration:none;white-space:nowrap}
+.golink:hover{background:#ffb13d}
+.headline{font-family:'Source Serif 4',Georgia,serif;font-size:16px;font-weight:600;line-height:1.34;color:#fff;text-decoration:none}
+.headline:hover{color:#cfe0f5}
+.facts{font-size:11.5px;color:var(--text3);margin-top:7px;line-height:1.55}
+.facts b{color:#cdd9e8;font-weight:600}
+.zh{font-size:12px;color:var(--text2);margin-top:6px;padding-left:9px;border-left:2px solid var(--border)}
 
-/* DIALOGUE 左寬右窄 */
-.cols{display:grid;grid-template-columns:1.7fr 1fr;gap:18px;align-items:start}
-@media(max-width:780px){.cols{grid-template-columns:1fr;gap:12px}}
-.chat{display:flex;flex-direction:column;gap:9px}
-.msg{max-width:90%;display:flex;flex-direction:column}
-.msg.a{align-self:flex-start}
-.msg.b{align-self:flex-end;align-items:flex-end}
-.who{font-size:10px;color:var(--text3);font-weight:600;padding:0 6px 2px}
-.bubble{padding:10px 15px;border-radius:14px;font-size:14px;line-height:1.62}
-.msg.a .bubble{background:var(--card);border:1px solid var(--border);border-top-left-radius:4px}
-.msg.b .bubble{background:#1b3050;border:1px solid #2c476b;border-top-right-radius:4px}
-.bubble .zh{display:block;font-size:11.5px;color:var(--text3);margin-top:4px;line-height:1.5}
+.srcs{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+@media(max-width:760px){.srcs{grid-template-columns:1fr}}
+.srcs a{display:block;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:9px 13px;text-decoration:none}
+.srcs a:hover{border-color:#3b5378}
+.srcs .n{font-size:13px;font-weight:700;color:#fff}
+.srcs .n .lv{font-size:10px;font-weight:600;color:var(--gold);border:1px solid var(--gold);border-radius:3px;padding:0 5px;margin-left:6px}
+.srcs .d{font-size:11.5px;color:var(--text3);margin-top:2px}
+.srcs .u{font-size:11px;color:var(--neu);margin-top:3px;word-break:break-all}
 
-.vbox{background:var(--surface);border:1px solid var(--border);border-radius:9px;overflow:hidden;position:sticky;top:100px}
-.vbox .vh{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--text3);padding:7px 11px;background:var(--card2)}
-.vrow{padding:7px 11px;border-top:1px solid var(--border)}
-.vrow .t{font-size:12.5px;font-weight:700;color:#dfe8f3}
-.vrow .t .z{color:var(--blue);font-weight:600;font-size:11.5px;margin-left:5px}
-.vrow .e{font-size:11.5px;color:var(--text3);margin-top:1px;line-height:1.42}
-.vrow.up .t{color:#ff8a8a}.vrow.dn .t{color:#54e09a}
-@media(max-width:780px){.msg{max-width:94%}.vbox{position:static}}
-
-/* appendix */
-.apx-h{font-size:14px;font-weight:700;color:#fff;margin:6px 0 9px;border-left:3px solid var(--gold);padding-left:9px}
-.tg{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
-@media(max-width:780px){.tg{grid-template-columns:1fr}}
-table.d{width:100%;border-collapse:collapse;font-size:11.5px;background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden}
-table.d caption{text-align:left;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text3);background:var(--card2);padding:5px 10px}
-table.d td{border-top:1px solid var(--border);padding:4px 10px;vertical-align:top}
-table.d td:first-child{font-weight:700;color:#fff;white-space:nowrap;width:46%}
-table.d td:first-child .z{display:block;color:var(--blue);font-weight:500;font-size:10.5px}
-table.d td:last-child{color:var(--text2)}
-
-/* search keywords */
-.skg{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-@media(max-width:780px){.skg{grid-template-columns:1fr}}
-table.sk{width:100%;border-collapse:collapse;font-size:11.5px;background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden}
-table.sk caption{text-align:left;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text3);background:var(--card2);padding:5px 10px}
-table.sk td{border-top:1px solid var(--border);padding:5px 10px;vertical-align:top}
-table.sk td:first-child{color:#dfe8f3;font-weight:600;width:36%}
-table.sk td:last-child{color:var(--text2)}
-table.sk .kw{font-family:'JetBrains Mono',monospace;color:var(--gold);font-weight:500;font-size:11px}
-table.sk .nt{display:block;color:var(--text3);font-size:10.5px;margin-top:1px}
-
-.rec{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-@media(max-width:780px){.rec{grid-template-columns:1fr}}
-.recbox{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden}
-.recbox .rh{font-size:10.5px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;padding:5px 10px;background:var(--card2)}
-.rr{padding:5px 10px;border-top:1px solid var(--border);font-size:11.5px}
-.rr b{color:#fff;font-size:12px}.rr .h{color:var(--blue);font-size:10.5px;margin-left:5px}
-.rr .lv{color:var(--gold);font-size:9.5px;border:1px solid var(--gold);border-radius:3px;padding:0 4px;margin-left:5px}
-.rr .d{color:var(--text3);display:block;margin-top:1px}
-
-.tip{background:rgba(245,158,11,.07);border:1px solid rgba(245,158,11,.28);border-radius:8px;padding:9px 12px;font-size:12px;color:var(--text2);margin-top:12px}
-.tip b{color:var(--gold)}
-.foot{text-align:center;color:var(--text3);font-size:11px;margin-top:28px;padding-top:16px;border-top:1px solid var(--border)}
-code{font-family:'JetBrains Mono',monospace;background:var(--card2);padding:0 4px;border-radius:3px;font-size:11px;color:#cbd5e1}
-hr{border:none;border-top:1px solid var(--border);margin:24px 0}
+.foot{text-align:center;color:var(--text3);font-size:11px;margin-top:32px;padding-top:16px;border-top:1px solid var(--border)}
 </style>
 </head>
 <body>
 
 <nav>
-  <a class="nav-brand" href="index.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>股市英文<span>專業版</span></a>
+  <a class="nav-brand" href="index.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>真實英文<span>報導</span></a>
   <div class="nav-links"><a href="index.html">← 回輿情日報</a></div>
 </nav>
 
 <div class="hero">
-  <h1>股市英文・專業文章 ＆ 專訪 <span class="en">Market English · Pro</span></h1>
-  <p>新聞收盤稿、分析報告、經理人專訪等級的英文。每主題＝<mark class="up">一篇文章</mark>＋<mark>一段長對話</mark>，中英對照、標重點用語。</p>
+  <h1>真實英文財經報導選輯 <span class="en">Real Market English</span></h1>
+  <p>每則皆為 CNBC 真實報導＋原文連結，標題就是最道地的股市英文。<mark class="u">紅=漲</mark>、<mark class="d">綠=跌</mark>、<mark class="n">黃=關鍵詞</mark>（依台股慣例）</p>
 </div>
 
 <div class="wrap">
   <div class="jump">
-    <a href="#s1">①收盤大盤回顧</a><a href="#s2">②財報季與個股</a><a href="#s3">③投資配置與觀點</a><a href="#s4">④央行與總經</a><a href="#s5">⑤技術面與資金流</a><a href="#search">🔎搜尋關鍵字</a><a href="#apx">＋延伸用語</a><a href="#rec">▶頻道</a>
+    <a href="#mkt">大盤行情</a><a href="#beat">財報亮眼</a><a href="#miss">財報踩雷</a><a href="#anly">分析師評等</a><a href="#deal">併購・IPO</a><a href="#macro">總經數據</a><a href="#more">自己讀更多</a>
+  </div>
+  <div class="note">下面 20+ 則<b>全是 CNBC 真實報導</b>（標題、數據皆引自原文），非自製內容。每張卡右上角「🔗 原文」點進去就是完整英文文章；卡片左側色條：<mark class="u">紅＝上漲</mark>、<mark class="d">綠＝下跌</mark>、藍＝數據/中性。</div>
+
+  <!-- 大盤行情 -->
+  <div class="sec-h" id="mkt"><h2>① 大盤行情</h2><span class="ctx">Market recap — 收盤漲跌</span></div>
+  <div class="feed">
+    <div class="card up">
+      <div class="meta"><span class="src"><span class="out">CNBC</span>·2026-06-01</span><a class="golink" href="https://www.cnbc.com/2026/06/01/stock-market-today-live-updates.html" target="_blank" rel="noopener noreferrer">🔗 原文</a></div>
+      <a class="headline" href="https://www.cnbc.com/2026/06/01/stock-market-today-live-updates.html" target="_blank" rel="noopener noreferrer">Dow <mark class="u">jumps</mark> more than 200 points, S&P 500 posts first <mark class="u">close above</mark> 7,600</a>
+      <div class="zh">道瓊大漲逾 200 點，標普 500 首度收在 7,600 之上。</div>
+    </div>
+    <div class="card up">
+      <div class="meta"><span class="src"><span class="out">CNBC</span>·2026-05-31</span><a class="golink" href="https://www.cnbc.com/2026/05/31/stock-market-today-live-updates.html" target="_blank" rel="noopener noreferrer">🔗 原文</a></div>
+      <a class="headline" href="https://www.cnbc.com/2026/05/31/stock-market-today-live-updates.html" target="_blank" rel="noopener noreferrer">S&P 500 closes at a <mark class="u">record</mark> to kick off June trading as tech <mark class="u">rally</mark> overpowers oil spike</a>
+      <div class="zh">科技股漲勢蓋過油價飆升，標普 500 以歷史新高為 6 月開場。</div>
+    </div>
+    <div class="card dn">
+      <div class="meta"><span class="src"><span class="out">CNBC</span>·2026-06-09</span><a class="golink" href="https://www.cnbc.com/2026/06/09/stock-market-today-live-updates.html" target="_blank" rel="noopener noreferrer">🔗 原文</a></div>
+      <a class="headline" href="https://www.cnbc.com/2026/06/09/stock-market-today-live-updates.html" target="_blank" rel="noopener noreferrer">Dow <mark class="d">drops</mark> more than 900 points as chip <mark class="d">sell-off</mark> worsens, Trump threatens more Iran attacks</a>
+      <div class="facts"><b>Dow fell 953.33 (-1.87%)</b> to 49,918.78; <b>S&P lost 1.62%</b> to 7,266.99; <b>Nasdaq dropped 1.98%</b> to 25,169.50; WTI crude rose 2.07% to $90.03.</div>
+      <div class="zh">晶片股賣壓加劇＋川普揚言攻擊伊朗，道瓊重挫逾 900 點，油價反向走高。</div>
+    </div>
+    <div class="card dn">
+      <div class="meta"><span class="src"><span class="out">CNBC</span>·2026-06-04</span><a class="golink" href="https://www.cnbc.com/2026/06/04/stock-market-today-live-updates.html" target="_blank" rel="noopener noreferrer">🔗 原文</a></div>
+      <a class="headline" href="https://www.cnbc.com/2026/06/04/stock-market-today-live-updates.html" target="_blank" rel="noopener noreferrer">Nasdaq <mark class="d">falls</mark> 4% and suffers worst day since April 2025 as traders <mark class="d">flee</mark> chip stocks</a>
+      <div class="zh">交易員棄守晶片股，那斯達克重挫 4%、創 2025 年 4 月以來最慘單日。</div>
+    </div>
+    <div class="card dn">
+      <div class="meta"><span class="src"><span class="out">CNBC</span>·2026-06-08</span><a class="golink" href="https://www.cnbc.com/2026/06/08/stock-market-today-live-updates.html" target="_blank" rel="noopener noreferrer">🔗 原文</a></div>
+      <a class="headline" href="https://www.cnbc.com/2026/06/08/stock-market-today-live-updates.html" target="_blank" rel="noopener noreferrer">S&P 500 and Nasdaq <mark class="d">close lower</mark> as chip stock rebound <mark class="d">fails</mark></a>
+      <div class="zh">晶片股反彈無力，標普 500 與那斯達克雙雙收黑。</div>
+    </div>
   </div>
 
-  <div class="legend">每個主題有兩塊：<b style="color:#9cc6fb">📰 專業文章</b>（收盤稿／分析報告／經理人評論，讀寫用）＋<b style="color:#fbc176">💬 長對話專訪</b>（主播 × 基金經理人，口說用）。對話旁的窄欄是該段重點用語的中文與用法。顏色：<mark>黃=通用</mark>、<mark class="up">紅=漲</mark>、<mark class="dn">綠=跌</mark>。</div>
-
-  <!-- ============ 1 ============ -->
-  <section class="scene" id="s1">
-    <div class="scene-h"><span class="num">1</span><h2>收盤大盤回顧</h2><span class="ctx">Market Wrap｜盤後新聞稿與主播專訪</span></div>
-
-    <span class="tag art">📰 收盤新聞稿 CLOSING-BELL SCRIPT</span>
-    <div class="article">
-      <div class="dl">Market Wrap · Tuesday Close</div>
-      <div class="tt">Tech-led rally lifts the S&P 500 to a third straight record as inflation cools</div>
-      <div class="byl">Anchor read · broadcast register</div>
-      <p class="en">Good evening. U.S. equities <mark class="up">closed broadly higher</mark> on Tuesday, with the S&P 500 <mark class="up">notching its third consecutive record close</mark> as a powerful <mark class="up">rally</mark> in megacap technology shares more than offset weakness across the defensive sectors. The benchmark <mark class="up">advanced</mark> 0.8%, the Nasdaq Composite <mark class="up">outperformed</mark> with a gain of 1.3%, while the more cyclically exposed Dow <mark class="dn">lagged</mark>, edging up just 0.2%.</p>
-      <p class="zh">晚安。週二美股全面收高，標普 500 在大型科技股強勁走揚的帶動下、連續第三個交易日創收盤新高，漲幅遠遠抵銷了防禦類股的疲弱。大盤上漲 0.8%，那斯達克綜合指數以 1.3% 的漲幅領先，而景氣循環色彩較重的道瓊則落後、僅微幅走高 0.2%。</p>
-      <p class="en">Beneath the surface, however, <mark>breadth remained narrow</mark>: the gains were concentrated in a handful of heavyweight names, and <mark class="dn">decliners actually outnumbered advancers</mark> on the New York Stock Exchange. <mark>Investor sentiment was buoyed</mark> by a softer-than-expected inflation <mark>print</mark>, which reinforced expectations that the Federal Reserve will begin <mark class="up">easing policy</mark> by the first quarter. Treasury <mark>yields eased</mark> in response, with the rate-sensitive 10-year slipping four <mark>basis points</mark>, lending further support to growth-oriented sectors.</p>
-      <p class="zh">不過在指數表面之下，市場廣度依舊偏窄：漲幅集中在少數權值股，紐約證交所的下跌家數其實多於上漲家數。一份低於預期的通膨數據提振了投資人信心，強化了聯準會將於第一季開始寬鬆政策的預期。公債殖利率因此回落，對利率敏感的十年期下滑四個基點，進一步支撐了成長型類股。</p>
-      <p class="en">Market participants now <mark>turn their attention</mark> to Thursday's results from the sector <mark>bellwether</mark>, which are widely expected to <mark>set the tone</mark> for the remainder of the reporting season. We'll have full coverage after the bell.</p>
-      <p class="zh">市場參與者現在把焦點轉向週四這檔類股指標股的財報，普遍預期它將為本財報季餘下的走勢定調。盤後我們會有完整報導。</p>
+  <!-- 財報亮眼 -->
+  <div class="sec-h" id="beat"><h2>② 財報亮眼</h2><span class="ctx">Earnings beats — 優於預期、股價噴出</span></div>
+  <div class="feed">
+    <div class="card up">
+      <div class="meta"><span class="src"><span class="out">CNBC</span>·2026-06-01</span><a class="golink" href="https://www.cnbc.com/2026/06/01/hpe-stock-earnings-q2.html" target="_blank" rel="noopener noreferrer">🔗 原文</a></div>
+      <a class="headline" href="https://www.cnbc.com/2026/06/01/hpe-stock-earnings-q2.html" target="_blank" rel="noopener noreferrer">HPE <mark class="u">skyrockets</mark> 30% on biggest earnings <mark class="u">beat</mark> since 2018</a>
+      <div class="facts"><b>Adjusted EPS 79¢ vs. 53¢ expected</b>; <b>revenue $10.68B vs. $9.79B expected</b>，AI 伺服器需求帶動。</div>
+      <div class="zh">慧與科技繳出 2018 年來最大優於預期財報，股價狂飆 30%。</div>
     </div>
-
-    <span class="tag talk">💬 主播 × 首席策略師 專訪</span>
-    <div class="cols">
-      <div class="chat">
-        <div class="msg a"><span class="who">Anchor</span><div class="bubble">Thanks for joining us. We saw another record close, yet breadth was strikingly narrow. Should investors read that as a warning sign?<span class="zh">謝謝你來。我們又看到收盤新高，但市場廣度卻明顯偏窄。投資人該把這視為警訊嗎？</span></div></div>
-        <div class="msg b"><span class="who">Strategist</span><div class="bubble">It's certainly something we're watching closely. When leadership <mark>narrows</mark> to a handful of megacaps, the index becomes <mark>top-heavy</mark> and more vulnerable to a sharp <mark class="dn">pullback</mark> if those names stumble. That said, narrow leadership can persist for a long time, so I wouldn't turn outright <mark class="dn">bearish</mark> on that signal alone.<span class="zh">這確實是我們密切關注的。當領漲集中在少數大型股，指數會變得頭重腳輕，一旦這些股票絆倒就更容易出現急跌。話雖如此，這種窄幅領漲可能持續很久，所以我不會只憑這個訊號就轉為全面看空。</span></div></div>
-        <div class="msg a"><span class="who">Anchor</span><div class="bubble">The cooler inflation print clearly moved the needle today. How much easing is the market now <mark>pricing in</mark> for this year?<span class="zh">今天較低的通膨數據顯然帶動了盤勢。市場目前對今年的降息幅度反映了多少？</span></div></div>
-        <div class="msg b"><span class="who">Strategist</span><div class="bubble">The futures market is now <mark>discounting</mark> roughly three quarter-point cuts before year-end, up from two just a week ago. The risk, frankly, is that expectations have run ahead of the data. If the next couple of prints come in <mark>sticky</mark>, you could see a fairly violent repricing in rates, and that would be a meaningful <mark class="dn">headwind</mark> for the long-duration growth names that have led this rally.<span class="zh">期貨市場目前反映年底前約三次一碼降息，比一週前的兩次增加。坦白說，風險在於預期已經跑在數據前面。如果接下來幾次數據顯示通膨頑固，利率市場可能出現相當劇烈的重新定價，那對領漲這波的長存續期成長股會是明顯的逆風。</span></div></div>
-        <div class="msg a"><span class="who">Anchor</span><div class="bubble">So how are you advising clients to <mark>position</mark> into Thursday's bellwether earnings?<span class="zh">那你建議客戶在週四指標股財報前如何佈局？</span></div></div>
-        <div class="msg b"><span class="who">Strategist</span><div class="bubble">We're telling them not to <mark>chase</mark> strength into the print. We'd rather <mark>stay selective</mark>, keep some <mark>dry powder</mark>, and add to high-conviction positions on any post-earnings weakness. The setup is asymmetric: expectations are elevated, so a modest <mark class="dn">miss</mark> could trigger an outsized <mark class="dn">sell-off</mark>, whereas a <mark class="up">beat</mark> may already be largely <mark>priced in</mark>.<span class="zh">我們會告訴他們不要在財報前追強勢。我們寧可保持選股紀律、留些備用現金，等財報後若有任何回落再加碼高信心的部位。這個局面是不對稱的：市場預期偏高，所以即使小幅不如預期，也可能引發超乎比例的賣壓；反之，優於預期可能早已大致反映在股價裡了。</span></div></div>
-        <div class="msg a"><span class="who">Anchor</span><div class="bubble">A disciplined approach. Thanks for your insights this evening.<span class="zh">很有紀律的做法。謝謝你今晚的分析。</span></div></div>
-      </div>
-      <div class="vbox"><div class="vh">本段專業用語</div>
-        <div class="vrow up"><div class="t">notch a record close<span class="z">創收盤新高</span></div><div class="e">notch＝締造；亦可 set / hit a record。</div></div>
-        <div class="vrow"><div class="t">breadth / narrow<span class="z">市場廣度／偏窄</span></div><div class="e">多少股參與漲勢；narrow＝靠少數股。</div></div>
-        <div class="vrow dn"><div class="t">advancers / decliners<span class="z">上漲／下跌家數</span></div><div class="e">decliners outnumber advancers＝跌多於漲。</div></div>
-        <div class="vrow"><div class="t">defensives / cyclicals<span class="z">防禦股／景氣循環股</span></div><div class="e">防禦抗跌；循環隨景氣起伏。</div></div>
-        <div class="vrow"><div class="t">print<span class="z">（經濟）數據出爐值</span></div><div class="e">inflation print＝通膨數據；口語常用。</div></div>
-        <div class="vrow"><div class="t">basis point (bp)<span class="z">基點</span></div><div class="e">1bp＝0.01%；殖利率、利率常用。</div></div>
-        <div class="vrow"><div class="t">bellwether<span class="z">指標股、風向球</span></div><div class="e">帶領類股方向的代表性公司。</div></div>
-        <div class="vrow"><div class="t">buoyed / set the tone<span class="z">提振／定調</span></div><div class="e">buoy＝撐起信心；set the tone＝為後市定調。</div></div>
-        <div class="vrow"><div class="t">price in / discount<span class="z">反映在股價</span></div><div class="e">discount 在金融＝預先反映（非折扣）。</div></div>
-        <div class="vrow"><div class="t">top-heavy<span class="z">頭重腳輕</span></div><div class="e">權重過度集中在少數大型股。</div></div>
-        <div class="vrow"><div class="t">dry powder<span class="z">備用現金</span></div><div class="e">待命、隨時可進場的資金。</div></div>
-      </div>
+    <div class="card up">
+      <div class="meta"><span class="src"><span class="out">CNBC</span>·2026-04-23</span><a class="golink" href="https://www.cnbc.com/2026/04/23/intel-intc-q1-2026-earnings-report.html" target="_blank" rel="noopener noreferrer">🔗 原文</a></div>
+      <a class="headline" href="https://www.cnbc.com/2026/04/23/intel-intc-q1-2026-earnings-report.html" target="_blank" rel="noopener noreferrer">Intel's stock <mark class="u">soars</mark> 20% as results <mark class="u">top estimates</mark>, with chipmaker showing signs of growth</a>
+      <div class="zh">英特爾財報優於預期、出現成長跡象，股價大漲 20%。</div>
     </div>
-  </section>
-
-  <!-- ============ 2 ============ -->
-  <section class="scene" id="s2">
-    <div class="scene-h"><span class="num">2</span><h2>財報季與個股</h2><span class="ctx">Earnings Season｜財報快訊與分析師專訪</span></div>
-
-    <span class="tag art">📰 財報快訊 EARNINGS WRITE-UP</span>
-    <div class="article">
-      <div class="dl">Earnings · After the Bell</div>
-      <div class="tt">Chipmaker tops estimates and lifts its outlook, but shares slip as guidance disappoints the bulls</div>
-      <div class="byl">Newswire style · analyst-grade</div>
-      <p class="en">The semiconductor bellwether <mark class="up">comfortably beat</mark> Wall Street's expectations after the close, reporting adjusted earnings of $1.40 a share on revenue that <mark class="up">grew 28% year over year</mark>, both ahead of <mark>consensus</mark>. <mark>Gross margin</mark> <mark class="up">expanded</mark> to a record 59%, underscoring the company's <mark>pricing power</mark> amid resilient demand for its data-center products.</p>
-      <p class="zh">這檔半導體指標股在盤後輕鬆優於華爾街預期，公布調整後每股盈餘 1.40 美元、營收年增 28%，兩者皆高於市場一致預期。毛利率擴張至 59% 的新高，凸顯了在資料中心產品需求強韌下、公司的定價能力。</p>
-      <p class="en">Yet the stock <mark class="dn">slipped roughly 4% in after-hours trading</mark>. The culprit was <mark>forward guidance</mark>: management <mark>guided</mark> next-quarter revenue to a range whose midpoint sat modestly <mark class="dn">below the most bullish forecasts</mark>, and flagged a near-term <mark>inventory correction</mark> among some customers. In a market that had <mark>priced in</mark> flawless execution, a merely solid outlook was enough to trigger <mark class="dn">profit-taking</mark>.</p>
-      <p class="zh">然而該股在盤後交易下跌約 4%。罪魁禍首是財測展望：管理層將下一季營收財測指引至一個區間，其中位數略低於最樂觀的預測，並示警部分客戶短期內將進行庫存調整。在一個早已反映「完美執行」的市場裡，僅僅是穩健的展望就足以引發獲利了結。</p>
-      <p class="en">Several analysts <mark class="up">reiterated their Buy ratings</mark> and nudged up <mark>price targets</mark>, framing the dip as a buying opportunity, while one <mark class="dn">downgraded to Hold</mark> on <mark>valuation</mark> grounds, noting the shares trade at a demanding 40 times forward earnings. The divergence captures the central debate: is this a <mark>structural growth story</mark>, or a great company whose stock has simply run too far, too fast?</p>
-      <p class="zh">數家分析師重申買進評等並小幅上調目標價，將這次回檔定調為買點；另有一家則以估值為由調降至中立，指出股價的本益比已達偏高的 40 倍預估獲利。這種分歧正好點出核心爭論：這究竟是一個結構性成長故事，還是一家好公司、但股價漲得太多太快？</p>
+    <div class="card up">
+      <div class="meta"><span class="src"><span class="out">CNBC</span>·2026-05-04</span><a class="golink" href="https://www.cnbc.com/2026/05/04/pinterest-pins-q1-earnings-report-2026.html" target="_blank" rel="noopener noreferrer">🔗 原文</a></div>
+      <a class="headline" href="https://www.cnbc.com/2026/05/04/pinterest-pins-q1-earnings-report-2026.html" target="_blank" rel="noopener noreferrer">Pinterest <mark class="u">surges</mark> 15% after earnings <mark class="u">beat</mark> as company posts strong <mark class="u">guidance</mark></a>
+      <div class="zh">Pinterest 財報優於預期、財測強勁，股價急拉 15%。</div>
     </div>
-
-    <span class="tag talk">💬 主播 × 半導體分析師 專訪</span>
-    <div class="cols">
-      <div class="chat">
-        <div class="msg a"><span class="who">Anchor</span><div class="bubble">A clear beat on both the top and bottom line, yet the stock is lower. Walk us through why the market is so unforgiving here.<span class="zh">營收和獲利都明顯超預期，股價卻下跌。請帶我們了解為什麼市場在這裡這麼不留情。</span></div></div>
-        <div class="msg b"><span class="who">Analyst</span><div class="bubble">It comes down to <mark>expectations versus reality</mark>. This name has been a <mark>consensus long</mark> for months, so a beat was effectively the bar to clear, not a positive surprise. The whole debate hinges on <mark>guidance</mark>, and management <mark>guided conservatively</mark>. The flag on a customer <mark>inventory correction</mark> spooked investors who were extrapolating the current growth rate indefinitely.<span class="zh">關鍵在於預期與現實的落差。這檔已經當了好幾個月的市場共識多單，所以優於預期其實只是該跨過的門檻，而非正面驚喜。整個爭論的核心在財測，而管理層給的指引偏保守。對客戶庫存調整的示警，嚇到了那些把當前成長率無限外推的投資人。</span></div></div>
-        <div class="msg a"><span class="who">Anchor</span><div class="bubble">Is that inventory issue a genuine red flag, or just normal seasonality being over-interpreted?<span class="zh">那個庫存問題是真正的警訊，還是只是正常的季節性被過度解讀？</span></div></div>
-        <div class="msg b"><span class="who">Analyst</span><div class="bubble">My read is that it's largely a <mark>digestion phase</mark> rather than a <mark>demand-destruction story</mark>. After several quarters of customers <mark>double-ordering</mark> to secure supply, some <mark>inventory normalization</mark> is healthy and expected. The <mark>secular tailwind</mark> from AI infrastructure spending is very much intact. I'd characterize this as a <mark class="dn">pause</mark>, not a <mark class="dn">peak</mark>.<span class="zh">我的解讀是，這多半是一個消化階段，而非需求崩壞的故事。在客戶為確保供貨而重複下單好幾季之後，一些庫存正常化是健康且可預期的。來自 AI 基礎建設支出的長期順風依然完好。我會把這形容為一次喘息，而不是見頂。</span></div></div>
-        <div class="msg a"><span class="who">Anchor</span><div class="bubble">One desk downgraded purely on valuation. At 40 times forward earnings, is that a fair concern?<span class="zh">有一家純粹因估值調降評等。40 倍預估本益比，這個顧慮合理嗎？</span></div></div>
-        <div class="msg b"><span class="who">Analyst</span><div class="bubble">Valuation is always the bears' strongest card in a name like this. It's undeniably <mark>priced for perfection</mark>, which leaves little <mark>margin of safety</mark> if growth decelerates. But I'd push back on downgrading on multiple alone — you have to weigh it against the <mark>earnings trajectory</mark>. If the company <mark>compounds</mark> earnings at 30% a year, today's multiple looks a lot more reasonable two years out. We're maintaining our <mark class="up">Overweight</mark>.<span class="zh">在這樣的股票上，估值永遠是空方最強的一張牌。它無疑是「以完美定價」，一旦成長減速就幾乎沒有安全邊際。但我不認同只憑本益比就調降——你得拿它跟獲利軌跡一起權衡。如果公司每年以 30% 複合成長獲利，今天的本益比放到兩年後看就合理多了。我們維持加碼評等。</span></div></div>
-        <div class="msg a"><span class="who">Anchor</span><div class="bubble">A nuanced take. Thank you for breaking it down for us.<span class="zh">很細膩的觀點。謝謝你為我們拆解。</span></div></div>
-      </div>
-      <div class="vbox"><div class="vh">本段專業用語</div>
-        <div class="vrow up"><div class="t">beat / miss consensus<span class="z">優於／不如市場一致預期</span></div><div class="e">consensus＝分析師平均預估。</div></div>
-        <div class="vrow"><div class="t">guidance / guide<span class="z">財測／給出指引</span></div><div class="e">guide conservatively＝財測偏保守。</div></div>
-        <div class="vrow up"><div class="t">margin expansion<span class="z">利潤率擴張</span></div><div class="e">毛利／營益率提升；反義 compression。</div></div>
-        <div class="vrow"><div class="t">pricing power<span class="z">定價能力</span></div><div class="e">能漲價而不流失客戶的本事。</div></div>
-        <div class="vrow dn"><div class="t">profit-taking<span class="z">獲利了結</span></div><div class="e">利多出盡、先落袋；可壓回股價。</div></div>
-        <div class="vrow up"><div class="t">reiterate / Overweight<span class="z">重申評等／加碼</span></div><div class="e">Overweight＝建議高於指數權重配置。</div></div>
-        <div class="vrow dn"><div class="t">downgrade on valuation<span class="z">因估值調降</span></div><div class="e">純粹因股價太貴而非基本面轉差。</div></div>
-        <div class="vrow"><div class="t">priced for perfection<span class="z">以完美定價</span></div><div class="e">股價已假設一切順利，容錯空間極小。</div></div>
-        <div class="vrow"><div class="t">margin of safety<span class="z">安全邊際</span></div><div class="e">價格低於價值的緩衝空間。</div></div>
-        <div class="vrow"><div class="t">secular tailwind<span class="z">長期結構性順風</span></div><div class="e">跨景氣循環的長線利多趨勢。</div></div>
-        <div class="vrow"><div class="t">compound (earnings)<span class="z">複合成長</span></div><div class="e">逐年累積式成長。</div></div>
-      </div>
+    <div class="card up">
+      <div class="meta"><span class="src"><span class="out">CNBC</span>·2026-05-08</span><a class="golink" href="https://www.cnbc.com/2026/05/08/rocket-lab-rklb-q1-earnings-2026.html" target="_blank" rel="noopener noreferrer">🔗 原文</a></div>
+      <a class="headline" href="https://www.cnbc.com/2026/05/08/rocket-lab-rklb-q1-earnings-2026.html" target="_blank" rel="noopener noreferrer">Rocket Lab <mark class="u">surges</mark> 34% in best day ever on revenue <mark class="u">beat</mark>, record-setting launch deal</a>
+      <div class="zh">火箭實驗室營收優於預期、簽下史上最大發射合約，單日狂漲 34% 創紀錄。</div>
     </div>
-  </section>
+  </div>
 
-  <!-- ============ 3 ============ -->
-  <section class="scene" id="s3">
-    <div class="scene-h"><span class="num">3</span><h2>投資配置與觀點</h2><span class="ctx">Positioning｜經理人月報摘要與客戶會議</span></div>
-
-    <span class="tag art">📰 經理人月報摘錄 PM COMMENTARY</span>
-    <div class="article">
-      <div class="dl">Portfolio Commentary · Monthly Letter</div>
-      <div class="tt">Trimming the winners, adding to laggards: why we are rotating toward quality at a discount</div>
-      <div class="byl">Fund manager letter · professional register</div>
-      <p class="en">During the month, the portfolio <mark class="up">returned 2.1%</mark>, modestly <mark class="up">ahead of its benchmark</mark>, with positive contribution driven primarily by our <mark>overweight</mark> in semiconductors and an <mark>underweight</mark> in rate-sensitive utilities. We used the strength to <mark>take some profit</mark> in two of our largest positions, <mark>rebalancing</mark> back toward target weights and <mark>locking in gains</mark> after an exceptional run.</p>
-      <p class="zh">本月投資組合報酬率 2.1%，小幅優於基準指數，正報酬主要來自我們在半導體的加碼，以及對利率敏感的公用事業的減碼。我們利用這波強勢，在兩檔最大持股上獲利了結一部分，將權重重新平衡回目標水位，並在一段非凡漲勢後鎖定獲利。</p>
-      <p class="en">We are increasingly <mark>cautious on valuations</mark> at the index level, where multiples have <mark>re-rated</mark> sharply without a commensurate improvement in earnings. Rather than reaching for <mark>momentum</mark>, we are <mark>rotating</mark> deliberately into high-quality businesses that have <mark class="dn">de-rated</mark> and now trade at a <mark>discount to their intrinsic value</mark> — companies with durable <mark>competitive moats</mark>, strong <mark>free cash flow</mark>, and conservative balance sheets that can <mark>compound through a cycle</mark>.</p>
-      <p class="zh">我們對指數層級的估值越來越謹慎——本益比已大幅重評，卻沒有對應的獲利改善。我們不去追逐動能，而是有意識地輪動至那些評價已被下修、目前以低於內在價值折價交易的高品質企業——這些公司具有持久的競爭護城河、強勁的自由現金流，以及保守的資產負債表，能夠穿越景氣循環持續複利成長。</p>
-      <p class="en">We remain <mark>fully invested but defensively tilted</mark>, holding a slightly elevated cash buffer as <mark>dry powder</mark> for the <mark>volatility</mark> we expect around the upcoming policy meeting. Our objective is unchanged: to <mark>compound capital</mark> steadily while preserving it during <mark class="dn">drawdowns</mark>.</p>
-      <p class="zh">我們維持滿手投資但帶防禦傾向，持有略高的現金緩衝作為備用資金，以因應我們預期在即將到來的政策會議前後出現的波動。我們的目標不變：穩健地複利累積資本，同時在回檔期間保全本金。</p>
+  <!-- 財報踩雷 -->
+  <div class="sec-h" id="miss"><h2>③ 財報踩雷</h2><span class="ctx">Misses & guidance cuts — 財測差、股價殺</span></div>
+  <div class="feed">
+    <div class="card dn">
+      <div class="meta"><span class="src"><span class="out">CNBC</span>·2026-06-10</span><a class="golink" href="https://www.cnbc.com/2026/06/10/oracle-orcl-q4-earnings-report-2026.html" target="_blank" rel="noopener noreferrer">🔗 原文</a></div>
+      <a class="headline" href="https://www.cnbc.com/2026/06/10/oracle-orcl-q4-earnings-report-2026.html" target="_blank" rel="noopener noreferrer">Oracle <mark class="u">beats</mark> on earnings, but stock <mark class="d">drops</mark> on plans to raise another $20 billion</a>
+      <div class="facts">「beat 卻跌」經典：獲利優於預期，但 free cash flow 轉負、計畫再籌資 $20B。</div>
+      <div class="zh">甲骨文獲利優於預期，卻因要再籌資 200 億美元而下跌。</div>
     </div>
-
-    <span class="tag talk">💬 經理人 × 法人客戶 會議</span>
-    <div class="cols">
-      <div class="chat">
-        <div class="msg a"><span class="who">Client</span><div class="bubble">Your letter mentions rotating toward "quality at a discount." Can you make that concrete? What does that actually look like in the book today?<span class="zh">你的月報提到輪動至「折價的優質股」。能講具體一點嗎？這在你目前的持股裡實際長什麼樣？</span></div></div>
-        <div class="msg b"><span class="who">PM</span><div class="bubble">Certainly. In practice it means <mark>funding</mark> new purchases by <mark>trimming</mark> names where the <mark>risk/reward has become unfavourable</mark> after a strong run. We've reduced two high-flyers trading north of 40 times earnings and <mark>redeployed</mark> the proceeds into a couple of <mark>cash-generative</mark> industrials that <mark class="dn">sold off</mark> on cyclical fears but whose <mark>through-cycle earnings power</mark> is, in our view, materially underappreciated.<span class="zh">當然。實務上，這意味著靠減碼那些經過大漲後風險報酬已轉差的股票，來為新進場的部位籌措資金。我們減持了兩檔本益比超過 40 倍的飆股，把資金重新部署到幾檔能創造現金的工業股——它們因景氣循環的疑慮而遭拋售，但我們認為其穿越循環的獲利能力被嚴重低估。</span></div></div>
-        <div class="msg a"><span class="who">Client</span><div class="bubble">Some would argue you're selling your winners too early and catching falling knives. How do you respond to that?<span class="zh">有人會說你太早賣掉贏家、又去接落下的刀。你怎麼回應？</span></div></div>
-        <div class="msg b"><span class="who">PM</span><div class="bubble">It's a fair challenge, and <mark>position sizing</mark> is how we manage it. We're not exiting the winners wholesale — we're <mark>scaling back to a prudent weight</mark>, not zero. And on the laggards, we <mark>average in</mark> gradually rather than buying a full position at once, precisely so we're not exposed if they <mark class="dn">keep drifting lower</mark>. Our edge isn't market timing; it's <mark>valuation discipline</mark> and a multi-year <mark>holding period</mark>.<span class="zh">這是個合理的質疑，而我們靠部位大小來管理它。我們不是把贏家整批出清，而是縮減到審慎的權重、不是歸零。至於落後股，我們是逐步分批進場、而非一次買滿，正是為了萬一它們繼續緩跌時不至於曝險過大。我們的優勢不是擇時，而是估值紀律與長達數年的持有期。</span></div></div>
-        <div class="msg a"><span class="who">Client</span><div class="bubble">And the elevated cash position — isn't holding cash a drag on returns in a rising market?<span class="zh">那略高的現金部位呢——在上漲的市場裡抱現金不是會拖累報酬嗎？</span></div></div>
-        <div class="msg b"><span class="who">PM</span><div class="bubble">It can be, and we're mindful of the <mark>opportunity cost</mark>. But we view this cash as <mark>optionality</mark>, not idle capital. Should the policy meeting trigger a bout of <mark class="dn">volatility</mark> and a broad <mark class="dn">de-rating</mark>, that buffer lets us act decisively and buy <mark>quality at distressed prices</mark> while others are forced sellers. We're paid to be <mark>greedy when others are fearful</mark>.<span class="zh">可能會，我們很清楚這個機會成本。但我們把這筆現金視為一種選擇權，而非閒置資本。萬一政策會議引發一陣波動與全面評價下修，這個緩衝能讓我們果斷出手、在別人被迫賣出時以承壓價買進優質股。我們的工作就是在別人恐懼時貪婪。</span></div></div>
-        <div class="msg a"><span class="who">Client</span><div class="bubble">Clear and consistent with your process. Thank you.<span class="zh">清楚，也跟你的投資流程一致。謝謝。</span></div></div>
-      </div>
-      <div class="vbox"><div class="vh">本段專業用語</div>
-        <div class="vrow up"><div class="t">overweight / underweight<span class="z">加碼／減碼</span></div><div class="e">配置高於／低於指數權重。</div></div>
-        <div class="vrow"><div class="t">rebalance / scale back<span class="z">重新平衡／縮減</span></div><div class="e">調回目標權重；scale back＝減到審慎水位。</div></div>
-        <div class="vrow"><div class="t">rotate<span class="z">輪動</span></div><div class="e">在族群／風格間轉移資金。</div></div>
-        <div class="vrow dn"><div class="t">re-rate / de-rate<span class="z">評價上修／下修</span></div><div class="e">本益比被市場調高／調低。</div></div>
-        <div class="vrow"><div class="t">intrinsic value / discount<span class="z">內在價值／折價</span></div><div class="e">trade at a discount＝低於價值交易。</div></div>
-        <div class="vrow"><div class="t">competitive moat<span class="z">競爭護城河</span></div><div class="e">難以被對手攻破的長期優勢。</div></div>
-        <div class="vrow"><div class="t">free cash flow<span class="z">自由現金流</span></div><div class="e">營運現金扣資本支出後可自由運用。</div></div>
-        <div class="vrow"><div class="t">average in<span class="z">分批進場、攤平</span></div><div class="e">逐步買進、不一次買滿。</div></div>
-        <div class="vrow"><div class="t">position sizing<span class="z">部位大小控管</span></div><div class="e">每檔配多少，是風控核心。</div></div>
-        <div class="vrow dn"><div class="t">drawdown<span class="z">回檔、最大跌幅</span></div><div class="e">從高點到低點的損失幅度。</div></div>
-        <div class="vrow"><div class="t">opportunity cost / optionality<span class="z">機會成本／選擇權價值</span></div><div class="e">抱現金的代價 vs. 保留出手彈性。</div></div>
-      </div>
+    <div class="card dn">
+      <div class="meta"><span class="src"><span class="out">CNBC</span>·2026-05-27</span><a class="golink" href="https://www.cnbc.com/2026/05/27/zscaler-zs-earnings-q3-2026.html" target="_blank" rel="noopener noreferrer">🔗 原文</a></div>
+      <a class="headline" href="https://www.cnbc.com/2026/05/27/zscaler-zs-earnings-q3-2026.html" target="_blank" rel="noopener noreferrer">Zscaler <mark class="d">tanks</mark> 31% for worst day ever on 'prudent' <mark class="d">guidance</mark>, sales shakeup</a>
+      <div class="facts">財報優於預期，卻因 <b>guided for just 16%–17% ARR growth</b>（低於市場預估）而暴殺——財測壓過好數字。</div>
+      <div class="zh">財報雖好，但保守財測＋業務調整，股價崩跌 31% 創最慘單日。</div>
     </div>
-  </section>
-
-  <!-- ============ 4 ============ -->
-  <section class="scene" id="s4">
-    <div class="scene-h"><span class="num">4</span><h2>央行與總經</h2><span class="ctx">Macro｜FOMC 前瞻報告與經濟學家專訪</span></div>
-
-    <span class="tag art">📰 總經前瞻 MACRO PREVIEW</span>
-    <div class="article">
-      <div class="dl">Economics · Fed Preview</div>
-      <div class="tt">Markets brace for the Fed: a hold is a near-certainty, but the dot plot and Powell's tone will move the tape</div>
-      <div class="byl">Macro desk note · institutional register</div>
-      <p class="en">The Federal Reserve is widely expected to <mark>leave its policy rate unchanged</mark> at the conclusion of Wednesday's meeting, so the decision itself is effectively a <mark>non-event</mark>. The market's focus will instead fall squarely on two things: the updated <mark>dot plot</mark>, which maps officials' rate projections, and the <mark>tone of Chair Powell's press conference</mark>. Any shift in the median dot toward fewer cuts would be read as <mark class="dn">hawkish</mark> and could pressure risk assets.</p>
-      <p class="zh">市場普遍預期聯準會將在週三會議結束時維持政策利率不變，因此決議本身實際上沒有懸念。市場焦點將完全落在兩件事上：更新的「點陣圖」（描繪官員的利率預測），以及鮑爾主席記者會的語氣。中位數點若朝「降息次數更少」移動，將被解讀為偏鷹，可能對風險性資產造成壓力。</p>
-      <p class="en">Recent data have sent mixed signals. Headline inflation has <mark>cooled</mark> toward the 2% target, yet <mark>core services inflation</mark> has proven <mark>sticky</mark>, and a resilient labour market complicates the case for imminent easing. Officials have been at pains to stress they remain <mark>data-dependent</mark> and will not <mark>cut prematurely</mark> only to risk a <mark>reacceleration</mark> in prices.</p>
-      <p class="zh">近期數據訊號分歧。整體通膨已降溫、趨向 2% 目標，但核心服務通膨頑固難降，加上勞動市場依然強韌，使得即刻寬鬆的理由更顯複雜。官員們費盡心思強調他們仍將「視數據而定」，不會過早降息、以免冒著物價再度加速上揚的風險。</p>
-      <p class="en">For markets, the <mark>asymmetry</mark> is clear. A <mark class="up">dovish surprise</mark> — language hinting that cuts are drawing nearer — could fuel a further <mark class="up">leg higher</mark> in equities and a rally in bonds. A <mark class="dn">hawkish hold</mark>, by contrast, risks a <mark class="dn">repricing</mark> across the curve, higher <mark>yields</mark>, and a rotation out of the long-duration growth stocks that have led the advance. Either way, expect <mark>elevated volatility</mark> in the hour following the statement.</p>
-      <p class="zh">對市場而言，不對稱性很明顯。偏鴿的意外——暗示降息漸近的措辭——可能推動股市再漲一波、債市走揚。相對地，「鷹派的按兵不動」則可能引發整條殖利率曲線重新定價、殖利率走高，以及資金撤出領漲這波的長存續期成長股。無論哪種情況，都預料聲明發布後的一小時內波動會升高。</p>
+    <div class="card dn">
+      <div class="meta"><span class="src"><span class="out">CNBC</span>·2026-06-03</span><a class="golink" href="https://www.cnbc.com/2026/06/03/broadcom-avgo-earnings-report-q2-2026.html" target="_blank" rel="noopener noreferrer">🔗 原文</a></div>
+      <a class="headline" href="https://www.cnbc.com/2026/06/03/broadcom-avgo-earnings-report-q2-2026.html" target="_blank" rel="noopener noreferrer">Broadcom stock <mark class="d">plunges</mark> on weak software sales, unchanged AI chip forecast for the year</a>
+      <div class="facts"><b>Revenue $22.19B vs. $22.27B estimated</b>；CEO 未上調全年 $100B AI 晶片目標，股價約 -15%。</div>
+      <div class="zh">博通軟體營收疲弱、未上修 AI 晶片財測，股價重挫。</div>
     </div>
-
-    <span class="tag talk">💬 主播 × 首席經濟學家 專訪</span>
-    <div class="cols">
-      <div class="chat">
-        <div class="msg a"><span class="who">Anchor</span><div class="bubble">If the rate decision is a foregone conclusion, what specifically are you watching in the dot plot?<span class="zh">如果利率決議已成定局，你在點陣圖裡具體會看什麼？</span></div></div>
-        <div class="msg b"><span class="who">Economist</span><div class="bubble">The <mark>median dot</mark> for this year is the headline number, but I'd urge people to look deeper — at the <mark>distribution</mark> and at the <mark>longer-run neutral rate</mark>. If several officials revise their projections higher, even with an unchanged median, that <mark>hawkish drift</mark> tells you the committee's <mark>conviction</mark> on cutting is softening. The market often over-fixates on the median and misses the shift in the tails.<span class="zh">今年的中位數點是市場最關注的數字，但我會敦促大家看得更深——看分布、看長期中性利率。即使中位數不變，只要有幾位官員把預測上修，那種偏鷹的漂移就告訴你委員會對降息的信念正在軟化。市場常過度盯著中位數，反而忽略了尾端的位移。</span></div></div>
-        <div class="msg a"><span class="who">Anchor</span><div class="bubble">Powell has repeatedly used the phrase "data-dependent." Is that genuine flexibility, or is it cover for keeping his options open?<span class="zh">鮑爾一再使用「視數據而定」這句話。那是真正的彈性，還是替自己保留選項的擋箭牌？</span></div></div>
-        <div class="msg b"><span class="who">Economist</span><div class="bubble">A bit of both, honestly. It's intellectually honest given how noisy the data have been, but it also <mark>buys him optionality</mark> and lets him avoid <mark>pre-committing</mark> to a path he might have to reverse. The danger of <mark>forward guidance</mark> is that if you commit and the data turn, you either <mark>break your word</mark> and lose credibility, or you follow through and make a policy error. "Data-dependent" is how a central banker <mark>hedges</mark> that risk.<span class="zh">老實說兩者都有。鑑於數據如此雜訊，這在學理上是誠實的；但它也替他換來了彈性，讓他避免預先承諾一條可能得回頭的路徑。前瞻指引的危險在於：一旦你承諾、數據卻反轉，你要嘛食言、失去公信力，要嘛硬著頭皮照做、犯下政策錯誤。「視數據而定」就是央行官員規避這個風險的方式。</span></div></div>
-        <div class="msg a"><span class="who">Anchor</span><div class="bubble">You flagged sticky core services inflation. Why is that the component that keeps policymakers up at night?<span class="zh">你點名了頑固的核心服務通膨。為什麼這個項目是讓決策者夜不能寐的部分？</span></div></div>
-        <div class="msg b"><span class="who">Economist</span><div class="bubble">Because it's the <mark>stickiest and most labour-intensive</mark> part of the basket — think rents, healthcare, insurance. Goods <mark>disinflation</mark> has largely played out as supply chains healed, but services inflation is tightly linked to <mark>wage growth</mark>, which only cools gradually. Until you see services <mark>roll over</mark> convincingly, the Fed simply can't declare victory, no matter how good the headline print looks.<span class="zh">因為它是這個物價籃子裡最頑固、也最勞力密集的部分——想想房租、醫療、保險。商品的通膨緩降隨著供應鏈修復大致走完了，但服務通膨與薪資成長緊密相連，而薪資只會緩慢降溫。在你看到服務項目明確翻轉向下之前，無論整體數據看起來多漂亮，聯準會都無法宣告勝利。</span></div></div>
-        <div class="msg a"><span class="who">Anchor</span><div class="bubble">Invaluable context ahead of Wednesday. Thank you.<span class="zh">在週三之前提供了寶貴的背景。謝謝你。</span></div></div>
-      </div>
-      <div class="vbox"><div class="vh">本段專業用語</div>
-        <div class="vrow"><div class="t">leave rates unchanged / hold<span class="z">利率按兵不動</span></div><div class="e">a hawkish hold＝偏鷹的按兵不動。</div></div>
-        <div class="vrow"><div class="t">dot plot / median dot<span class="z">點陣圖／中位數點</span></div><div class="e">官員對未來利率的預測分布。</div></div>
-        <div class="vrow dn"><div class="t">hawkish / dovish surprise<span class="z">偏鷹／偏鴿意外</span></div><div class="e">比預期更緊／更鬆，牽動風險資產。</div></div>
-        <div class="vrow"><div class="t">data-dependent<span class="z">視數據而定</span></div><div class="e">不預先承諾路徑、保留彈性。</div></div>
-        <div class="vrow"><div class="t">forward guidance<span class="z">前瞻指引</span></div><div class="e">央行對未來政策的引導性溝通。</div></div>
-        <div class="vrow"><div class="t">core services inflation<span class="z">核心服務通膨</span></div><div class="e">最頑固、與薪資連動最深。</div></div>
-        <div class="vrow"><div class="t">disinflation<span class="z">通膨趨緩</span></div><div class="e">物價仍漲但漲速放慢（非通縮 deflation）。</div></div>
-        <div class="vrow dn"><div class="t">reacceleration / roll over<span class="z">再加速／翻轉向下</span></div><div class="e">通膨回升 vs. 數據掉頭往下。</div></div>
-        <div class="vrow"><div class="t">repricing / the curve<span class="z">重新定價／殖利率曲線</span></div><div class="e">市場對利率預期整段重算。</div></div>
-        <div class="vrow"><div class="t">neutral rate<span class="z">中性利率</span></div><div class="e">不刺激也不壓抑經濟的理論利率。</div></div>
-        <div class="vrow"><div class="t">hedge / optionality<span class="z">規避風險／保留彈性</span></div><div class="e">buy optionality＝換取選擇空間。</div></div>
-      </div>
+    <div class="card dn">
+      <div class="meta"><span class="src"><span class="out">CNBC</span>·2026-05-07</span><a class="golink" href="https://www.cnbc.com/2026/05/07/coreweave-crwv-q1-earnings-report-2026.html" target="_blank" rel="noopener noreferrer">🔗 原文</a></div>
+      <a class="headline" href="https://www.cnbc.com/2026/05/07/coreweave-crwv-q1-earnings-report-2026.html" target="_blank" rel="noopener noreferrer">CoreWeave stock <mark class="d">sinks</mark> 10% on weak revenue <mark class="d">guidance</mark>, increased spending forecast</a>
+      <div class="zh">CoreWeave 因財測疲弱＋資本支出上修，盤後下挫 10%。</div>
     </div>
-  </section>
-
-  <!-- ============ 5 ============ -->
-  <section class="scene" id="s5">
-    <div class="scene-h"><span class="num">5</span><h2>技術面與資金流</h2><span class="ctx">Technicals & Flows｜交易台晨報與交易員對話</span></div>
-
-    <span class="tag art">📰 交易台晨報 TRADING DESK NOTE</span>
-    <div class="article">
-      <div class="dl">Trading Desk · Morning Note</div>
-      <div class="tt">Index coils beneath resistance as a rotation out of crowded longs gathers pace</div>
-      <div class="byl">Sell-side desk note · trader register</div>
-      <p class="en">The benchmark is <mark>coiling just beneath</mark> the key <mark>resistance</mark> at 5,000, having failed there twice this month. A decisive <mark class="up">break-out</mark> above that level <mark>on expanding volume</mark> would likely trigger <mark>momentum-chasing</mark> and a fresh <mark class="up">leg higher</mark>; conversely, a third <mark class="dn">rejection</mark> would set up a <mark class="dn">pullback</mark> toward <mark>trend-line support</mark> and the rising 50-day moving average near 4,880.</p>
-      <p class="zh">大盤正在關鍵壓力 5,000 點下方蓄勢盤整，本月已在該處受阻兩次。若帶量果斷突破該水位，可能引發動能追價、走出全新一波漲勢；反之，第三度被壓回則將鋪陳一波回檔，朝趨勢線支撐及位於 4,880 附近、仍上揚的 50 日均線測試。</p>
-      <p class="en">Under the hood, <mark>positioning</mark> looks stretched. Our <mark>flow data</mark> show <mark>systematic funds</mark> at the top of their historical equity exposure, leaving little <mark>incremental buying power</mark> from that cohort and raising the risk of <mark>forced de-leveraging</mark> on any volatility spike. Meanwhile, a notable <mark>rotation</mark> is underway: we're seeing <mark class="dn">outflows</mark> from crowded megacap tech and <mark class="up">inflows</mark> into beaten-down cyclicals and small-caps, a classic late-cycle <mark>breadth-broadening</mark> attempt.</p>
-      <p class="zh">在表面之下，部位看起來已相當擁擠。我們的資金流數據顯示，系統性基金的股票曝險已處於歷史高位，意味著這群人幾乎沒有額外的買盤動能，並提高了一旦波動飆升便被迫去槓桿的風險。與此同時，一場明顯的輪動正在進行：我們看到資金從擁擠的大型科技股流出、流入超跌的景氣循環股與小型股，這是典型景氣循環後段、試圖讓市場廣度擴散的動作。</p>
-      <p class="en">Net-net, we'd <mark>fade strength</mark> into resistance and keep <mark>stops tight</mark>. The <mark>path of least resistance</mark> is still higher while the index holds its uptrend, but the <mark>risk/reward</mark> at these levels argues for trimming rather than adding. Watch the 5,000 line and the volume that accompanies any test of it.</p>
-      <p class="zh">總的來說，我們會在壓力區逢高減碼，並把停損守緊。只要指數維持上升趨勢，阻力最小的方向仍是向上；但這個價位的風險報酬比，傾向減碼而非加碼。緊盯 5,000 這條線，以及任何測試它時伴隨的成交量。</p>
+    <div class="card dn">
+      <div class="meta"><span class="src"><span class="out">CNBC</span>·2026-06-04</span><a class="golink" href="https://www.cnbc.com/2026/06/04/lululemon-lulu-earnings-q1-2026.html" target="_blank" rel="noopener noreferrer">🔗 原文</a></div>
+      <a class="headline" href="https://www.cnbc.com/2026/06/04/lululemon-lulu-earnings-q1-2026.html" target="_blank" rel="noopener noreferrer">Lululemon <mark class="d">cuts annual outlook</mark>, citing 'negative' media commentary and disappointing product launches</a>
+      <div class="facts">FY2026 營收財測 <b>下修至 $11–11.15B（原 $11.35–11.5B）</b>，盤後 -11%。</div>
+      <div class="zh">Lululemon 下修全年財測，怪罪負面輿論與新品不如預期，盤後跌 11%。</div>
     </div>
+  </div>
 
-    <span class="tag talk">💬 交易員 × 交易員 桌邊對話</span>
-    <div class="cols">
-      <div class="chat">
-        <div class="msg a"><span class="who">Trader A</span><div class="bubble">Third test of 5,000 coming up. Are you positioned for the break-out, or fading it again?<span class="zh">5,000 第三次測試要來了。你是佈局突破，還是又要逢高放空？</span></div></div>
-        <div class="msg b"><span class="who">Trader B</span><div class="bubble">Fading, but with a tight leash. The tape feels <mark>tired</mark> up here — every push higher is on <mark>declining volume</mark>, which is textbook <mark class="dn">bearish divergence</mark>. I'm short a small clip against 5,015, so my <mark>stop's</mark> just above the prior high. If it <mark class="up">breaks out</mark> cleanly on volume, I'm out instantly and I'll flip.<span class="zh">放空，但拉得很緊。盤勢在這裡感覺累了——每次往上推都是量縮，這是教科書級的空頭背離。我在 5,015 上方掛了一小口空單，停損就設在前高之上。如果它帶量乾淨突破，我立刻出場、而且會反手做多。</span></div></div>
-        <div class="msg a"><span class="who">Trader A</span><div class="bubble">The desk note flagged systematic funds maxed out on exposure. Does that change how you'd size this?<span class="zh">晨報點名系統性基金曝險已到頂。這會改變你的部位大小嗎？</span></div></div>
-        <div class="msg b"><span class="who">Trader B</span><div class="bubble">Massively. When the <mark>vol-targeting</mark> crowd is already <mark>fully levered</mark>, they're not marginal buyers — they're potential forced sellers. One decent <mark>vol spike</mark> and their models mechanically <mark>de-gross</mark>, which can turn an orderly <mark class="dn">pullback</mark> into an air-pocket. That asymmetry is exactly why I'd rather be short into resistance than long.<span class="zh">影響很大。當追蹤波動度的那群人已經滿融，他們就不是邊際買盤，而是潛在的被迫賣方。只要一次像樣的波動飆升，他們的模型就機械式地降槓桿，可能把一場有序的回檔變成瞬間真空下殺。正是這種不對稱，讓我寧願在壓力區做空、而非做多。</span></div></div>
-        <div class="msg a"><span class="who">Trader A</span><div class="bubble">And the rotation into small-caps and cyclicals — real, or just a head-fake?<span class="zh">那輪動到小型股與循環股呢——是真的，還是假突破騙線？</span></div></div>
-        <div class="msg b"><span class="who">Trader B</span><div class="bubble">Jury's still out. We've seen a few of these <mark>rotations</mark> fizzle out after a week or two when the megacaps reassert leadership. For it to be durable, I'd want to see <mark>broadening participation</mark> confirmed by the <mark>advance-decline line</mark> making new highs, not just a one-day pop. Until then, I treat it as a <mark>tradeable bounce</mark>, not a regime change.<span class="zh">還沒定論。我們見過幾次這種輪動在一兩週後熄火，因為大型股又重新掌握領漲。要它能持久，我會想看到漲跌家數線創新高來確認參與度擴散，而不只是單日的跳動。在那之前，我把它當成可以短打的反彈，而非格局轉變。</span></div></div>
-        <div class="msg a"><span class="who">Trader A</span><div class="bubble">Disciplined as always. Let's see if 5,000 finally gives way.<span class="zh">一如既往地有紀律。來看看 5,000 會不會終於被攻破。</span></div></div>
-      </div>
-      <div class="vbox"><div class="vh">本段專業用語</div>
-        <div class="vrow"><div class="t">coil / consolidate<span class="z">蓄勢盤整</span></div><div class="e">在關鍵價下方壓縮、醞釀方向。</div></div>
-        <div class="vrow up"><div class="t">break-out / leg higher<span class="z">突破／再漲一波</span></div><div class="e">leg＝一段行情；leg lower＝再跌一段。</div></div>
-        <div class="vrow dn"><div class="t">rejection / fade<span class="z">被壓回／逢高減碼放空</span></div><div class="e">fade strength＝在強勢時反向操作。</div></div>
-        <div class="vrow dn"><div class="t">bearish divergence<span class="z">空頭背離</span></div><div class="e">價漲量縮等指標不同步，示警。</div></div>
-        <div class="vrow"><div class="t">positioning / flows<span class="z">部位／資金流</span></div><div class="e">市場參與者押注與資金進出。</div></div>
-        <div class="vrow"><div class="t">systematic / vol-targeting funds<span class="z">系統性／波動度目標基金</span></div><div class="e">依模型與波動度機械式調整曝險。</div></div>
-        <div class="vrow dn"><div class="t">de-leverage / de-gross<span class="z">去槓桿／降曝險</span></div><div class="e">被迫減倉，常加劇下跌。</div></div>
-        <div class="vrow"><div class="t">vol spike / air-pocket<span class="z">波動飆升／真空下殺</span></div><div class="e">瞬間沒有買盤的急跌。</div></div>
-        <div class="vrow"><div class="t">advance-decline line<span class="z">漲跌家數線（騰落線）</span></div><div class="e">衡量市場廣度的經典指標。</div></div>
-        <div class="vrow"><div class="t">head-fake / tradeable bounce<span class="z">假突破騙線／可短打的反彈</span></div><div class="e">非趨勢反轉，只是短線機會。</div></div>
-        <div class="vrow"><div class="t">path of least resistance<span class="z">阻力最小方向</span></div><div class="e">盤勢最可能順勢走的方向。</div></div>
-      </div>
+  <!-- 分析師 -->
+  <div class="sec-h" id="anly"><h2>④ 分析師評等</h2><span class="ctx">Analyst calls — 升降評等、目標價</span></div>
+  <div class="feed">
+    <div class="card">
+      <div class="meta"><span class="src"><span class="out">CNBC</span>·2026-06-10</span><a class="golink" href="https://www.cnbc.com/2026/06/10/wednesday-biggest-stocks-by-analyst-calls-like-nvidia.html" target="_blank" rel="noopener noreferrer">🔗 原文</a></div>
+      <a class="headline" href="https://www.cnbc.com/2026/06/10/wednesday-biggest-stocks-by-analyst-calls-like-nvidia.html" target="_blank" rel="noopener noreferrer">Here are Wednesday's biggest <mark class="n">analyst calls</mark>: Nvidia, Tesla, Netflix, Chipotle, Nike & more</a>
+      <div class="facts">Morgan Stanley <b>raised</b> Broadcom price target to $502 (from $485); JPMorgan <b>upgraded</b> Tesla to neutral; <b>upgraded</b> Chipotle to overweight; Lululemon <b>downgraded</b> to Neutral.</div>
+      <div class="zh">每日「analyst calls」彙整：升評（upgrade）、降評（downgrade）、調目標價（price target）一次看。</div>
     </div>
-  </section>
-
-  <hr>
-
-  <!-- SEARCH KEYWORDS -->
-  <section class="scene" id="search">
-    <div class="apx-h" style="border-color:#60a5fa">🔎 搜尋關鍵字：想查什麼 → 該打什麼英文</div>
-    <div class="legend" style="margin-bottom:14px">想用英文 Google／看外資報告，但不知道<b>關鍵字怎麼下</b>？下表左邊是你想查的東西（中），右邊是<b style="color:#f59e0b">道地的英文搜尋詞</b>＋去哪查。把 <code>[公司]</code> 換成英文公司名或美股代號（ticker，如 <code>NVDA</code>、<code>AAPL</code>）。</div>
-    <div class="skg">
-      <table class="sk"><caption>財報・業績</caption>
-        <tr><td>最新一季財報</td><td><span class="kw">"[公司] Q3 2026 earnings results"</span><span class="nt">公司 IR 頁、Yahoo Finance、CNBC</span></td></tr>
-        <tr><td>法說會逐字稿</td><td><span class="kw">"[公司] earnings call transcript"</span><span class="nt">Motley Fool、Seeking Alpha 有全文</span></td></tr>
-        <tr><td>財測／展望</td><td><span class="kw">"[公司] guidance" / "full-year outlook FY26"</span><span class="nt">看公司對未來的預估</span></td></tr>
-        <tr><td>營收／獲利數字</td><td><span class="kw">"[公司] revenue and EPS history"</span><span class="nt">macrotrends.net 有長年數據</span></td></tr>
-        <tr><td>財報何時公布</td><td><span class="kw">"[公司] earnings date"</span><span class="nt">earningswhispers.com、Nasdaq</span></td></tr>
-      </table>
-      <table class="sk"><caption>分析師・評價與預期</caption>
-        <tr><td>分析師評等</td><td><span class="kw">"[公司] analyst ratings"</span><span class="nt">Buy/Hold/Sell 匯總</span></td></tr>
-        <tr><td>目標價</td><td><span class="kw">"[公司] price target consensus"</span><span class="nt">TipRanks、MarketBeat</span></td></tr>
-        <tr><td>市場一致預期</td><td><span class="kw">"[公司] consensus estimates EPS revenue"</span><span class="nt">分析師平均預估</span></td></tr>
-        <tr><td>多空論點</td><td><span class="kw">"[公司] bull case vs bear case"</span><span class="nt">Seeking Alpha 多空文章</span></td></tr>
-        <tr><td>升／降評等新聞</td><td><span class="kw">"[公司] upgrade downgrade"</span><span class="nt">查近期評等變動</span></td></tr>
-      </table>
-      <table class="sk"><caption>籌碼・持股・內部人</caption>
-        <tr><td>法人／機構持股</td><td><span class="kw">"[公司] institutional ownership"</span><span class="nt">fintel.io、Nasdaq holdings</span></td></tr>
-        <tr><td>大戶持股申報（美股）</td><td><span class="kw">"[基金] 13F filings holdings"</span><span class="nt">whalewisdom.com</span></td></tr>
-        <tr><td>內部人買賣</td><td><span class="kw">"[公司] insider transactions Form 4"</span><span class="nt">openinsider.com、SEC EDGAR</span></td></tr>
-        <tr><td>空單水位</td><td><span class="kw">"[公司] short interest"</span><span class="nt">marketbeat、finra 資料</span></td></tr>
-        <tr><td>主要股東</td><td><span class="kw">"[公司] top shareholders / major holders"</span><span class="nt">誰是大股東</span></td></tr>
-      </table>
-      <table class="sk"><caption>新聞・事件・公司動態</caption>
-        <tr><td>最新消息</td><td><span class="kw">"[公司] latest news"</span><span class="nt">Google News、Yahoo Finance</span></td></tr>
-        <tr><td>今天為何漲／跌</td><td><span class="kw">"why is [公司] stock up/down today"</span><span class="nt">benzinga、stocktwits</span></td></tr>
-        <tr><td>併購</td><td><span class="kw">"[公司] merger acquisition (M&A)"</span><span class="nt">收購／被收購案</span></td></tr>
-        <tr><td>新股上市</td><td><span class="kw">"[公司] IPO prospectus (S-1)"</span><span class="nt">SEC EDGAR 招股書</span></td></tr>
-        <tr><td>監管／訴訟文件</td><td><span class="kw">"[公司] SEC filing 8-K"</span><span class="nt">重大事件即時申報</span></td></tr>
-      </table>
-      <table class="sk"><caption>技術・價格・走勢</caption>
-        <tr><td>技術線圖分析</td><td><span class="kw">"[公司] technical analysis chart"</span><span class="nt">TradingView 最常用</span></td></tr>
-        <tr><td>支撐／壓力位</td><td><span class="kw">"[公司] support and resistance levels"</span><span class="nt">關鍵價位</span></td></tr>
-        <tr><td>歷史股價數據</td><td><span class="kw">"[公司] historical stock price data"</span><span class="nt">Yahoo Finance 可下載 CSV</span></td></tr>
-        <tr><td>均線位置</td><td><span class="kw">"[公司] 50-day 200-day moving average"</span><span class="nt">finviz.com 一頁看完</span></td></tr>
-        <tr><td>波動度</td><td><span class="kw">"[公司] implied volatility / IV rank"</span><span class="nt">選擇權波動度</span></td></tr>
-      </table>
-      <table class="sk"><caption>總經・產業・數據</caption>
-        <tr><td>通膨數據</td><td><span class="kw">"US CPI inflation data release"</span><span class="nt">tradingeconomics、BLS</span></td></tr>
-        <tr><td>Fed 會議</td><td><span class="kw">"FOMC meeting decision dot plot"</span><span class="nt">federalreserve.gov</span></td></tr>
-        <tr><td>公債殖利率</td><td><span class="kw">"US 10-year Treasury yield"</span><span class="nt">利率走勢</span></td></tr>
-        <tr><td>本週經濟事件</td><td><span class="kw">"economic calendar this week"</span><span class="nt">forexfactory、investing.com</span></td></tr>
-        <tr><td>產業前景／市場規模</td><td><span class="kw">"[產業] industry outlook market size forecast"</span><span class="nt">研究機構報告</span></td></tr>
-      </table>
+    <div class="card dn">
+      <div class="meta"><span class="src"><span class="out">CNBC</span>·2025-12-07</span><a class="golink" href="https://www.cnbc.com/2025/12/07/huge-wall-street-call-morgan-stanleys-new-tesla-analyst-downgrades-stock-over-valuation-concerns.html" target="_blank" rel="noopener noreferrer">🔗 原文</a></div>
+      <a class="headline" href="https://www.cnbc.com/2025/12/07/huge-wall-street-call-morgan-stanleys-new-tesla-analyst-downgrades-stock-over-valuation-concerns.html" target="_blank" rel="noopener noreferrer">Huge Wall Street call: Morgan Stanley's new Tesla analyst <mark class="d">downgrades</mark> stock over <mark class="d">valuation</mark> concerns</a>
+      <div class="zh">大摩新任分析師以「估值過高」為由調降特斯拉評等——valuation downgrade 範例。</div>
     </div>
-    <div class="tip"><b>下關鍵字的訣竅：</b>① 用<b>英文公司名或 ticker</b>（NVDA 比「輝達」查得到更多）；② 想要原始文件就加 <code>SEC filing</code>／<code>10-K</code>；③ 想要觀點就加 <code>analysis</code>／<code>bull bear case</code>；④ 想要數據就加 <code>data</code>／<code>history</code>／<code>chart</code>；⑤ 限定時間加 <code>2026</code> 或 <code>latest</code>。</div>
-  </section>
+  </div>
 
-  <hr>
-
-  <!-- APPENDIX -->
-  <section class="scene" id="apx">
-    <div class="apx-h">＋ 延伸專業用語表</div>
-    <div class="tg">
-      <table class="d"><caption>漲・動詞（弱→強）</caption>
-        <tr><td>edge / tick up<span class="z">微幅走高</span></td><td>幅度很小、勉強漲。</td></tr>
-        <tr><td>climb / advance<span class="z">穩步攀升</span></td><td>持續往上，advance 偏正式。</td></tr>
-        <tr><td>rally / jump<span class="z">走揚、跳漲</span></td><td>由弱轉強、一波拉抬。</td></tr>
-        <tr><td>surge / soar<span class="z">飆漲</span></td><td>大幅又快，標題愛用。</td></tr>
-        <tr><td>spike / skyrocket / rip<span class="z">噴出、暴衝</span></td><td>最強烈，rip 偏口語。</td></tr>
-        <tr><td>extend gains / leg higher<span class="z">續漲、再漲一波</span></td><td>延續既有漲勢。</td></tr>
-      </table>
-      <table class="d"><caption>跌・動詞（弱→強）</caption>
-        <tr><td>edge / tick down<span class="z">微幅走低</span></td><td>小幅、勉強收黑。</td></tr>
-        <tr><td>slip / ease / soften<span class="z">回落、走軟</span></td><td>溫和下跌，正式用字。</td></tr>
-        <tr><td>slide / decline / fall<span class="z">走跌、下跌</span></td><td>中性，decline 偏正式。</td></tr>
-        <tr><td>plunge / tumble / sink<span class="z">暴跌、重挫</span></td><td>大幅又陡。</td></tr>
-        <tr><td>crash / tank / crater<span class="z">崩盤、跳水</span></td><td>最強烈，tank 偏口語。</td></tr>
-        <tr><td>sell off / give back gains<span class="z">遭拋售／回吐漲幅</span></td><td>被大量賣出、把漲幅還回去。</td></tr>
-      </table>
-      <table class="d"><caption>大盤・市場結構</caption>
-        <tr><td>benchmark / the tape<span class="z">基準指數／盤面</span></td><td>the tape＝即時行情，交易員愛用。</td></tr>
-        <tr><td>breadth / participation<span class="z">市場廣度／參與度</span></td><td>多少股一起漲。</td></tr>
-        <tr><td>broad-based / narrow<span class="z">全面／集中</span></td><td>雨露均霑 vs. 靠少數股。</td></tr>
-        <tr><td>risk-on / risk-off<span class="z">偏好風險／避險</span></td><td>錢往股票／往現金債金。</td></tr>
-        <tr><td>volatility / VIX<span class="z">波動度／恐慌指數</span></td><td>vol 是口語簡稱。</td></tr>
-        <tr><td>liquidity / thinly traded<span class="z">流動性／量少難成交</span></td><td>好不好進出。</td></tr>
-      </table>
-      <table class="d"><caption>基本面・財報</caption>
-        <tr><td>top / bottom line<span class="z">營收／淨利</span></td><td>報表最上＝營收，最下＝淨利。</td></tr>
-        <tr><td>EPS / margin<span class="z">每股盈餘／利潤率</span></td><td>margin expansion＝利潤率擴張。</td></tr>
-        <tr><td>guidance / outlook<span class="z">財測／展望</span></td><td>raise / cut guidance＝上修／下修。</td></tr>
-        <tr><td>YoY / QoQ<span class="z">年增／季增</span></td><td>同比／環比。</td></tr>
-        <tr><td>free cash flow<span class="z">自由現金流</span></td><td>扣資本支出後可自由運用的現金。</td></tr>
-        <tr><td>balance sheet<span class="z">資產負債表</span></td><td>conservative＝低負債、體質保守。</td></tr>
-      </table>
-      <table class="d"><caption>配置・風控</caption>
-        <tr><td>overweight / underweight<span class="z">加碼／減碼</span></td><td>相對指數權重的配置。</td></tr>
-        <tr><td>position sizing<span class="z">部位大小控管</span></td><td>每檔配多少，風控核心。</td></tr>
-        <tr><td>rebalance / rotate<span class="z">再平衡／輪動</span></td><td>調回權重／轉換族群。</td></tr>
-        <tr><td>drawdown / capital preservation<span class="z">回檔／保全本金</span></td><td>最大跌幅；守住資本。</td></tr>
-        <tr><td>conviction / high-conviction<span class="z">信心／高信心持股</span></td><td>最看好、敢重押的部位。</td></tr>
-        <tr><td>dry powder / fully invested<span class="z">備用現金／滿手投資</span></td><td>待命資金 vs. 幾乎無現金。</td></tr>
-      </table>
-      <table class="d"><caption>俚語・社群（聽懂就好）</caption>
-        <tr><td>to the moon 🚀<span class="z">噴上天</span></td><td>meme 用語，半開玩笑。</td></tr>
-        <tr><td>diamond / paper hands<span class="z">鑽石手／紙手</span></td><td>抱緊不賣／容易嚇跑。</td></tr>
-        <tr><td>FOMO / FUD<span class="z">怕錯過追高／散播恐懼</span></td><td>兩種常見散戶心理。</td></tr>
-        <tr><td>bagholder<span class="z">套牢的人</span></td><td>抱著套牢部位下不了車。</td></tr>
-        <tr><td>catch a falling knife<span class="z">接落下的刀</span></td><td>急跌搶進、易受傷。</td></tr>
-        <tr><td>dead-cat bounce<span class="z">跌深假反彈</span></td><td>短彈又續跌，別被騙。</td></tr>
-      </table>
+  <!-- 併購IPO -->
+  <div class="sec-h" id="deal"><h2>⑤ 併購・IPO</h2><span class="ctx">Deals — 收購、上市</span></div>
+  <div class="feed">
+    <div class="card up">
+      <div class="meta"><span class="src"><span class="out">CNBC</span>·2025-12-08</span><a class="golink" href="https://www.cnbc.com/2025/12/08/ibm-confluent-deal-data.html" target="_blank" rel="noopener noreferrer">🔗 原文</a></div>
+      <a class="headline" href="https://www.cnbc.com/2025/12/08/ibm-confluent-deal-data.html" target="_blank" rel="noopener noreferrer">Confluent stock <mark class="u">soars</mark> 29% as IBM announces $11 billion <mark class="n">acquisition</mark> deal</a>
+      <div class="facts"><b>IBM to pay $31 per share in cash</b>，交易約 $11B，預計 2026 年中完成；被收購方 Confluent +29%。</div>
+      <div class="zh">IBM 宣布以 110 億美元收購 Confluent，被收購方股價狂漲 29%（併購標的常見的反應）。</div>
     </div>
-  </section>
-
-  <!-- REC -->
-  <section class="scene" id="rec">
-    <div class="apx-h" style="border-color:var(--blue)">▶ 推薦頻道（學專業語感，建議直接搜尋確認最新帳號）</div>
-    <div class="rec">
-      <div class="recbox"><div class="rh">YouTube</div>
-        <div class="rr"><b>Bloomberg Television</b><span class="h">@markets</span><span class="lv">進階</span><span class="d">機構視角、主播 × 經理人專訪最多，本頁對話的真實版。</span></div>
-        <div class="rr"><b>CNBC Television</b><span class="h">@CNBCtelevision</span><span class="lv">中階</span><span class="d">收盤稿、即時盤中報導，broadcast 語感標準。</span></div>
-        <div class="rr"><b>Patrick Boyle</b><span class="h">@PatrickBoyleOnFinance</span><span class="lv">進階</span><span class="d">教授級英式英文，學正式精準的金融論述。</span></div>
-        <div class="rr"><b>The Plain Bagel</b><span class="h">@ThePlainBagel</span><span class="lv">入門</span><span class="d">前分析師，概念講超清楚、語速慢，打底用。</span></div>
-        <div class="rr"><b>Yahoo Finance</b><span class="h">@YahooFinance</span><span class="lv">入門</span><span class="d">每日 market wrap，跟讀收盤稿最佳素材。</span></div>
-      </div>
-      <div class="recbox"><div class="rh">Instagram / 其他</div>
-        <div class="rr"><b>The Wall Street Journal</b><span class="h">@wsj</span><span class="lv">中階</span><span class="d">正統財經英文，校正自己寫作用字是否道地。</span></div>
-        <div class="rr"><b>Financial Times</b><span class="h">@financialtimes</span><span class="lv">進階</span><span class="d">英式財經書面語、總經分析的標竿。</span></div>
-        <div class="rr"><b>Bloomberg</b><span class="h">@bloomberg</span><span class="lv">中階</span><span class="d">圖表＋精煉標題，總經與全球市場用語。</span></div>
-        <div class="rr"><b>Morning Brew</b><span class="h">@morningbrew</span><span class="lv">入門</span><span class="d">輕鬆口語版財經，補日常講法。</span></div>
-        <div class="rr"><b>Stocktwits</b><span class="h">@stocktwits</span><span class="lv">俚語</span><span class="d">散戶社群風，rip、moon、squeeze 俚語大本營。</span></div>
-      </div>
+    <div class="card">
+      <div class="meta"><span class="src"><span class="out">CNBC</span>·專區</span><a class="golink" href="https://www.cnbc.com/deals-and-ipos/" target="_blank" rel="noopener noreferrer">🔗 前往</a></div>
+      <a class="headline" href="https://www.cnbc.com/deals-and-ipos/" target="_blank" rel="noopener noreferrer">CNBC <mark class="n">Deals and IPOs</mark> — 併購與新股上市報導專區</a>
+      <div class="zh">想看更多 M&A／IPO 報導與用語（acquire、merger、go public、debut），到這個專區。</div>
     </div>
-    <div class="tip"><b>怎麼練到專業：</b>① 先讀本頁「文章」段落、查不懂的用語 → ② 跟讀 Bloomberg／CNBC 的主播稿與專訪，模仿語速與斷句 → ③ 把每篇文章<b>換成你追蹤的個股／當天行情</b>，自己改寫一篇 → ④ 用對話段落練口說，一人分飾主播與經理人。</div>
-  </section>
+  </div>
 
-  <div class="foot">股市英文・專業文章 ＆ 專訪 · 中英對照 · 內容為語言學習範例，非投資建議；動詞強弱為相對語感參考</div>
+  <!-- 總經 -->
+  <div class="sec-h" id="macro"><h2>⑥ 總經數據</h2><span class="ctx">Macro — 通膨、就業、聯準會</span></div>
+  <div class="feed">
+    <div class="card">
+      <div class="meta"><span class="src"><span class="out">CNBC</span>·2026-06-10</span><a class="golink" href="https://www.cnbc.com/2026/06/10/cpi-inflation-report-may-2026.html" target="_blank" rel="noopener noreferrer">🔗 原文</a></div>
+      <a class="headline" href="https://www.cnbc.com/2026/06/10/cpi-inflation-report-may-2026.html" target="_blank" rel="noopener noreferrer">CPI inflation report May 2026: Prices <mark class="n">rose 4.2% annually</mark></a>
+      <div class="facts"><b>CPI +0.5% m/m, 4.2% y/y</b>（與預期一致）；energy +3.9%；<b>core CPI +0.2% m/m, 2.9% y/y</b>。</div>
+      <div class="zh">5 月消費者物價年增 4.2%，能源帶動；核心通膨年增 2.9%。</div>
+    </div>
+    <div class="card">
+      <div class="meta"><span class="src"><span class="out">CNBC</span>·2026-06-05</span><a class="golink" href="https://www.cnbc.com/2026/06/05/jobs-report-may-2026.html" target="_blank" rel="noopener noreferrer">🔗 原文</a></div>
+      <a class="headline" href="https://www.cnbc.com/2026/06/05/jobs-report-may-2026.html" target="_blank" rel="noopener noreferrer">Jobs report May 2026 — payrolls <mark class="n">far above</mark> expectations</a>
+      <div class="facts"><b>Nonfarm payrolls +172,000</b> vs. 80,000 consensus; <b>unemployment held steady at 4.3%</b>，強勁數據降低 Fed 短期降息機率。</div>
+      <div class="zh">5 月非農就業增 17.2 萬、遠超預期 8 萬，失業率持平 4.3%。</div>
+    </div>
+    <div class="card">
+      <div class="meta"><span class="src"><span class="out">CNBC</span>·2026-04-29</span><a class="golink" href="https://www.cnbc.com/2026/04/29/fed-interest-rate-decision-april-2026.html" target="_blank" rel="noopener noreferrer">🔗 原文</a></div>
+      <a class="headline" href="https://www.cnbc.com/2026/04/29/fed-interest-rate-decision-april-2026.html" target="_blank" rel="noopener noreferrer">Fed interest rate decision April 2026: Fed <mark class="n">holds rates steady</mark> amid dissent</a>
+      <div class="facts"><b>Held at 3.5%–3.75%</b>，投票 split 8-4（自 1992 年 10 月來最多異議）。</div>
+      <div class="zh">聯準會 4 月維持利率不變，但內部分歧為數十年最大。</div>
+    </div>
+    <div class="card">
+      <div class="meta"><span class="src"><span class="out">CNBC</span>·2026-03-18</span><a class="golink" href="https://www.cnbc.com/2026/03/18/fed-interest-rate-decision-march-2026.html" target="_blank" rel="noopener noreferrer">🔗 原文</a></div>
+      <a class="headline" href="https://www.cnbc.com/2026/03/18/fed-interest-rate-decision-march-2026.html" target="_blank" rel="noopener noreferrer">Fed interest rate decision March 2026: <mark class="n">Holds rates steady</mark></a>
+      <div class="facts">維持 3.5%–3.75%；<b>dot plot</b>（點陣圖）暗示今年 1 次、2027 再 1 次降息。</div>
+      <div class="zh">3 月維持利率不變，點陣圖指向今年僅一次降息。</div>
+    </div>
+  </div>
+
+  <!-- 自己讀更多 -->
+  <div class="sec-h" id="more"><h2>⑦ 自己讀更多（可信來源）</h2><span class="ctx">點進去讀真實英文報導</span></div>
+  <div class="srcs">
+    <a href="https://www.cnbc.com/markets/" target="_blank" rel="noopener noreferrer"><div class="n">CNBC Markets<span class="lv">即時</span></div><div class="d">每日盤中／收盤行情，語感最標準。</div><div class="u">cnbc.com/markets</div></a>
+    <a href="https://www.cnbc.com/earnings/" target="_blank" rel="noopener noreferrer"><div class="n">CNBC Earnings<span class="lv">財報</span></div><div class="d">個股財報，beat／miss／guidance 密集。</div><div class="u">cnbc.com/earnings</div></a>
+    <a href="https://www.cnbc.com/federal-reserve/" target="_blank" rel="noopener noreferrer"><div class="n">CNBC Federal Reserve<span class="lv">總經</span></div><div class="d">聯準會與利率，hawkish／dovish／dot plot。</div><div class="u">cnbc.com/federal-reserve</div></a>
+    <a href="https://www.reuters.com/markets/" target="_blank" rel="noopener noreferrer"><div class="n">Reuters Markets<span class="lv">通訊社</span></div><div class="d">全球財經通訊社，文字精煉、可信度高。</div><div class="u">reuters.com/markets</div></a>
+    <a href="https://apnews.com/hub/financial-markets" target="_blank" rel="noopener noreferrer"><div class="n">AP Financial Markets<span class="lv">通訊社</span></div><div class="d">美聯社，標準新聞英文、用字中性。</div><div class="u">apnews.com/hub/financial-markets</div></a>
+    <a href="https://www.investopedia.com/markets-news-4427704" target="_blank" rel="noopener noreferrer"><div class="n">Investopedia Markets<span class="lv">教學</span></div><div class="d">報導＋名詞解釋並陳，初學最友善。</div><div class="u">investopedia.com</div></a>
+    <a href="https://www.marketwatch.com/markets" target="_blank" rel="noopener noreferrer"><div class="n">MarketWatch<span class="lv">即時</span></div><div class="d">盤勢與個股快訊，標題式短句多。</div><div class="u">marketwatch.com/markets</div></a>
+    <a href="https://finance.yahoo.com/" target="_blank" rel="noopener noreferrer"><div class="n">Yahoo Finance<span class="lv">綜合</span></div><div class="d">行情＋彙整新聞，免費好查個股。</div><div class="u">finance.yahoo.com</div></a>
+  </div>
+
+  <div class="foot">真實英文財經報導選輯 · 標題與數據引自 CNBC 報導，著作權屬原媒體；本頁僅供語言學習與導讀，點連結閱讀原文全文。</div>
 </div>
 </body>
 </html>
