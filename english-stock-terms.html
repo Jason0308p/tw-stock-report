@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>英文股市用語速查｜Stock Market English</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#090f1c; --surface:#0f1828; --card:#182338; --card2:#1e2d47; --border:#2a3d57;
+  --accent:#e63946; --bull:#ef4444; --bear:#22c55e; --neutral:#94a3b8;
+  --gold:#f59e0b; --blue:#60a5fa; --text:#edf2f7; --text2:#a8b8cc; --text3:#7a8ea8;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter','Noto Sans TC',system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7;min-height:100vh}
+
+nav{position:sticky;top:0;z-index:100;background:rgba(11,15,25,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 24px;height:52px;display:flex;align-items:center;justify-content:space-between}
+.nav-brand{font-size:16px;font-weight:700;color:var(--text);text-decoration:none;letter-spacing:-.3px;display:flex;align-items:center;gap:8px}
+.nav-brand span{color:var(--accent)}
+.nav-links a{color:var(--text2);text-decoration:none;font-size:13px;padding:5px 12px;border-radius:6px;transition:all .15s}
+.nav-links a:hover{background:var(--card);color:var(--text)}
+
+.hero{background:linear-gradient(135deg,#0f172a 0%,#1e1b4b 50%,#0f172a 100%);border-bottom:1px solid var(--border);padding:40px 24px 32px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(230,57,70,.12) 0%,transparent 70%)}
+.hero .tag{display:inline-block;font-size:12px;font-weight:600;color:var(--accent);letter-spacing:1.5px;text-transform:uppercase;background:rgba(230,57,70,.1);border:1px solid rgba(230,57,70,.3);padding:4px 12px;border-radius:20px;margin-bottom:14px}
+.hero h1{font-size:clamp(24px,4vw,34px);font-weight:700;color:#fff;letter-spacing:-.5px;line-height:1.2;position:relative}
+.hero p{color:var(--text2);font-size:14px;margin-top:10px;position:relative}
+
+.wrap{max-width:1080px;margin:0 auto;padding:24px 18px 80px}
+
+/* tabs */
+.tabbar{position:sticky;top:52px;z-index:90;display:flex;flex-wrap:wrap;gap:6px;padding:12px 0;background:var(--bg);border-bottom:1px solid var(--border);margin-bottom:22px}
+.tabbtn{padding:7px 15px;border-radius:20px;background:var(--card);border:1px solid var(--border);color:var(--text2);font-size:13.5px;font-weight:600;cursor:pointer;transition:all .15s;white-space:nowrap}
+.tabbtn:hover{background:var(--card2);color:var(--text)}
+.tabbtn.on{background:rgba(230,57,70,.18);border-color:rgba(230,57,70,.6);color:#ff8a92;box-shadow:0 0 10px rgba(230,57,70,.12)}
+
+.panel{display:none;animation:fade .25s ease}
+.panel.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+h2.sec{font-size:19px;font-weight:700;color:#fff;margin:26px 0 6px;padding-left:11px;border-left:3px solid var(--accent)}
+h2.sec:first-child{margin-top:4px}
+.sub{font-size:12.5px;color:var(--text3);margin:0 0 14px;padding-left:11px}
+
+.intro{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-bottom:20px;font-size:13.5px;color:var(--text2)}
+.intro b{color:var(--gold)}
+
+/* term cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;margin-bottom:8px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:13px 15px;transition:border-color .15s}
+.card:hover{border-color:#3b5378}
+.card .en{font-size:16px;font-weight:700;color:#fff;letter-spacing:-.2px}
+.card .pos{font-size:11px;color:var(--text3);font-style:italic;margin-left:6px;font-weight:400}
+.card .zh{font-size:13.5px;color:var(--blue);font-weight:600;margin-top:1px}
+.card .note{font-size:12.5px;color:var(--text2);margin-top:7px;border-top:1px dashed var(--border);padding-top:7px}
+.card .ex{font-size:12.5px;color:var(--text3);margin-top:7px;font-style:italic;line-height:1.55}
+.card .ex b{color:#cdd9e8;font-style:normal;font-weight:500}
+.card .exzh{color:var(--text3);font-style:normal}
+
+.up .en,.up .lvl{color:#ff6b6b}
+.down .en,.down .lvl{color:#34d399}
+.lvl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;border:1px solid currentColor;border-radius:4px;padding:1px 6px;margin-left:8px;opacity:.85;vertical-align:middle}
+
+/* scale strip */
+.scale{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 22px;align-items:center}
+.scale .chip{font-size:12.5px;padding:4px 11px;border-radius:16px;font-weight:600;white-space:nowrap}
+.scale .arrow{color:var(--text3);font-size:12px}
+
+/* sentence list */
+.slist{list-style:none;display:flex;flex-direction:column;gap:10px}
+.slist li{background:var(--card);border:1px solid var(--border);border-radius:9px;padding:11px 14px}
+.slist .s-en{font-size:14px;color:#eaf1f9;font-weight:500}
+.slist .s-en b{color:var(--gold);font-weight:700}
+.slist .s-zh{font-size:12.5px;color:var(--text3);margin-top:3px}
+
+table.tpl{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:8px}
+table.tpl th,table.tpl td{border:1px solid var(--border);padding:9px 12px;text-align:left;vertical-align:top}
+table.tpl th{background:var(--card2);color:var(--text2);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.4px}
+table.tpl td:first-child{color:var(--gold);font-weight:600;white-space:nowrap;width:30%}
+table.tpl tr:nth-child(even) td{background:var(--card)}
+
+/* rec cards */
+.recgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:13px}
+.rec{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 16px}
+.rec .rname{font-size:15px;font-weight:700;color:#fff}
+.rec .rhandle{font-size:12px;color:var(--blue);font-weight:500}
+.rec .rlvl{font-size:11px;font-weight:600;color:var(--gold);margin-left:6px}
+.rec .rdesc{font-size:12.5px;color:var(--text2);margin-top:7px}
+.platform{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text3);margin:20px 0 10px;display:flex;align-items:center;gap:8px}
+.platform::after{content:'';flex:1;height:1px;background:var(--border)}
+
+.tip{background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.3);border-radius:9px;padding:11px 14px;font-size:12.5px;color:var(--text2);margin-top:16px}
+.tip b{color:var(--gold)}
+.foot{text-align:center;color:var(--text3);font-size:12px;margin-top:40px;padding-top:20px;border-top:1px solid var(--border)}
+code{font-family:'JetBrains Mono',monospace;background:var(--card2);padding:1px 6px;border-radius:4px;font-size:12px;color:#cbd5e1}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="index.html">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+    股市英文<span>速查</span>
+  </a>
+  <div class="nav-links">
+    <a href="index.html">← 回輿情日報</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="tag">Stock Market English</div>
+  <h1>英文股市用語速查表</h1>
+  <p>動詞・片語・整句範本・情境用語 — 中英對照 ＆ 例句，給非母語者完整描述股市</p>
+</div>
+
+<div class="wrap">
+
+  <div class="tabbar" id="tabbar">
+    <button class="tabbtn on" data-t="moves">📈 漲跌動詞</button>
+    <button class="tabbtn" data-t="sentiment">🐂 市場情緒</button>
+    <button class="tabbtn" data-t="ta">📊 走勢／技術</button>
+    <button class="tabbtn" data-t="fund">💰 財報／基本面</button>
+    <button class="tabbtn" data-t="trade">🔁 籌碼／交易</button>
+    <button class="tabbtn" data-t="macro">🏦 法人／總經</button>
+    <button class="tabbtn" data-t="phrases">🗣️ 常用整句</button>
+    <button class="tabbtn" data-t="rec">▶ 推薦 YT／IG</button>
+  </div>
+
+  <!-- ============ 1. MOVES ============ -->
+  <section class="panel on" data-p="moves">
+    <div class="intro">同樣是「上漲」，<b>rise（中性）→ climb → rally → surge → soar → skyrocket / rip（爆衝）</b> 強度遞增；下跌則 <b>dip（小回）→ slide → fall → drop → plunge → tank / crater（崩）</b>。下面用<b>等級標籤</b>標出語氣強弱，挑對字才不會說過頭或太弱。</div>
+
+    <h2 class="sec">上漲強度光譜（由弱到強）</h2>
+    <div class="scale">
+      <span class="chip" style="background:rgba(148,163,184,.18);color:#cbd5e1">edge up 微升</span><span class="arrow">▸</span>
+      <span class="chip" style="background:rgba(239,68,68,.12);color:#fca5a5">rise / gain 上漲</span><span class="arrow">▸</span>
+      <span class="chip" style="background:rgba(239,68,68,.18);color:#f87171">climb / advance 攀升</span><span class="arrow">▸</span>
+      <span class="chip" style="background:rgba(239,68,68,.25);color:#ef4444">rally / jump 走揚</span><span class="arrow">▸</span>
+      <span class="chip" style="background:rgba(239,68,68,.35);color:#dc2626">surge / soar 飆漲</span><span class="arrow">▸</span>
+      <span class="chip" style="background:rgba(220,38,38,.5);color:#fff">skyrocket / rip 噴出</span>
+    </div>
+
+    <div class="grid">
+      <div class="card up"><div><span class="en">rise / gain</span><span class="pos">v.</span><span class="lvl">中性</span></div><div class="zh">上漲、走高</div><div class="note">最安全的中性詞，正式新聞最常用。<code>gain 1.2%</code> = 漲 1.2%。</div><div class="ex"><b>TSMC <u>rose</u> 2% / <u>gained</u> 2%</b> on strong demand.<br><span class="exzh">台積電因需求強勁上漲 2%。</span></div></div>
+
+      <div class="card up"><div><span class="en">climb / advance</span><span class="pos">v.</span><span class="lvl">穩</span></div><div class="zh">穩步攀升</div><div class="note">暗示「持續、一路往上」。advance 偏正式（大盤用）。</div><div class="ex">The index <b><u>climbed</u> for a third straight session.</b><br><span class="exzh">指數連三個交易日走高。</span></div></div>
+
+      <div class="card up"><div><span class="en">rally</span><span class="pos">v./n.</span><span class="lvl">轉強</span></div><div class="zh">反彈、走揚</div><div class="note">特指「由弱轉強、一波拉抬」，常用在跌深後回升。</div><div class="ex">Stocks <b><u>rallied</u> after the Fed signaled a pause.</b><br><span class="exzh">聯準會暗示暫停升息後股市反彈。</span></div></div>
+
+      <div class="card up"><div><span class="en">jump / pop</span><span class="pos">v.</span><span class="lvl">急</span></div><div class="zh">跳漲、急拉</div><div class="note">短時間明顯跳升，pop 偏口語（財報後常用）。</div><div class="ex">Nvidia <b><u>popped</u> 8% after earnings.</b><br><span class="exzh">輝達財報後急拉 8%。</span></div></div>
+
+      <div class="card up"><div><span class="en">surge / spike</span><span class="pos">v.</span><span class="lvl">強</span></div><div class="zh">飆漲、激增</div><div class="note">大幅且快速。spike 強調「尖峰式」瞬間衝高。</div><div class="ex">Shares <b><u>surged</u> to a record high.</b><br><span class="exzh">股價飆漲至歷史新高。</span></div></div>
+
+      <div class="card up"><div><span class="en">soar</span><span class="pos">v.</span><span class="lvl">強</span></div><div class="zh">大漲、扶搖直上</div><div class="note">畫面感強（像鳥高飛），媒體標題愛用。</div><div class="ex">The stock <b><u>soared</u> 30% in a week.</b><br><span class="exzh">這檔股票一週大漲三成。</span></div></div>
+
+      <div class="card up"><div><span class="en">skyrocket / rip</span><span class="pos">v.</span><span class="lvl">爆</span></div><div class="zh">噴出、暴衝</div><div class="note">最強烈。<b>rip</b> 是散戶／社群俚語（「rip higher」「ripping」）。</div><div class="ex">It's <b><u>ripping</u> — up 20% premarket!</b><br><span class="exzh">盤前噴出，大漲 20%！</span></div></div>
+
+      <div class="card up"><div><span class="en">moon / to the moon 🚀</span><span class="pos">slang</span><span class="lvl">迷因</span></div><div class="zh">噴上天</div><div class="note">Reddit／meme 文化用語，半開玩笑，正式場合別用。</div><div class="ex">"Diamond hands, we're going <b><u>to the moon</u>!"</b><br><span class="exzh">「鑽石手，要噴上天啦！」</span></div></div>
+
+      <div class="card up"><div><span class="en">edge / tick up</span><span class="pos">v.</span><span class="lvl">微</span></div><div class="zh">微幅走高</div><div class="note">幅度很小、勉強上漲時用，很道地。</div><div class="ex">Futures <b><u>edged up</u> 0.1%.</b><br><span class="exzh">期貨微幅走高 0.1%。</span></div></div>
+
+      <div class="card up"><div><span class="en">hit / notch a record</span><span class="pos">phr.</span><span class="lvl">創高</span></div><div class="zh">創新高</div><div class="note"><code>all-time high (ATH)</code> 歷史新高；<code>52-week high</code> 一年新高。</div><div class="ex">TSMC <b><u>hit an all-time high</u>.</b><br><span class="exzh">台積電創歷史新高。</span></div></div>
+    </div>
+
+    <h2 class="sec">下跌強度光譜（由弱到強）</h2>
+    <div class="scale">
+      <span class="chip" style="background:rgba(148,163,184,.18);color:#cbd5e1">edge down 微跌</span><span class="arrow">▸</span>
+      <span class="chip" style="background:rgba(34,197,94,.12);color:#86efac">dip / slip 小回</span><span class="arrow">▸</span>
+      <span class="chip" style="background:rgba(34,197,94,.18);color:#4ade80">fall / drop 下跌</span><span class="arrow">▸</span>
+      <span class="chip" style="background:rgba(34,197,94,.25);color:#22c55e">slide / sink 走跌</span><span class="arrow">▸</span>
+      <span class="chip" style="background:rgba(22,163,74,.4);color:#16a34a">plunge / tumble 急殺</span><span class="arrow">▸</span>
+      <span class="chip" style="background:rgba(21,128,61,.55);color:#fff">crash / tank 崩盤</span>
+    </div>
+
+    <div class="grid">
+      <div class="card down"><div><span class="en">dip / slip</span><span class="pos">v.</span><span class="lvl">小</span></div><div class="zh">小幅回檔</div><div class="note">輕微、暫時性下跌。<code>buy the dip</code>＝逢低買進。</div><div class="ex">Shares <b><u>dipped</u> slightly in early trade.</b><br><span class="exzh">股價早盤小幅回檔。</span></div></div>
+
+      <div class="card down"><div><span class="en">fall / drop / decline</span><span class="pos">v.</span><span class="lvl">中性</span></div><div class="zh">下跌</div><div class="note">最安全中性詞，decline 偏正式。</div><div class="ex">The stock <b><u>fell</u> 3% / <u>declined</u> 3%.</b><br><span class="exzh">股價下跌 3%。</span></div></div>
+
+      <div class="card down"><div><span class="en">slide / sink / slump</span><span class="pos">v.</span><span class="lvl">弱</span></div><div class="zh">走跌、下挫</div><div class="note">持續性走弱，比 fall 多了「一路向下」的感覺。</div><div class="ex">Oil prices <b><u>slid</u> for a fourth day.</b><br><span class="exzh">油價連跌四天。</span></div></div>
+
+      <div class="card down"><div><span class="en">tumble / sink</span><span class="pos">v.</span><span class="lvl">急</span></div><div class="zh">重挫、翻落</div><div class="note">明顯且快速下跌，標題常用。</div><div class="ex">Shares <b><u>tumbled</u> on weak guidance.</b><br><span class="exzh">因財測疲弱股價重挫。</span></div></div>
+
+      <div class="card down"><div><span class="en">plunge / plummet</span><span class="pos">v.</span><span class="lvl">強</span></div><div class="zh">暴跌、急殺</div><div class="note">大幅且陡直下墜，常配百分比。</div><div class="ex">The stock <b><u>plunged</u> 15% after the miss.</b><br><span class="exzh">財報不如預期後暴跌 15%。</span></div></div>
+
+      <div class="card down"><div><span class="en">crash / tank / crater</span><span class="pos">v.</span><span class="lvl">崩</span></div><div class="zh">崩盤、跳水</div><div class="note">最強烈。<b>tank / crater</b> 偏口語；crash 多指系統性崩跌。</div><div class="ex">The whole market <b><u>tanked</u>.</b><br><span class="exzh">整個盤直接跳水。</span></div></div>
+
+      <div class="card down"><div><span class="en">sell off</span><span class="pos">phr./n.</span><span class="lvl">賣壓</span></div><div class="zh">遭拋售、賣壓出籠</div><div class="note">名詞 <code>a sell-off</code> 一波賣壓；動詞描述「被大量賣出」。</div><div class="ex">Tech stocks <b><u>sold off</u> sharply.</b><br><span class="exzh">科技股遭大幅拋售。</span></div></div>
+
+      <div class="card down"><div><span class="en">edge / tick down</span><span class="pos">v.</span><span class="lvl">微</span></div><div class="zh">微幅走低</div><div class="note">小幅、勉強收黑時用。</div><div class="ex">The index <b><u>ticked down</u> 0.2%.</b><br><span class="exzh">指數微幅走低 0.2%。</span></div></div>
+
+      <div class="card down"><div><span class="en">hit a low / bottom out</span><span class="pos">phr.</span><span class="lvl">探底</span></div><div class="zh">創新低／落底</div><div class="note"><code>52-week low</code> 一年新低；<code>bottom out</code> 跌到底開始回穩。</div><div class="ex">Analysts think it has <b><u>bottomed out</u>.</b><br><span class="exzh">分析師認為已經落底。</span></div></div>
+    </div>
+
+    <h2 class="sec">橫盤 / 沒方向</h2>
+    <div class="grid">
+      <div class="card"><div><span class="en">flat / unchanged</span><span class="pos">adj.</span></div><div class="zh">平盤、持平</div><div class="note"><code>close flat</code> 平盤作收；<code>little changed</code> 變動不大。</div><div class="ex">Stocks ended <b>flat</b> on the day.</div></div>
+      <div class="card"><div><span class="en">trade sideways</span><span class="pos">phr.</span></div><div class="zh">橫向整理、區間盤</div><div class="note">沒有明確方向、來回震盪。</div><div class="ex">It's been <b>trading sideways</b> for weeks.</div></div>
+      <div class="card"><div><span class="en">choppy / range-bound</span><span class="pos">adj.</span></div><div class="zh">震盪、區間受限</div><div class="note">choppy＝上下劇烈但無方向；range-bound＝卡在區間。</div><div class="ex">A <b>choppy, range-bound</b> session.</div></div>
+      <div class="card"><div><span class="en">mixed</span><span class="pos">adj.</span></div><div class="zh">漲跌互見</div><div class="note">大盤有漲有跌、沒有一致方向。</div><div class="ex">Markets were <b>mixed</b> on Monday.</div></div>
+    </div>
+  </section>
+
+  <!-- ============ 2. SENTIMENT ============ -->
+  <section class="panel" data-p="sentiment">
+    <div class="intro">情緒詞用來描述「人對市場的看法與心理」，不是價格動作本身。核心軸線：<b>bullish 看多 ↔ bearish 看空</b>、<b>risk-on 偏好風險 ↔ risk-off 避險</b>。</div>
+
+    <h2 class="sec">多空與心理</h2>
+    <div class="grid">
+      <div class="card"><div><span class="en">bullish 🐂</span><span class="pos">adj.</span></div><div class="zh">看多、樂觀</div><div class="note">名詞 <code>a bull / the bulls</code> 多方；<code>bull market</code> 多頭市場。</div><div class="ex">I'm <b>bullish on</b> semis for 2026.<br><span class="exzh">我看多 2026 的半導體。</span></div></div>
+      <div class="card"><div><span class="en">bearish 🐻</span><span class="pos">adj.</span></div><div class="zh">看空、悲觀</div><div class="note"><code>the bears</code> 空方；<code>bear market</code> 空頭（通常指跌 20%+）。</div><div class="ex">Analysts turned <b>bearish</b> on the sector.<br><span class="exzh">分析師轉為看空該類股。</span></div></div>
+      <div class="card"><div><span class="en">risk-on / risk-off</span><span class="pos">phr.</span></div><div class="zh">偏好風險／避險</div><div class="note">risk-on＝錢往股票等風險資產跑；risk-off＝往現金、債、黃金避險。</div><div class="ex">It's a <b>risk-off</b> day — money fled to bonds.<br><span class="exzh">今天避險情緒濃，資金湧入債市。</span></div></div>
+      <div class="card"><div><span class="en">sentiment</span><span class="pos">n.</span></div><div class="zh">市場情緒、人氣</div><div class="note">這份報告的核心字。<code>investor sentiment</code> 投資人情緒。</div><div class="ex">Market <b>sentiment</b> remains fragile.<br><span class="exzh">市場情緒依舊脆弱。</span></div></div>
+      <div class="card"><div><span class="en">FOMO</span><span class="pos">n.</span></div><div class="zh">怕錯過而追高</div><div class="note">Fear Of Missing Out，看別人賺急著追進的心理。</div><div class="ex">Retail piled in on pure <b>FOMO</b>.<br><span class="exzh">散戶純粹因 FOMO 蜂擁進場。</span></div></div>
+      <div class="card"><div><span class="en">capitulation</span><span class="pos">n.</span></div><div class="zh">投降式賣出</div><div class="note">恐慌到底、所有人認賠殺出，常是底部訊號。</div><div class="ex">We may finally be seeing <b>capitulation</b>.<br><span class="exzh">市場或許終於出現投降賣壓。</span></div></div>
+      <div class="card"><div><span class="en">euphoria / froth</span><span class="pos">n.</span></div><div class="zh">過度樂觀／泡沫感</div><div class="note">froth＝市場「冒泡」過熱；euphoria＝亢奮。</div><div class="ex">There's a lot of <b>froth</b> in AI names.<br><span class="exzh">AI 概念股有不少泡沫味。</span></div></div>
+      <div class="card"><div><span class="en">panic / jittery</span><span class="pos">adj./n.</span></div><div class="zh">恐慌／緊張不安</div><div class="note">jittery＝神經緊繃；<code>panic selling</code> 恐慌性賣出。</div><div class="ex">Investors are <b>jittery</b> ahead of the data.<br><span class="exzh">數據公布前投資人忐忑不安。</span></div></div>
+      <div class="card"><div><span class="en">cautious / wait-and-see</span><span class="pos">adj.</span></div><div class="zh">謹慎、觀望</div><div class="note">不急著動作、等更多資訊。</div><div class="ex">Traders took a <b>wait-and-see</b> stance.<br><span class="exzh">交易員採觀望態度。</span></div></div>
+    </div>
+
+    <h2 class="sec">族群 / 強弱描述</h2>
+    <div class="grid">
+      <div class="card"><div><span class="en">outperform / lag</span><span class="pos">v.</span></div><div class="zh">表現優於／落後大盤</div><div class="note"><code>outperform</code> 強過大盤；<code>lag (behind)</code> 落後、跑輸。</div><div class="ex">Chips <b>outperformed</b> while banks <b>lagged</b>.<br><span class="exzh">晶片股強勢，金融股落後。</span></div></div>
+      <div class="card"><div><span class="en">lead the gains / losses</span><span class="pos">phr.</span></div><div class="zh">領漲／領跌</div><div class="note">某族群帶頭上漲或下跌。</div><div class="ex">AI stocks <b>led the gains</b>.<br><span class="exzh">AI 股領漲。</span></div></div>
+      <div class="card"><div><span class="en">rotation</span><span class="pos">n.</span></div><div class="zh">資金輪動</div><div class="note">錢從一個族群轉到另一個。<code>sector rotation</code> 類股輪動。</div><div class="ex">A <b>rotation</b> out of tech into value.<br><span class="exzh">資金由科技轉進價值股。</span></div></div>
+      <div class="card"><div><span class="en">in favor / out of favor</span><span class="pos">phr.</span></div><div class="zh">受青睞／被冷落</div><div class="note">市場現在喜不喜歡這個族群。</div><div class="ex">EV names are <b>out of favor</b> right now.<br><span class="exzh">電動車股現在不受青睞。</span></div></div>
+    </div>
+  </section>
+
+  <!-- ============ 3. TA ============ -->
+  <section class="panel" data-p="ta">
+    <div class="intro">描述走勢圖、型態、技術位階的詞。看盤、寫技術分析、聽美股 YouTuber 一定會碰到。</div>
+
+    <h2 class="sec">趨勢與位階</h2>
+    <div class="grid">
+      <div class="card"><div><span class="en">uptrend / downtrend</span><span class="pos">n.</span></div><div class="zh">上升／下降趨勢</div><div class="note"><code>higher highs</code> 一頂比一頂高＝多頭。</div><div class="ex">The stock is in a clear <b>uptrend</b>.</div></div>
+      <div class="card"><div><span class="en">support / resistance</span><span class="pos">n.</span></div><div class="zh">支撐／壓力</div><div class="note">支撐＝跌到這容易止跌；壓力＝漲到這容易卡住。</div><div class="ex">It bounced off <b>support</b> at $100.<br><span class="exzh">在 100 美元支撐止跌反彈。</span></div></div>
+      <div class="card"><div><span class="en">breakout / break out</span><span class="pos">n./v.</span></div><div class="zh">突破</div><div class="note">站上壓力或區間上緣。反義 <code>breakdown</code> 跌破。</div><div class="ex">A <b>breakout</b> above the 200-day.<br><span class="exzh">突破 200 日均線。</span></div></div>
+      <div class="card"><div><span class="en">pullback / retrace</span><span class="pos">n./v.</span></div><div class="zh">回檔、拉回</div><div class="note">漲勢中暫時回跌，通常被視為健康。</div><div class="ex">A healthy <b>pullback</b> to the 50-day.<br><span class="exzh">回測 50 日線的健康拉回。</span></div></div>
+      <div class="card"><div><span class="en">consolidate / base</span><span class="pos">v./n.</span></div><div class="zh">盤整、打底</div><div class="note">橫向整理、累積能量。<code>build a base</code> 築底。</div><div class="ex">It's <b>consolidating</b> before the next move.<br><span class="exzh">在下一波之前盤整。</span></div></div>
+      <div class="card"><div><span class="en">overbought / oversold</span><span class="pos">adj.</span></div><div class="zh">超買／超賣</div><div class="note">漲太多／跌太多（常看 RSI），易反轉。</div><div class="ex">RSI says it's <b>overbought</b>.<br><span class="exzh">RSI 顯示超買。</span></div></div>
+      <div class="card"><div><span class="en">moving average (MA)</span><span class="pos">n.</span></div><div class="zh">移動平均線</div><div class="note"><code>50-day / 200-day MA</code>；<code>golden cross</code> 黃金交叉。</div><div class="ex">It reclaimed the <b>50-day MA</b>.<br><span class="exzh">重新站回 50 日均線。</span></div></div>
+      <div class="card"><div><span class="en">gap up / gap down</span><span class="pos">v./n.</span></div><div class="zh">跳空高開／低開</div><div class="note">開盤直接跳離昨收。<code>fill the gap</code> 回補缺口。</div><div class="ex">It <b>gapped up</b> on the news.<br><span class="exzh">因消息跳空高開。</span></div></div>
+      <div class="card"><div><span class="en">bounce / rebound</span><span class="pos">v./n.</span></div><div class="zh">反彈</div><div class="note">跌後彈起。<code>dead-cat bounce</code> 跌深假反彈。</div><div class="ex">A sharp <b>bounce</b> off the lows.<br><span class="exzh">自低點強勁反彈。</span></div></div>
+      <div class="card"><div><span class="en">reversal</span><span class="pos">n.</span></div><div class="zh">反轉</div><div class="note">趨勢方向掉頭。<code>V-shaped reversal</code> V 轉。</div><div class="ex">A bullish <b>reversal</b> at support.<br><span class="exzh">在支撐處出現多頭反轉。</span></div></div>
+    </div>
+  </section>
+
+  <!-- ============ 4. FUNDAMENTALS ============ -->
+  <section class="panel" data-p="fund">
+    <div class="intro">財報季（earnings season）必備。記住兩個核心動詞：<b>beat（優於預期）</b> 與 <b>miss（不如預期）</b>，再加上「guidance 財測」就能講一半。</div>
+
+    <h2 class="sec">財報結果</h2>
+    <div class="grid">
+      <div class="card up"><div><span class="en">beat (estimates)</span><span class="pos">v.</span></div><div class="zh">優於預期</div><div class="note"><code>beat on both lines</code> 營收與獲利雙超標。</div><div class="ex">Apple <b>beat</b> on earnings and revenue.<br><span class="exzh">蘋果營收獲利都超預期。</span></div></div>
+      <div class="card down"><div><span class="en">miss (estimates)</span><span class="pos">v.</span></div><div class="zh">不如預期</div><div class="note">低於分析師預估。<code>top-line miss</code> 營收不達標。</div><div class="ex">It <b>missed</b> on the bottom line.<br><span class="exzh">每股盈餘不如預期。</span></div></div>
+      <div class="card"><div><span class="en">guidance / outlook</span><span class="pos">n.</span></div><div class="zh">財測、展望</div><div class="note">公司對未來的預估，常比當季數字更影響股價。<code>raise / cut guidance</code> 上修／下修。</div><div class="ex">They <b>raised guidance</b> for Q3.<br><span class="exzh">公司上修第三季財測。</span></div></div>
+      <div class="card"><div><span class="en">top line / bottom line</span><span class="pos">n.</span></div><div class="zh">營收／淨利</div><div class="note">top line＝營收（報表最上面）；bottom line＝淨利（最下面）。</div><div class="ex">Strong <b>top-line</b> growth.<br><span class="exzh">營收強勁成長。</span></div></div>
+      <div class="card"><div><span class="en">EPS</span><span class="pos">n.</span></div><div class="zh">每股盈餘</div><div class="note">Earnings Per Share。<code>EPS of $1.20</code>。</div><div class="ex"><b>EPS</b> came in at $1.20.<br><span class="exzh">每股盈餘為 1.2 美元。</span></div></div>
+      <div class="card"><div><span class="en">margin</span><span class="pos">n.</span></div><div class="zh">利潤率</div><div class="note"><code>gross / operating / net margin</code> 毛利／營益／淨利率。<code>margin expansion</code> 利潤率提升。</div><div class="ex"><b>Gross margin</b> widened to 58%.<br><span class="exzh">毛利率擴張到 58%。</span></div></div>
+      <div class="card"><div><span class="en">revenue / sales</span><span class="pos">n.</span></div><div class="zh">營收</div><div class="note"><code>YoY</code> 年增率（同比）、<code>QoQ</code> 季增率（環比）。</div><div class="ex">Revenue grew 25% <b>YoY</b>.<br><span class="exzh">營收年增 25%。</span></div></div>
+      <div class="card"><div><span class="en">valuation</span><span class="pos">n.</span></div><div class="zh">評價、估值</div><div class="note"><code>P/E ratio</code> 本益比；<code>pricey / cheap</code> 貴／便宜。</div><div class="ex">The stock looks <b>pricey</b> at 40x earnings.<br><span class="exzh">本益比 40 倍，股價偏貴。</span></div></div>
+      <div class="card up"><div><span class="en">upgrade / downgrade</span><span class="pos">v./n.</span></div><div class="zh">調升／調降評等</div><div class="note">分析師把評等從 hold 升到 buy 等。<code>price target (PT)</code> 目標價。</div><div class="ex">Morgan Stanley <b>upgraded</b> it to Buy.<br><span class="exzh">大摩調升評等至買進。</span></div></div>
+    </div>
+  </section>
+
+  <!-- ============ 5. TRADING ============ -->
+  <section class="panel" data-p="trade">
+    <div class="intro">部位、籌碼、量能相關。台股講「籌碼」，英文沒有完全對應的單字，多用 <b>positioning / flows / volume</b> 拆開講。</div>
+
+    <h2 class="sec">部位與動作</h2>
+    <div class="grid">
+      <div class="card up"><div><span class="en">go long / be long</span><span class="pos">phr.</span></div><div class="zh">做多、持有多單</div><div class="note"><code>I'm long TSMC</code> 我做多台積電。</div><div class="ex">I went <b>long</b> at $90.<br><span class="exzh">我在 90 元做多。</span></div></div>
+      <div class="card down"><div><span class="en">go short / short</span><span class="pos">phr./v.</span></div><div class="zh">做空、放空</div><div class="note">借券賣出賭下跌。<code>short interest</code> 空單比例。</div><div class="ex">Hedge funds are <b>shorting</b> the name.<br><span class="exzh">避險基金正在放空這檔。</span></div></div>
+      <div class="card"><div><span class="en">cover / close out</span><span class="pos">v.</span></div><div class="zh">回補／平倉</div><div class="note">空單買回叫 cover；任何部位了結叫 close out。</div><div class="ex">Shorts had to <b>cover</b>.<br><span class="exzh">空方被迫回補。</span></div></div>
+      <div class="card up"><div><span class="en">short squeeze</span><span class="pos">n.</span></div><div class="zh">軋空</div><div class="note">股價上漲逼空單認賠回補，越補越漲（GameStop 經典案例）。</div><div class="ex">A massive <b>short squeeze</b> sent it up 50%.<br><span class="exzh">大規模軋空讓它狂飆 50%。</span></div></div>
+      <div class="card"><div><span class="en">take profit / cut losses</span><span class="pos">phr.</span></div><div class="zh">獲利了結／停損</div><div class="note"><code>stop-loss</code> 停損單；<code>book/lock in profit</code> 入袋。</div><div class="ex">I <b>took profit</b> into the rally.<br><span class="exzh">趁反彈獲利了結。</span></div></div>
+      <div class="card"><div><span class="en">accumulate / build a position</span><span class="pos">phr.</span></div><div class="zh">布局、吸籌、建倉</div><div class="note">分批買進、慢慢累積（最接近台股「吸籌」）。</div><div class="ex">Funds are quietly <b>accumulating</b>.<br><span class="exzh">法人正悄悄吸籌。</span></div></div>
+      <div class="card down"><div><span class="en">unload / dump / offload</span><span class="pos">v.</span></div><div class="zh">倒貨、出脫</div><div class="note">dump 偏負面（砸盤）；offload 較中性（出清）。</div><div class="ex">Insiders <b>dumped</b> shares.<br><span class="exzh">內部人倒貨。</span></div></div>
+    </div>
+
+    <h2 class="sec">量能與流動性</h2>
+    <div class="grid">
+      <div class="card"><div><span class="en">volume</span><span class="pos">n.</span></div><div class="zh">成交量</div><div class="note"><code>heavy / light volume</code> 量大／量縮；<code>on higher volume</code> 帶量。</div><div class="ex">It broke out on <b>heavy volume</b>.<br><span class="exzh">帶量突破。</span></div></div>
+      <div class="card"><div><span class="en">liquidity</span><span class="pos">n.</span></div><div class="zh">流動性</div><div class="note">買賣是否容易成交。<code>thinly traded</code> 量少難成交。</div><div class="ex">A <b>liquid</b> large-cap stock.<br><span class="exzh">流動性佳的大型股。</span></div></div>
+      <div class="card"><div><span class="en">inflows / outflows</span><span class="pos">n.</span></div><div class="zh">資金流入／流出</div><div class="note"><code>fund flows</code> 資金流向（最接近台股「籌碼面」）。</div><div class="ex">Record ETF <b>inflows</b> last week.<br><span class="exzh">上週 ETF 資金流入創高。</span></div></div>
+      <div class="card"><div><span class="en">premarket / after-hours</span><span class="pos">n.</span></div><div class="zh">盤前／盤後</div><div class="note">正常交易時段外的盤。財報多在盤後公布。</div><div class="ex">Up 5% in <b>after-hours</b> trading.<br><span class="exzh">盤後交易大漲 5%。</span></div></div>
+    </div>
+  </section>
+
+  <!-- ============ 6. MACRO ============ -->
+  <section class="panel" data-p="macro">
+    <div class="intro">大盤、聯準會、總經數據相關。聽財經新聞、看 Fed 會議必備。核心對立詞：<b>hawkish 鷹派（偏緊縮）↔ dovish 鴿派（偏寬鬆）</b>。</div>
+
+    <h2 class="sec">央行與利率</h2>
+    <div class="grid">
+      <div class="card"><div><span class="en">the Fed</span><span class="pos">n.</span></div><div class="zh">美國聯準會</div><div class="note">Federal Reserve。<code>FOMC</code> 利率決策會議；<code>Powell</code> 主席。</div><div class="ex">All eyes on <b>the Fed</b> this week.<br><span class="exzh">本週市場聚焦聯準會。</span></div></div>
+      <div class="card"><div><span class="en">hawkish / dovish</span><span class="pos">adj.</span></div><div class="zh">鷹派／鴿派</div><div class="note">hawkish＝偏緊縮、想升息（對股市偏空）；dovish＝偏寬鬆（偏多）。</div><div class="ex">Powell sounded <b>hawkish</b>.<br><span class="exzh">鮑爾談話偏鷹。</span></div></div>
+      <div class="card"><div><span class="en">rate hike / rate cut</span><span class="pos">n.</span></div><div class="zh">升息／降息</div><div class="note"><code>hold rates steady</code> 利率不變；<code>pause</code> 暫停。</div><div class="ex">The market expects a <b>rate cut</b> in March.<br><span class="exzh">市場預期三月降息。</span></div></div>
+      <div class="card"><div><span class="en">inflation / CPI</span><span class="pos">n.</span></div><div class="zh">通膨／消費者物價</div><div class="note"><code>cooling / sticky inflation</code> 通膨降溫／頑固。</div><div class="ex"><b>Inflation</b> is cooling faster than expected.<br><span class="exzh">通膨降溫快於預期。</span></div></div>
+      <div class="card"><div><span class="en">recession / soft landing</span><span class="pos">n.</span></div><div class="zh">衰退／軟著陸</div><div class="note">soft landing＝壓通膨但不衰退的理想結果。</div><div class="ex">Hopes for a <b>soft landing</b> grew.<br><span class="exzh">軟著陸的預期升溫。</span></div></div>
+      <div class="card"><div><span class="en">yields</span><span class="pos">n.</span></div><div class="zh">（公債）殖利率</div><div class="note"><code>the 10-year</code> 十年期公債；殖利率漲通常壓抑成長股。</div><div class="ex">The 10-year <b>yield</b> jumped.<br><span class="exzh">十年期殖利率跳升。</span></div></div>
+    </div>
+
+    <h2 class="sec">大盤與情境</h2>
+    <div class="grid">
+      <div class="card"><div><span class="en">headwind / tailwind</span><span class="pos">n.</span></div><div class="zh">逆風／順風</div><div class="note">headwind＝阻力（利空）；tailwind＝助力（利多）。超道地。</div><div class="ex">Rising rates are a <b>headwind</b> for tech.<br><span class="exzh">升息是科技股的逆風。</span></div></div>
+      <div class="card"><div><span class="en">priced in</span><span class="pos">phr.</span></div><div class="zh">已反映在股價</div><div class="note">利多／利空市場早就消化了。</div><div class="ex">The rate cut is already <b>priced in</b>.<br><span class="exzh">降息已反映在股價。</span></div></div>
+      <div class="card"><div><span class="en">volatility / VIX</span><span class="pos">n.</span></div><div class="zh">波動度／恐慌指數</div><div class="note"><code>vol</code> 是口語簡稱；VIX 高＝市場恐慌。</div><div class="ex"><b>Volatility</b> spiked on the news.<br><span class="exzh">消息一出波動飆升。</span></div></div>
+      <div class="card"><div><span class="en">broad-based / narrow</span><span class="pos">adj.</span></div><div class="zh">全面性／集中</div><div class="note">漲勢是雨露均霑還是只靠少數權值股。</div><div class="ex">A <b>broad-based</b> rally.<br><span class="exzh">全面性的上漲。</span></div></div>
+    </div>
+  </section>
+
+  <!-- ============ 7. PHRASES ============ -->
+  <section class="panel" data-p="phrases">
+    <div class="intro">把單字組成<b>完整、可直接套用</b>的句子。底下黃色是可替換的關鍵字。先背句型，再換字，最快學會「完整描述」。</div>
+
+    <h2 class="sec">① 描述今天行情（開場句）</h2>
+    <ul class="slist">
+      <li><div class="s-en">Stocks <b>closed higher / lower</b> on Friday, with the Nasdaq <b>up / down</b> 1.2%.</div><div class="s-zh">週五股市收高／收低，那斯達克漲／跌 1.2%。</div></li>
+      <li><div class="s-en">The market <b>opened higher</b> but <b>pared gains</b> into the close.</div><div class="s-zh">盤面開高，但尾盤漲幅收斂。（pare gains＝回吐漲幅）</div></li>
+      <li><div class="s-en">It was a <b>choppy session</b>, with stocks <b>ending mixed</b>.</div><div class="s-zh">今天盤勢震盪，終場漲跌互見。</div></li>
+      <li><div class="s-en">Semis <b>led the gains</b>, while financials <b>lagged</b>.</div><div class="s-zh">半導體領漲，金融股落後。</div></li>
+    </ul>
+
+    <h2 class="sec">② 描述個股 + 原因（because / on / after）</h2>
+    <div class="sub">技巧：原因用 <code>on + 名詞</code> 或 <code>after + 事件</code>，比 because 更道地。</div>
+    <ul class="slist">
+      <li><div class="s-en">Nvidia <b>surged 8% on</b> strong earnings.</div><div class="s-zh">輝達因財報強勁飆漲 8%。（on + 名詞）</div></li>
+      <li><div class="s-en">The stock <b>tumbled after</b> it <b>cut guidance</b>.</div><div class="s-zh">公司下修財測後股價重挫。（after + 子句／事件）</div></li>
+      <li><div class="s-en">Shares <b>popped</b> after the company <b>beat estimates</b> and <b>raised its outlook</b>.</div><div class="s-zh">公司獲利超預期並上修展望後，股價急拉。</div></li>
+      <li><div class="s-en">It <b>sold off</b> on concerns about <b>slowing demand</b>.</div><div class="s-zh">因擔憂需求放緩，股價遭拋售。</div></li>
+    </ul>
+
+    <h2 class="sec">③ 表達你的看法（投資觀點）</h2>
+    <ul class="slist">
+      <li><div class="s-en">I'm <b>bullish on</b> the stock — the <b>risk/reward looks attractive</b> here.</div><div class="s-zh">我看多這檔，目前風險報酬比很吸引人。</div></li>
+      <li><div class="s-en">I'd <b>stay on the sidelines</b> until it <b>breaks out</b> of this range.</div><div class="s-zh">我會先觀望，等它突破這個區間再說。</div></li>
+      <li><div class="s-en">I'm <b>cautiously optimistic</b>, but I'd <b>buy the dip</b> rather than chase.</div><div class="s-zh">我審慎樂觀，但寧可逢低布局，不追高。</div></li>
+      <li><div class="s-en">The valuation looks <b>stretched</b>, so I'm <b>trimming my position</b>.</div><div class="s-zh">估值偏高，所以我減碼一些。（trim＝小幅減碼）</div></li>
+    </ul>
+
+    <h2 class="sec">④ 萬用替換表（套公式）</h2>
+    <table class="tpl">
+      <thead><tr><th>句型</th><th>可替換字</th></tr></thead>
+      <tbody>
+        <tr><td>[Stock] <u>____</u> X% on [reason].</td><td>rose / climbed / surged / fell / plunged / tanked</td></tr>
+        <tr><td>It hit a new <u>____</u>.</td><td>all-time high / 52-week high / record low</td></tr>
+        <tr><td>I'm <u>____</u> on this name.</td><td>bullish / bearish / neutral / cautious</td></tr>
+        <tr><td>The stock is <u>____</u> after earnings.</td><td>ripping / popping / sliding / getting crushed</td></tr>
+        <tr><td>Watch the <u>____</u> at $X.</td><td>support / resistance / 200-day MA / breakout level</td></tr>
+        <tr><td>The move is mostly <u>____</u>.</td><td>priced in / sentiment-driven / a short squeeze / profit-taking</td></tr>
+      </tbody>
+    </table>
+
+    <div class="tip"><b>講話小訣竅：</b>「漲跌幅」說 <code>up/down 3%</code> 比 <code>increased by 3%</code> 自然；「原因」優先用 <code>on / after / amid</code>；不確定就回到中性字 <b>rose / fell</b>，永遠不會錯。</div>
+  </section>
+
+  <!-- ============ 8. RECOMMENDATIONS ============ -->
+  <section class="panel" data-p="rec">
+    <div class="intro">想把這些用語「聽進耳朵、學起來用」，最好的方法是固定追幾個頻道。以下依<b>難度</b>分級，括號內為主要學習價值。<b>建議直接在平台搜尋名稱確認最新帳號</b>（handle 偶爾會變）。</div>
+
+    <div class="platform">▶ YouTube</div>
+    <div class="recgrid">
+      <div class="rec"><div class="rname">Yahoo Finance <span class="rlvl">入門</span></div><div class="rhandle">@YahooFinance</div><div class="rdesc">每天的盤後 market wrap、財報直播。主播語速適中、用字標準，是吸收「今日行情怎麼講」的最佳來源。</div></div>
+      <div class="rec"><div class="rname">CNBC Television <span class="rlvl">入門</span></div><div class="rhandle">@CNBCtelevision</div><div class="rdesc">即時盤中報導，<i>up/down on the day、leading the gains</i> 這類句型聽到飽。新聞快剪片段短好吸收。</div></div>
+      <div class="rec"><div class="rname">The Plain Bagel <span class="rlvl">入門–中</span></div><div class="rhandle">@ThePlainBagel</div><div class="rdesc">一位前分析師，把估值、財報、總經<b>概念講得超清楚</b>，語速慢、咬字乾淨，非母語者最友善。</div></div>
+      <div class="rec"><div class="rname">Patrick Boyle <span class="rlvl">中階</span></div><div class="rhandle">@PatrickBoyleOnFinance</div><div class="rdesc">教授級、英式英文，講總經與市場事件深入且冷幽默。學「正式、精準」的金融用語首選。</div></div>
+      <div class="rec"><div class="rname">Bloomberg Television <span class="rlvl">中–進階</span></div><div class="rhandle">@markets (Bloomberg)</div><div class="rdesc">機構視角，hawkish/dovish、yields、flows 等總經與債市詞彙密度最高，適合進階。</div></div>
+      <div class="rec"><div class="rname">Ben Felix / Aswath Damodaran <span class="rlvl">進階</span></div><div class="rhandle">@BenFelixCSI ／ Damodaran 教授</div><div class="rdesc">估值與投資理論的深水區。Damodaran 是 NYU 估值權威，想學 valuation 正統用語就看他。</div></div>
+    </div>
+
+    <div class="platform">▶ Instagram（短圖文／Reels，通勤滑）</div>
+    <div class="recgrid">
+      <div class="rec"><div class="rname">Morning Brew <span class="rlvl">入門</span></div><div class="rhandle">@morningbrew</div><div class="rdesc">用<b>輕鬆、口語</b>的方式講當日財經，meme 風格，學「年輕世代怎麼聊股票」。也有同名免費電子報。</div></div>
+      <div class="rec"><div class="rname">CNBC <span class="rlvl">入門</span></div><div class="rhandle">@cnbc</div><div class="rdesc">新聞圖卡 + Reels，標題式短句最適合背 <i>surge / plunge / hit a record</i> 這種媒體動詞。</div></div>
+      <div class="rec"><div class="rname">Bloomberg <span class="rlvl">中階</span></div><div class="rhandle">@bloomberg</div><div class="rdesc">數據圖表 + 精煉標題，總經與全球市場用語，視覺化幫助記憶。</div></div>
+      <div class="rec"><div class="rname">The Wall Street Journal <span class="rlvl">中階</span></div><div class="rhandle">@wsj</div><div class="rdesc">正統財經英文，標題用字精準、可信度高，適合校正自己的用字是否道地。</div></div>
+      <div class="rec"><div class="rname">Stocktwits <span class="rlvl">俚語</span></div><div class="rhandle">@stocktwits</div><div class="rdesc">散戶社群風，<i>rip、moon、squeeze、bagholder</i> 這類俚語的大本營。想聽懂 Reddit 式英文看這個。</div></div>
+    </div>
+
+    <div class="tip"><b>學習路線建議：</b>① 先用 <b>The Plain Bagel</b> 把概念聽懂 → ② 每天看 <b>Yahoo Finance / CNBC</b> 的 market wrap 養語感 → ③ 把本表「常用整句」的句型套到你自己的個股 → ④ 用 <b>Stocktwits / Morning Brew</b> 補社群俚語。聽到生詞就回這張表查強度等級。</div>
+  </section>
+
+  <div class="foot">英文股市用語速查表 · 中英對照學習工具<br>動詞強度等級為相對語感參考，實際語氣依上下文而定</div>
+
+</div>
+
+<script>
+const bar=document.getElementById('tabbar');
+bar.addEventListener('click',e=>{
+  const b=e.target.closest('.tabbtn'); if(!b) return;
+  const t=b.dataset.t;
+  bar.querySelectorAll('.tabbtn').forEach(x=>x.classList.toggle('on',x===b));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('on',p.dataset.p===t));
+  window.scrollTo({top:0,behavior:'smooth'});
+});
+</script>
+</body>
+</html>
