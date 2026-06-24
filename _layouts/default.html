@@ -256,6 +256,15 @@ footer a { color: var(--text3); }
   .content th, .content td { padding: 7px 10px; }
 }
 
+/* ── 全市場熱議榜：一排四個（三版共用；平板2、手機1）── */
+.surge-board-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px; margin-bottom: 26px;
+}
+@media (max-width: 900px) { .surge-board-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .surge-board-grid { grid-template-columns: 1fr; } }
+
 /* ── SOURCE PANEL ── */
 #src-toggle-btn {
   background: rgba(230,57,70,.12); border: 1px solid rgba(230,57,70,.35);
